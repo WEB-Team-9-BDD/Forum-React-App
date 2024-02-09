@@ -8,7 +8,8 @@ import Login from './views/Login/Login'
 import CreateAccount from './views/CreateAccount/CreateAccount'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { auth } from './config/firebase-config'
-import Loader from './components/Loader/Loader'
+// import Loader from './components/Loader/Loader'
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   const [appState, setAppState] = useState({
