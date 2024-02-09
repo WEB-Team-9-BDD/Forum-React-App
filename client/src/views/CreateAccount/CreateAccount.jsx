@@ -3,6 +3,7 @@ import { AppContext } from "../../context/AppContext"
 import { useNavigate } from "react-router-dom";
 import { createUserUsername, getUserByUsername } from "../../services/users.service"
 import { registerUser } from "../../services/auth.service"
+import './CreateAccount.css'
 
 export default function CreateAccount() {
     const { setAppState } = useContext(AppContext);
@@ -23,10 +24,10 @@ export default function CreateAccount() {
     const createUser = async () => {
 
         if (form.firstName <= 3 && form.firstName >= 32) {
-            alert('First name must be between 3 and 32 symbols');
+           return alert('First name must be between 3 and 32 symbols');
         }
         if (form.lastName <= 3 && form.lastName >= 32) {
-            alert('Last name must be between 3 and 32 symbols');
+           return alert('Last name must be between 3 and 32 symbols');
         }
 
         try {
@@ -46,26 +47,31 @@ export default function CreateAccount() {
     }
 
     return (
-        <div>
-            <h1>Create Account</h1>
-
-            <label htmlFor="username">Username: </label>
-            <input type="text" name="username" id="username" value={form.username} onChange={updateForm('username')} />
-            <br /><br />
-            <label htmlFor="email">Your e-mail: </label>
-            <input type="email" name="email" id="email" value={form.email} onChange={updateForm('email')} />
-            <br /><br />
-            <label htmlFor="password">Password: </label>
-            <input type="password" name="password" id="password" value={form.password} onChange={updateForm('password')} />
-            <br /><br />
-            <label htmlFor="first-name">First Name: </label>
-            <input type="text" name="first-name" id="first-name" value={form.firstName} onChange={updateForm('firstName')} />
-            <br /><br />
-            <label htmlFor="last-name">Last Name: </label>
-            <input type="text" name="last-name" id="last-name" value={form.lastName} onChange={updateForm('lastName')} />
-            <br /><br />
-            <button onClick={createUser}>Create account</button>
-
-        </div>
+        <div className="wrapper d-flex align-items-center justify-content-center w-100">
+            <div className="create-account">
+                <h1 className="mb-3 text-center">Create Account</h1>
+                <div className="form-group mb-2 ">
+                    <label className="form-label" htmlFor="username">Username: </label>
+                    <input className="form-control" type="text" name="username" id="username" value={form.username} onChange={updateForm('username')} />
+                </div>
+                <div className="form-group mb-2 ">
+                    <label className="form-label" htmlFor="email">Your e-mail: </label>
+                    <input className="form-control" type="email" name="email" id="email" value={form.email} onChange={updateForm('email')} />
+                </div>
+                <div className="form-group mb-2 ">
+                    <label className="form-label" htmlFor="password">Password: </label>
+                    <input className="form-control" type="password" name="password" id="password" value={form.password} onChange={updateForm('password')} />
+                </div>
+                <div className="form-group mb-2 ">
+                    <label className="form-label" htmlFor="first-name">First Name: </label>
+                    <input className="form-control" type="text" name="first-name" id="first-name" value={form.firstName} onChange={updateForm('firstName')} />
+                </div>
+                <div className="form-group mb-2 ">
+                    <label className="form-label" htmlFor="last-name">Last Name: </label>
+                    <input className="form-control" type="text" name="last-name" id="last-name" value={form.lastName} onChange={updateForm('lastName')} />
+                </div>
+                <button className="btn btn-success mt-4 mb-3 w-100 " onClick={createUser}>Create account</button>
+            </div>
+        </div >
     )
 }
