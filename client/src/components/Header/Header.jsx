@@ -5,8 +5,9 @@ import { AppContext } from "../../context/AppContext";
 import { logoutUser } from "../../services/auth.service";
 
 export default function Header() {
-    const { user, setAppState } = useContext(AppContext);
-    console.log(user);
+    const { user, userData, setAppState } = useContext(AppContext);
+    // console.log(user);
+    // console.log(userData.username);
     const logout = async () => {
         await logoutUser();
         setAppState({ user: null, userData: null });
@@ -16,11 +17,15 @@ export default function Header() {
         <header>
             <NavLink to="/">Home</NavLink>
 
-            {user ?
-                (
-                    <button onClick={logout}>Log out</button>
+            {!user ?
+                (<>
+                    <NavLink to="/login">Login</NavLink>
+                </>
                 ) : (
-                    <NavLink to="/login">Log in</NavLink>
+                    <>
+                        {`Welcome, User `}
+                        <button onClick={logout}>Log out</button>
+                    </>
                 )
             }
         </header >

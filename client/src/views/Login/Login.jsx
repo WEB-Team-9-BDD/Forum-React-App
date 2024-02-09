@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { loginUser } from "../../services/auth.service";
 import { AppContext } from "../../context/AppContext";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import toast from 'react-hot-toast';
 import "./Login.css"
 
 export default function Login() {
@@ -24,37 +25,48 @@ export default function Login() {
     }
 
     const login = async () => {
-        try {
-            const userCredentials = await loginUser(form.email, form.password);
-            setAppState({ user: userCredentials.user, userData: null });
-        } catch (error) {
-            alert(error.message);
+        if (form.email.length === 0) {
+            toast.error('Email cannot be empty');
+        } else if (form.password.length === 0) {
+            toast.error('Missing password');
+        } else {
+
+            try {
+                const userCredentials = await loginUser(form.email, form.password);
+                setAppState({ user: userCredentials.user, userData: null });
+            } catch (error) {
+                toast.error(error.message);
+                // console.log(error.message);
+            }
         }
     }
+
+    // const errorHandler = (error) => {
+
+    // }
 
     const loginOnEnter = (e) => {
         if (e.key === 'Enter') {
             (async () => login())();
         }
     }
-
     return (
         <div className="wrapper d-flex align-items-center justify-content-center w-100">
             <div className="login">
                 <h1 className="mb-3 text-center">User Login</h1>
-                    <div className="form-group mb-2 ">
-                        <label htmlFor="email" className="form-label">Your e-mail: </label>
-                        <input autoComplete="off" className="form-control" type="email" name="email" id="email" value={form.email} 
+                <div className="form-group mb-2 ">
+                    <label htmlFor="email" className="form-label">Your e-mail: </label>
+                    <input autoComplete="off" className="form-control" type="email" name="email" id="email" value={form.email}
                         onChange={updateForm('email')} onKeyDown={loginOnEnter} />
-                    </div>
-                    <div className="form-group mb-2">
-                        <label htmlFor="password" className="form-label">Password: </label>
-                        <input autoComplete="off" className="form-control" type="password" name="password" id="password" value={form.password} 
-                        onChange={updateForm('password')} onKeyDown={loginOnEnter} />
-                    </div>
-                    <button onClick={login} className="btn btn-success mt-3 mb-2 w-100">Login</button>
-                    <br />
-                    <p className="mb-3">Don`t have an account ?<Link className="font-weight-bold" to='/create-account'> Sign up</Link></p>
+                </div>
+                <div className="form-group mb-2">
+                    <label htmlFor="password" className="form-label">Password: </label>
+                    <input autoComplete="off" className="form-control" type="password" name="password" id="password" value={form.password}
+                        onChange={updateForm('password')} onKeyDown={loginOnEnter}/>
+                </div>
+                <button onClick={login} className="btn btn-success mt-3 mb-2 w-100">Login</button>
+                <br />
+                <p className="mb-3">Don`t have an account ?<Link className="font-weight-bold" to='/create-account'> Sign up</Link></p>
             </div >
         </div>
     )
