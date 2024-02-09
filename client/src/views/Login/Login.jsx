@@ -2,15 +2,20 @@ import { useContext, useEffect, useState } from "react";
 import { loginUser } from "../../services/auth.service";
 import { AppContext } from "../../context/AppContext";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import toast from 'react-hot-toast';
 import "./Login.css"
 
 export default function Login() {
     const { user, setAppState } = useContext(AppContext);
+    const [showPassword, setShowPassword] = useState(false);
+
     const [form, setForm] = useState({
         email: '',
         password: '',
     });
+
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -36,7 +41,6 @@ export default function Login() {
                 setAppState({ user: userCredentials.user, userData: null });
             } catch (error) {
                 toast.error(error.message);
-                // console.log(error.message);
             }
         }
     }
@@ -61,8 +65,15 @@ export default function Login() {
                 </div>
                 <div className="form-group mb-2">
                     <label htmlFor="password" className="form-label">Password: </label>
-                    <input autoComplete="off" className="form-control" type="password" name="password" id="password" value={form.password}
-                        onChange={updateForm('password')} onKeyDown={loginOnEnter}/>
+                    <input autoComplete="off" className="form-control"
+                        type={showPassword ? 'text' : 'password'} name="password" id="password"
+                        value={form.password}
+                        onChange={updateForm('password')}
+                        onKeyDown={loginOnEnter} />
+                    <span className="password-span"><FontAwesomeIcon
+                        onClick={() => setShowPassword(!showPassword)}
+                        icon={showPassword ? faEye : faEyeSlash} />
+                    </span>
                 </div>
                 <button onClick={login} className="btn btn-success mt-3 mb-2 w-100">Login</button>
                 <br />
