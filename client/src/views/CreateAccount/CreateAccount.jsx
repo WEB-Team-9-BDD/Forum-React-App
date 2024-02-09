@@ -3,10 +3,14 @@ import { AppContext } from "../../context/AppContext"
 import { useNavigate } from "react-router-dom";
 import { createUserUsername, getUserByUsername } from "../../services/users.service"
 import { registerUser } from "../../services/auth.service"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import './CreateAccount.css'
 
 export default function CreateAccount() {
     const { setAppState } = useContext(AppContext);
+    const [showPassword, setShowPassword] = useState(false);
+
     const [form, setForm] = useState({
         username: '',
         firstName: '',
@@ -60,7 +64,11 @@ export default function CreateAccount() {
                 </div>
                 <div className="form-group mb-2 ">
                     <label className="form-label" htmlFor="password">Password: </label>
-                    <input className="form-control" type="password" name="password" id="password" value={form.password} onChange={updateForm('password')} />
+                    <input className="form-control" type={showPassword ? 'text': 'password'} name="password" id="password" value={form.password} onChange={updateForm('password')} />
+                    <span className="password-span"><FontAwesomeIcon
+                        onClick={() => setShowPassword(!showPassword)}
+                        icon={showPassword ? faEye : faEyeSlash} />
+                    </span>
                 </div>
                 <div className="form-group mb-2 ">
                     <label className="form-label" htmlFor="first-name">First Name: </label>

@@ -11,3 +11,12 @@
     color: black;
     padding: 45px;
 }
+
+.password-span {
+    float: right;
+        margin-right: 10px;
+        margin-top: -31px;
+        position: relative;
+        z-index: 2;
+        color: rgba(123, 122, 122, 0.929);
+}
