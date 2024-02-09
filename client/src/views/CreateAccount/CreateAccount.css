@@ -1,0 +1,13 @@
+.wrapper {
+    height: 100vh;
+    background-color: rgb(244, 249, 254);
+}
+
+.create-account {
+    width: 450px;
+    height: min-content;
+    border-radius: 10px;
+    background-color: rgb(244, 249, 254);
+    color: black;
+    padding: 45px;
+}
