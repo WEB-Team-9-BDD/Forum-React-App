@@ -13,6 +13,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css'
 
 import { getUserData } from './services/users.service'
+import UpdateProfile from './views/UpdateProfile/UpdateProfile'
 function App() {
   const [appState, setAppState] = useState({
     user: null,
@@ -52,6 +53,9 @@ function App() {
             <Route index element={<Home />} />
             <Route path='/login' element={<Login />} />
             <Route path='/create-account' element={<CreateAccount />} />
+            <Route path='/user-profile' element={<UpdateProfile />} />
+
+            
           </Routes>
         </AppContext.Provider>
       </BrowserRouter>
