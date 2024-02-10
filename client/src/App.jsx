@@ -21,14 +21,8 @@ function App() {
   });
   const [user, loading, error] = useAuthState(auth);
 
-  // if (error) {
-  //   return <Toaster position="top-center"/>
-  // }
-
   useEffect(() => {
     if (user) {
-      setAppState({ user, userData: null });
-
       getUserData(user.uid)
         .then(snapshot => {
           if (snapshot.exists()) {
@@ -47,7 +41,7 @@ function App() {
     <>
       <BrowserRouter>
         <AppContext.Provider value={{ ...appState, setAppState }}>
-          <Toaster/>
+          <Toaster />
           <Header />
           <Routes>
             <Route index element={<Home />} />
@@ -55,7 +49,7 @@ function App() {
             <Route path='/create-account' element={<CreateAccount />} />
             <Route path='/user-profile' element={<UpdateProfile />} />
 
-            
+
           </Routes>
         </AppContext.Provider>
       </BrowserRouter>
