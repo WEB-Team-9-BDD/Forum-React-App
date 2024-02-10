@@ -32,15 +32,19 @@ export default function Login() {
     const login = async () => {
         if (form.email.length === 0) {
             toast.error('Email cannot be empty');
-        } else if (form.password.length === 0) {
-            toast.error('Missing password');
+        } else if (form.password.length < 6) {
+            toast.error('Password must be at least 6 characters');
         } else {
 
             try {
                 const userCredentials = await loginUser(form.email, form.password);
                 setAppState({ user: userCredentials.user, userData: null });
             } catch (error) {
-                toast.error(error.message);
+                if (error.message.includes('auth/')) {
+                    toast.error('Wrong credentials! Please try again.');
+                } else {
+                    toast.error('Something went wrong! Please try again.');
+                }
             }
         }
     }
@@ -49,19 +53,15 @@ export default function Login() {
 
     // }
 
-    const loginOnEnter = (e) => {
-        if (e.key === 'Enter') {
-            (async () => login())();
-        }
-    }
     return (
         <div className="wrapper d-flex align-items-center justify-content-center w-100">
             <div className="login">
-                <h1 className="mb-3 text-center">User Login</h1>
+                <h1 className="heading mb-3 text-center">User Login</h1>
+                <form onSubmit={e => e.preventDefault()}>
                 <div className="form-group mb-2 ">
                     <label htmlFor="email" className="form-label">Your e-mail: </label>
                     <input autoComplete="off" className="form-control" type="email" name="email" id="email" value={form.email}
-                        onChange={updateForm('email')} onKeyDown={loginOnEnter} />
+                        onChange={updateForm('email')}/>
                 </div>
                 <div className="form-group mb-2">
                     <label htmlFor="password" className="form-label">Password: </label>
@@ -69,15 +69,16 @@ export default function Login() {
                         type={showPassword ? 'text' : 'password'} name="password" id="password"
                         value={form.password}
                         onChange={updateForm('password')}
-                        onKeyDown={loginOnEnter} />
+                         />
                     <span className="password-span"><FontAwesomeIcon
                         onClick={() => setShowPassword(!showPassword)}
                         icon={showPassword ? faEye : faEyeSlash} />
                     </span>
                 </div>
-                <button onClick={login} className="btn btn-success mt-3 mb-2 w-100">Login</button>
+                <button type="submit" onClick={login} className="btn btn-success mt-3 mb-2 w-100">Login</button>
                 <br />
                 <p className="mb-3">Don`t have an account ?<Link className="font-weight-bold" to='/create-account'> Sign up</Link></p>
+                </form>
             </div >
         </div>
     )
