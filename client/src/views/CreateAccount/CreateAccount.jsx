@@ -27,25 +27,8 @@ export default function CreateAccount() {
     }
 
     const createUser = async () => {
-        try {
-            const user = await getUserByUsername(form.username);
-            if (user.exists()) {
-                toast.error('Username already exists');
-                return
-            }
-            const userCredentials = await registerUser(form.email, form.password);
-            await createUserUsername(form.username, form.firstName, form.lastName, form.email, userCredentials.user.uid)
-
-            setAppState({ user, userData: null });
-            navigate('/');
-
-        } catch (error) {
-            toast.error(error.message);
-        }
-    }
-
-    const validateFields = () => {
         const { username, email, password, firstName, lastName } = form;
+
         if (username.length === 0) {
             toast.error('Username cannot be empty');
             return
@@ -55,17 +38,31 @@ export default function CreateAccount() {
         } else if (password.length < 6) {
             toast.error('Password must be at least 6 characters');
             return
-        } else if ((firstName <= 4 && firstName >= 32) || !firstName) {
+        } else if (firstName.length < 4 || firstName.length > 32) {
             toast.error('First name must be between 4 and 32 characters');
             return
-        } else if ((lastName <= 4 && lastName >= 32) || !lastName) {
+        } else if (lastName.length < 4 || lastName.length > 32) {
             toast.error('Last name must be between 4 and 32 characters');
             return
+        } else {
+            
+            try {
+                const user = await getUserByUsername(username);
+                if (user.exists()) {
+                    toast.error('Username already exists');
+                    return
+                }
+                const userCredentials = await registerUser(email, password);
+                await createUserUsername(username, firstName, lastName, email, userCredentials.user.uid)
+
+                setAppState({ user, userData: null });
+                navigate('/');
+
+            } catch (error) {
+                toast.error(error.message);
+            }
         }
-
-        (async () => createUser())();
     }
-
 
     return (
         <div className="wrapper d-flex align-items-center justify-content-center w-100">
@@ -99,16 +96,20 @@ export default function CreateAccount() {
                         <label className="form-label" htmlFor="first-name">First Name: </label>
                         <input autoComplete="off" className="form-control" type="text"
                             name="first-name" id="first-name" value={form.firstName}
-                            onChange={updateForm('firstName')} />
+                            onChange={updateForm('firstName')}
+
+                        />
                     </div>
                     <div className="form-group mb-2 ">
                         <label className="form-label" htmlFor="last-name">Last Name: </label>
                         <input autoComplete="off" className="form-control"
                             type="text" name="last-name" id="last-name"
-                            value={form.lastName} onChange={updateForm('lastName')} />
+                            value={form.lastName} onChange={updateForm('lastName')}
+
+                        />
                     </div>
                     <button type="submit" className="btn btn-success mt-4 mb-3 w-100"
-                        onClick={validateFields}>Create account</button>
+                        onClick={createUser}>Create account</button>
                 </form>
             </div>
         </div >
