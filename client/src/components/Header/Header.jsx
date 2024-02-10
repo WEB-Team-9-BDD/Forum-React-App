@@ -16,7 +16,6 @@ export default function Header() {
     return (
         <header>
             <NavLink to="/">Home</NavLink>
-
             {!user ?
                 (<>
                     <NavLink to="/login">Login</NavLink>
@@ -28,6 +27,7 @@ export default function Header() {
                     </>
                 )
             }
+            {user && <NavLink to="/user-profile">Profile</NavLink>}
         </header >
     )
 }
