@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import "./Header.css"
 import { useContext } from "react";
 import { AppContext } from "../../context/AppContext";
@@ -6,11 +6,12 @@ import { logoutUser } from "../../services/auth.service";
 
 export default function Header() {
     const { user, userData, setAppState } = useContext(AppContext);
-    // console.log(user);
-    // console.log(userData.username);
+
+    const navigate = useNavigate();
     const logout = async () => {
         await logoutUser();
         setAppState({ user: null, userData: null });
+        navigate('/');
     }
 
     return (
@@ -22,7 +23,7 @@ export default function Header() {
                 </>
                 ) : (
                     <>
-                        {`Welcome, User `}
+                        {`Welcome, ${userData?.username} `}
                         <button onClick={logout}>Log out</button>
                     </>
                 )
