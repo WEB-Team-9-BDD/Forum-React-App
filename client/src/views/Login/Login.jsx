@@ -41,7 +41,7 @@ export default function Login() {
                 setAppState({ user: userCredentials.user, userData: null });
             } catch (error) {
                 if (error.message.includes('auth/')) {
-                    toast.error('Wrong credentials! Please try again.');
+                    toast.error('Username or password do not match.');
                 } else {
                     toast.error('Something went wrong! Please try again.');
                 }
