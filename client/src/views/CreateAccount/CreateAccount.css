@@ -14,9 +14,15 @@
 
 .password-span {
     float: right;
-        margin-right: 10px;
-        margin-top: -31px;
-        position: relative;
-        z-index: 2;
-        color: rgba(123, 122, 122, 0.929);
+    margin-right: 10px;
+    margin-top: -31px;
+    position: relative;
+    z-index: 2;
+    color: rgba(123, 122, 122, 0.929);
+}
+
+.heading {
+    background-color: rgba(131, 240, 195, 0.421);
+    border-radius: 35px;
+    padding: 5px;
 }
