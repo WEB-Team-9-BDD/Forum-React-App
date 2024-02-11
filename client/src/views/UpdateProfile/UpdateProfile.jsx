@@ -1,45 +1,57 @@
 import { useContext, useState } from "react";
 import { AppContext } from "../../context/AppContext";
 import { useNavigate } from "react-router-dom";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import toast from 'react-hot-toast';
 import './UpdateProfile.css'
-
+import { createUserUsername } from "../../services/users.service";
+import { updateEmail, updatePassword } from 'firebase/auth'
+import { logoutUser } from "../../services/auth.service";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
 export default function UpdateProfile() {
     const { user, userData, setAppState } = useContext(AppContext);
-    const [showPasswords, setShowPasswords] = useState({
+    const [showPassword, setShowPassword] = useState({
         password: false,
-        confirmPassword: false,
+        confirmPassword: false
     });
+
     const [form, setForm] = useState({
         firstName: userData.firstName,
         lastName: userData.lastName,
         email: userData.email,
         password: '',
-        confirmPassword: ''
+        confirmPassword: '',
     });
-
     const navigate = useNavigate();
 
     const updateForm = prop => e => {
         setForm({ ...form, [prop]: e.target.value })
-    }
-    const toggleShowPassword = (prop) => {
+    };
 
-        setShowPasswords({ ...showPasswords, [prop]: !showPasswords[prop] })
+    const updateUser = async () => {
+
+        try {
+            if (form.confirmPassword && form.password === form.confirmPassword) {
+                await updatePassword(user, form.confirmPassword);
+                toast.success('Password has been changed successfully!');
+            }
+            form.email !== userData.email ? await updateEmail(user, form.email) : null
+            await createUserUsername(userData.username, form.firstName, form.lastName, form.email, userData.uid);
+            await logoutUser();
+            setAppState({ user: null, userData: null });
+            toast.success('Profile updated successfully!');
+            navigate('/');
+        } catch (error) {
+            toast.error(error.message);
+        }
     }
 
-    const updateUser = () => {
-
-    }
-    // console.log(showPasswords.password, showPasswords.confirmPassword);
 
     return (
         <div>
             <div className="wrapper d-flex align-items-center justify-content-center w-100">
-                <div className="create-account">
+                <div className="update-account">
                     <h1 className="heading mb-3 text-center">Update Account</h1>
                     <form onSubmit={e => e.preventDefault()} >
                         <div className="form-group mb-2 ">
@@ -69,29 +81,29 @@ export default function UpdateProfile() {
                         </div>
                         <hr />
                         <div className="form-group mb-2 ">
-                            <label className="form-label" htmlFor="password">Password: </label>
+                            <label className="form-label" htmlFor="password">New password: </label>
                             <input autoComplete="off"
-                                className="form-control" type={showPasswords.password ? 'text' : 'password'}
+                                className="form-control" type={showPassword.password ? 'text' : 'password'}
                                 name="password" id="password" value={form.password}
                                 onChange={updateForm('password')} />
                             <span className="password-span"><FontAwesomeIcon
-                                onClick={() => toggleShowPassword('password')}
-                                icon={showPasswords.password ? faEye : faEyeSlash} />
+                                onClick={() => setShowPassword({ ...showPassword, password: !showPassword.password })}
+                                icon={showPassword.password ? faEye : faEyeSlash} />
                             </span>
                         </div>
                         <div className="form-group mb-2 ">
-                            <label className="form-label" htmlFor="validate-password">Confirm password: </label>
+                            <label className="form-label" htmlFor="confirm-password">Confirm password: </label>
                             <input autoComplete="off"
-                                className="form-control" type={showPasswords.confirmPassword ? 'text' : 'password'}
-                                name="validate-password" id="validate-password"
+                                className="form-control" type={showPassword.confirmPassword ? 'text' : 'password'}
+                                name="confirm-password" id="confirm-password" value={form.confirmPassword}
                                 onChange={updateForm('confirmPassword')} />
                             <span className="password-span"><FontAwesomeIcon
-                                onClick={() => toggleShowPassword('confirmPassword')}
-                                icon={showPasswords.confirmPassword ? faEye : faEyeSlash} />
+                                onClick={() => setShowPassword({ ...showPassword, confirmPassword: !showPassword.confirmPassword })}
+                                icon={showPassword.confirmPassword ? faEye : faEyeSlash} />
                             </span>
                         </div>
-                        <button type="submit" className="btn btn-success mt-4 mb-3 w-100"
-                            onClick={() => { }}>Update account</button>
+                        <button type="submit" className="btn btn-success mt-4 mb-1 w-100"
+                            onClick={updateUser}>Update account</button>
                     </form>
                 </div>
             </div >
