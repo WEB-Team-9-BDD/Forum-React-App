@@ -14,6 +14,7 @@ import './App.css'
 
 import { getUserData } from './services/users.service'
 import UpdateProfile from './views/UpdateProfile/UpdateProfile'
+import ForgotPassword from './components/ForgotPassword/ForgotPassword'
 function App() {
   const [appState, setAppState] = useState({
     user: null,
@@ -48,7 +49,7 @@ function App() {
             <Route path='/login' element={<Login />} />
             <Route path='/create-account' element={<CreateAccount />} />
             <Route path='/user-profile' element={<UpdateProfile />} />
-
+            <Route path='/forgot-password' element={<ForgotPassword />} />
 
           </Routes>
         </AppContext.Provider>
