@@ -49,10 +49,6 @@ export default function Login() {
         }
     }
 
-    // const errorHandler = (error) => {
-
-    // }
-
     return (
         <div className="wrapper d-flex align-items-center justify-content-center w-100">
             <div className="login">
@@ -63,7 +59,7 @@ export default function Login() {
                     <input autoComplete="off" className="form-control" type="email" name="email" id="email" value={form.email}
                         onChange={updateForm('email')}/>
                 </div>
-                <div className="form-group mb-2">
+                <div className="form-group mb-1">
                     <label htmlFor="password" className="form-label">Password: </label>
                     <input autoComplete="off" className="form-control"
                         type={showPassword ? 'text' : 'password'} name="password" id="password"
@@ -75,7 +71,8 @@ export default function Login() {
                         icon={showPassword ? faEye : faEyeSlash} />
                     </span>
                 </div>
-                <button type="submit" onClick={login} className="btn btn-success mt-3 mb-2 w-100">Login</button>
+                <Link className='forgot-password' to='/forgot-password'>Forgot password?</Link>
+                <button type="submit" onClick={login} className="btn btn-success mt-4 mb-2 w-100">Login</button>
                 <br />
                 <p className="mb-3">Don`t have an account ?<Link className="font-weight-bold" to='/create-account'> Sign up</Link></p>
                 </form>
