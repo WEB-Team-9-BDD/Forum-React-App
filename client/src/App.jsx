@@ -9,12 +9,12 @@ import Loader from './components/Loader/Loader'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { auth } from './config/firebase-config'
 import { Toaster } from 'react-hot-toast'
+import { getUserData } from './services/users.service'
+import ForgotPassword from './components/ForgotPassword/ForgotPassword'
+import UpdateAccount from './views/UpdateProfile/UpdateAccount'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css'
 
-import { getUserData } from './services/users.service'
-import UpdateProfile from './views/UpdateProfile/UpdateProfile'
-import ForgotPassword from './components/ForgotPassword/ForgotPassword'
 function App() {
   const [appState, setAppState] = useState({
     user: null,
@@ -48,7 +48,7 @@ function App() {
             <Route index element={<Home />} />
             <Route path='/login' element={<Login />} />
             <Route path='/create-account' element={<CreateAccount />} />
-            <Route path='/user-profile' element={<UpdateProfile />} />
+            <Route path='/user-profile' element={<UpdateAccount />} />
             <Route path='/forgot-password' element={<ForgotPassword />} />
 
           </Routes>

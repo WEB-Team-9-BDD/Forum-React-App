@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import { AppContext } from "../../context/AppContext";
 import { useNavigate } from "react-router-dom";
 import toast from 'react-hot-toast';
-import './UpdateProfile.css'
+import './UpdateAccount.css'
 import { createUserUsername } from "../../services/users.service";
 import { updateEmail, updatePassword } from 'firebase/auth'
 import { logoutUser } from "../../services/auth.service";
@@ -52,7 +52,7 @@ export default function UpdateAccount() {
         <div>
             <div className="wrapper d-flex align-items-center justify-content-center w-100">
                 <div className="update-account">
-                    <h1 className="heading mb-3 text-center">Update Account</h1>
+                    <h2 className="heading mb-3 text-center">Update Account</h2>
                     <form onSubmit={e => e.preventDefault()} >
                         <div className="form-group mb-2 ">
                             <label className="form-label" htmlFor="username">Username: </label>
