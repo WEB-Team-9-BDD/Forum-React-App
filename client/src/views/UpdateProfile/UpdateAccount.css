@@ -1,0 +1,21 @@
+.wrapper {
+    height: 100vh;
+    background-color: rgb(244, 249, 254);
+}
+
+.update-account {
+    width: 450px;
+    height: min-content;
+    border-radius: 10px;
+    background-color: rgb(244, 249, 254);
+    color: black;
+    padding: 45px;
+}
+
+
+.heading {
+    background-color: rgba(131, 240, 195, 0.421);
+    border-radius: 35px;
+    padding: 5px;
+}
+
