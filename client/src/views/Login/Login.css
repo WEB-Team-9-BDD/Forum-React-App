@@ -26,3 +26,8 @@
     border-radius: 35px;
     padding: 10px;
 }
+
+.forgot-password {
+    margin-left: 220px;
+    text-decoration: underline;
+}
