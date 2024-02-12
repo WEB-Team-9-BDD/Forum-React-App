@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
-import './Post.css';
-import Button from '../Button';
+// import './Post.css';
+import Button from '../Button/Button';
 import { useNavigate } from 'react-router-dom';
 // import { useContext } from 'react';
 // import { AppContext } from '../../context/AppContext';

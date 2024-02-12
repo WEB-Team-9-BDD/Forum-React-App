@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getPostById } from '../../services/post.service';
 import Post from '../../components/Post/Post';
-import { likePost, dislikePost } from './path-to-your-functions'; // replace with the actual path
+import { likePost, dislikePost } from '../../services/post.service'; // replace with the actual path
 
 export default function SinglePost() {
   const [post, setPost] = useState(null);

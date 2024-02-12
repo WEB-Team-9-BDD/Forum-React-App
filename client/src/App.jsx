@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { AppContext } from './context/AppContext'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import Authenticated from './hoc/Authenticated.jsx'
+// import Authenticated from './hoc/Authenticated.jsx'
 import Home from './views/Home/Home'
 import Header from './components/Header/Header'
 import Login from './views/Login/Login'
@@ -63,9 +63,9 @@ function App() {
               <Route index element={<Home />} />
               <Route path='/login' element={<Login />} />
               <Route path='/create-account' element={<CreateAccount />} />
-              <Route path='/posts' element={<Authenticated><AllPosts /></Authenticated>}/>      
-              <Route path='/posts/:id' element={<Authenticated><SinglePost /></Authenticated>} />
-              <Route path='/post-create' element={<Authenticated><CreatePost /></Authenticated>}/>
+              <Route path='/posts' element={<AllPosts />}/>      
+              <Route path='/posts/:id' element={<SinglePost />} />
+              <Route path='/post-create' element={<CreatePost />}/>
               <Route path='/user-profile' element={<UpdateAccount />} />
               <Route path='/forgot-password' element={<ForgotPassword />} />
 

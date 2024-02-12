@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { getAllPosts } from "../services/posts.service";
-import Post from "../components/Post/Post";
+import { getAllPosts } from "../../services/post.service";
+import Post from "../../components/Post/Post";
 import { useSearchParams } from "react-router-dom";
-import { likePost, dislikePost } from './path-to-your-functions'; // replace with the actual path
+import { likePost, dislikePost } from '../../services/post.service'; // replace with the actual path
 
 export default function AllPosts() {
   const [posts, setPosts] = useState([]);
