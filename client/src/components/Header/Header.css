@@ -1,5 +1,9 @@
 header {
-    padding-bottom: 20px;
+    padding-bottom: 10px;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    background-color: rgba(177, 235, 216, 0.762);
 }
 
 header a {
