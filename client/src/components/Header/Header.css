@@ -4,8 +4,19 @@ header {
     display: flex;
     align-items: center;
     background-color: rgba(177, 235, 216, 0.762);
+    text-align: center;
 }
 
 header a {
     margin: 5px;
+}
+
+header svg {
+    color: rgb(91, 89, 89);
+    font-size: 35px;
+}
+
+header svg:hover{
+    color: black;
+    cursor: pointer;
 }
