@@ -1,13 +1,16 @@
 header {
-    padding-bottom: 10px;
-    padding: 5px;
+    padding: .25rem .5rem;
     display: flex;
     align-items: center;
     background-color: rgba(177, 235, 216, 0.762);
-    text-align: center;
+    box-shadow: 0 1px 5px 1px rgba(0, 0, 0, 0.4);
+    height: 55px;
+    justify-content:space-between;
+    margin-bottom: 0.5rem;
 }
 
 header a {
+    font-size: 20px;
     margin: 5px;
 }
 

@@ -12,8 +12,11 @@ import { Toaster } from 'react-hot-toast'
 import { getUserData } from './services/users.service'
 import ForgotPassword from './components/ForgotPassword/ForgotPassword'
 import UpdateAccount from './views/UpdateProfile/UpdateAccount'
+import Sidebar from './components/Sidebar/Sidebar'
+import  {postCategories} from './constants/postCategories.js'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css'
+
 
 function App() {
   const [appState, setAppState] = useState({
@@ -21,6 +24,12 @@ function App() {
     userData: null,
   });
   const [user, loading, error] = useAuthState(auth);
+  const [showSidebar, setShowSidebar] = useState(false);
+  const [categories, setCategories] = useState(postCategories);
+
+  const toggleSidebar = () => {
+    setShowSidebar(!showSidebar);
+  }
 
   useEffect(() => {
     if (user) {
@@ -43,17 +52,20 @@ function App() {
       <BrowserRouter>
         <AppContext.Provider value={{ ...appState, setAppState }}>
           <Toaster />
-          <Header />
-          <Routes>
-            <Route index element={<Home />} />
-            <Route path='/login' element={<Login />} />
-            <Route path='/create-account' element={<CreateAccount />} />
-            <Route path='/user-profile' element={<UpdateAccount />} />
-            <Route path='/forgot-password' element={<ForgotPassword />} />
+          <Header toggle={toggleSidebar} />
+          <Sidebar categories={categories} isOpen={showSidebar} />
+          <div className={showSidebar ? 'main-content': 'sidebar-open'} >
+            <Routes>
+              <Route index element={<Home />} />
+              <Route path='/login' element={<Login />} />
+              <Route path='/create-account' element={<CreateAccount />} />
+              <Route path='/user-profile' element={<UpdateAccount />} />
+              <Route path='/forgot-password' element={<ForgotPassword />} />
 
-          </Routes>
+            </Routes>
+          </div>
         </AppContext.Provider>
-      </BrowserRouter>
+      </BrowserRouter >
     </>
   );
 }
