@@ -30,7 +30,7 @@ export default function Header({ toggle }) {
                     ) : (
                         <>
                             {`Welcome, ${userData?.username} `}
-                            <button onClick={logout}>Log out</button>
+                            <button className="btn btn-primary" onClick={logout}>Log out</button>
                         </>
                     )
                 }
