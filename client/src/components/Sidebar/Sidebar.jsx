@@ -1,21 +1,21 @@
 import './Sidebar.css'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
-import { IoIosFitness } from "react-icons/io";
 
+export default function Sidebar({ categories, isOpen }) {
 
-
-export default function Sidebar({ show }) {
     return (
         <>
-            <div className={show ? 'sidebar active' : 'sidebar'}>
+            <div className={`sidebar ${isOpen ? 'sidebar-open' : ''}`}>
                 <div>
-                    <h4>Categories</h4>
+                    <h4 className='sidebar-category-heading'>Categories</h4>
                     <hr />
                     <ul className='sidebar-categories'>
-                        <li className='category-item'>
-                            <Link to='/fitness'>Fitness <IoIosFitness /> </Link>
-                        </li>
+                        {categories.map((category) => {
+                           return <li key={category.id} className='category-item'>
+                                 <Link  to={category.path}>{category.title} </Link>
+                            </li>
+                        })}
                     </ul>
                 </div>
             </div>
@@ -24,5 +24,6 @@ export default function Sidebar({ show }) {
 }
 
 Sidebar.propTypes = {
-    show: PropTypes.bool,
+    categories: PropTypes.array,
+    isOpen: PropTypes.bool,
 }
