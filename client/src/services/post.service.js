@@ -26,6 +26,7 @@ export const getAllPosts = async (search, createdBy) => {
     query(ref(db, 'posts'), orderByChild('createdOn'))
   );
   if (!snapshot.exists()) {
+
     return [];
   }
 

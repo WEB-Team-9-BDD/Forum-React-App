@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react';
-import { AppContext } from '../context/AppContext';
+import { AppContext } from '../../context/AppContext';
 import { addPost } from '../../services/post.service';
 import Button from '../../components/Button/Button';
 
@@ -25,7 +25,7 @@ export default function CreatePost() {
       return alert('Content must be between 32 and 8192 symbols.');
     }
 
-    await addPost(userData.handle, post.title, post.content);
+    await addPost(userData.username, post.title, post.content);
 
     setPost({
       title: '',

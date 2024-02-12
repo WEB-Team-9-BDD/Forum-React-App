@@ -23,6 +23,8 @@ export default function Header({ toggle }) {
             <header>
                 <RxHamburgerMenu onClick={toggle} />
                 <NavLink to="/">Home</NavLink>
+                <NavLink to="/posts">All posts</NavLink>
+                <NavLink to="/post-create">Create Post</NavLink>
                 {!user ?
                     (<>
                         <NavLink to="/login">Login</NavLink>
@@ -30,7 +32,7 @@ export default function Header({ toggle }) {
                     ) : (
                         <>
                             {`Welcome, ${userData?.username} `}
-                            <button onClick={logout}>Log out</button>
+                            <button className="btn btn-primary" onClick={logout}>Log out</button>
                         </>
                     )
                 }
