@@ -9,10 +9,6 @@
     margin-top: -0.5rem;
 }
 
-.sidebar-open {
-    transform: translateX(0);
-}
-
 .sidebar-category-heading {
     padding-top: 10px;
 }

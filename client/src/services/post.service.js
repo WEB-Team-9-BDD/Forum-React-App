@@ -1,7 +1,9 @@
 import {
   get,
   push,
-  update,
+  set,
+  onValue,
+  // update,
   ref,
   query,  
   orderByChild,
@@ -38,9 +40,7 @@ export const getAllPosts = async (search, createdBy) => {
       createdBy: snapshot.val()[key].createdBy
         ? Object.keys(snapshot.val()[key].createdBy)
         : [],
-    }))
-    .filter((p) => p.title.toLowerCase().includes(search.toLowerCase()))
-    .filter((p) => p.createdBy.includes(createdBy));
+    }));
 
   console.log(posts);
 
@@ -49,7 +49,7 @@ export const getAllPosts = async (search, createdBy) => {
 
 export const getPostById = async (id) => {
   const snapshot = await get(ref(db, `posts/${id}`));
-  if (snapshot.exists()) {
+  if (!snapshot.exists()) {
     return null;
   }
 
@@ -94,6 +94,40 @@ export const dislikePost = (handle, postId) => {
 };
 
 export const addCommentToPost = async (postId, author, comment) => {
+  const postSnapshot = await get(ref(db, `posts/${postId}`));
+  if (!postSnapshot.exists()) {
+    throw new Error('Post not found.');
+  }
+
+  const commentsRef = ref(db, `comments/${postId}`);
+  const newCommentRef = push(commentsRef);
+  return set(newCommentRef, { author, comment, commentedOn: Date.now() });
+};
+
+export async function getCommentsByPostId(postId) {
+  const commentsRef = ref(db, `comments/${postId}`);
+
+  return new Promise((resolve, reject) => {
+    onValue(commentsRef, (snapshot) => {
+      const data = snapshot.val();
+      if (!data) {
+        resolve([]);
+        return;
+      }
+
+      const comments = Object.keys(data).map((id) => ({
+        id,
+        ...data[id],
+      }));
+
+      resolve(comments);
+    }, (error) => {
+      reject(error);
+    });
+  });
+}
+
+export const getCommentsCount = async (postId) => {
   const postSnapshot = await get(ref(db, `posts/${postId}`));
   if (!postSnapshot.exists()) {
     throw new Error('Post not found.');
