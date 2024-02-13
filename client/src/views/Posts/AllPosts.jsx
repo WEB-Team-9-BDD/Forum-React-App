@@ -38,11 +38,9 @@ export default function AllPosts() {
       <h1>All posts</h1>
       <label htmlFor="search">Search </label>
       <input value={search} onChange={e => setSearch(e.target.value)} type="text" name="search" id="search" /><br />
-      {posts.map((post) => {
-        const hasButton = post.author === userData.username ? true : false;
-       return <Post key={post.id} post={post} hasEditButton={hasButton}
-          onLike={() => handleLike(post.id)} onDislike={() => handleDislike(post.id)} />
-      })}
+      {posts.map((post) => <Post key={post.id} post={post} 
+      onLike={() => handleLike(post.id)} onDislike={() => handleDislike(post.id)} />
+      )}
     </div>
   );
 }
