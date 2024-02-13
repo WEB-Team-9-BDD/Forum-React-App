@@ -1,8 +1,7 @@
 import { useContext, useEffect, useState } from "react";
-import { getAllPosts, getPostById } from "../../services/post.service";
-import Post from "../../components/Post/Post";
+import { getAllPosts } from "../../services/post.service";
+import PostPreview from "../../components/PostPreview/PostPreview";
 import { useSearchParams } from "react-router-dom";
-import { likePost, dislikePost } from '../../services/post.service'; // replace with the actual path
 import { AppContext } from "../../context/AppContext";
 
 export default function AllPosts() {
@@ -22,34 +21,22 @@ export default function AllPosts() {
 
   }, [search]);
 
-  const handleLike = async (id) => {
-    await likePost(id);
-    const updatedPost = await getPostById(id);
-    setPosts(posts.map(post => post.id === id ? updatedPost : post));
-  };
-  
-  const handleDislike = async (id) => {
-    await dislikePost(id);
-    const updatedPost = await getPostById(id);
-    setPosts(posts.map(post => post.id === id ? updatedPost : post));
-  };
-
 
   return (
-    <div>
-      <h1>All posts</h1>
-      <label htmlFor="search">Search </label>
-      <input value={search} onChange={e => setSearch(e.target.value)} type="text" name="search" id="search" /><br />
-      {posts.map((post) => (
-        <Post
-          key={post.id}
-          post={{
-            ...post,
-            likes: typeof post.likes === 'number' ? post.likes : 0,
-            dislikes: typeof post.dislikes === 'number' ? post.dislikes : 0,
-          }}
-        />
-      ))}
-    </div>
+<div>
+  <h1>All posts</h1>
+  <label htmlFor="search">Search </label>
+  <input value={search} onChange={e => setSearch(e.target.value)} type="text" name="search" id="search" /><br />
+  {posts.map((post) => (
+    <PostPreview
+      key={post.id}
+      post={{
+        ...post,
+        likes: typeof post.likes === 'number' ? post.likes : 0,
+        dislikes: typeof post.dislikes === 'number' ? post.dislikes : 0,
+      }}
+    />
+  ))}
+</div>
   );
 }
