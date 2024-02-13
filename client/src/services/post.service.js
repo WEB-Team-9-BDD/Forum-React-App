@@ -42,7 +42,7 @@ export const getAllPosts = async (search, createdBy) => {
         : [],
     }));
 
-  console.log(posts);
+  // console.log(posts);
 
   return posts;
 };
@@ -127,15 +127,15 @@ export async function getCommentsByPostId(postId) {
   });
 }
 
-export const getCommentsCount = async (postId) => {
-  const postSnapshot = await get(ref(db, `posts/${postId}`));
-  if (!postSnapshot.exists()) {
-    throw new Error('Post not found.');
-  }
-  const post = postSnapshot.val();
-  post.comments.push({ author, comment, commentedOn: Date.now() });
-  return update(ref(db, `posts/${postId}`), post);
-};
+// export const getCommentsCount = async (postId) => {
+//   const postSnapshot = await get(ref(db, `posts/${postId}`));
+//   if (!postSnapshot.exists()) {
+//     throw new Error('Post not found.');
+//   }
+//   const post = postSnapshot.val();
+//   post.comments.push({ author, comment, commentedOn: Date.now() });
+//   return update(ref(db, `posts/${postId}`), post);
+// };
 
 export const getCommentsCount = async (postId) => {
   const postSnapshot = await get(ref(db, `posts/${postId}`));
