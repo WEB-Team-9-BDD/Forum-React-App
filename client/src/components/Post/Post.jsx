@@ -2,16 +2,16 @@ import PropTypes from 'prop-types';
 // import './Post.css';
 import Button from '../Button/Button';
 import { useNavigate } from 'react-router-dom';
-// import { useContext } from 'react';
-// import { AppContext } from '../../context/AppContext';
+import { useContext } from 'react';
+import { AppContext } from '../../context/AppContext';
 
 /**
  * 
  * @param {{ post: { id: string, title: string, content: string, createdOn: string, liked: boolean }, togglePostLike: function }} props 
  */
-export default function Post({ post, onLike, onDislike, hasEditButton }) {
+export default function Post({ post, onLike, onDislike }) {
   const navigate = useNavigate();
-  //   const { userData } = useContext(AppContext);
+    const { user, userData } = useContext(AppContext);
 
   const editPost = async () => {
 
@@ -27,7 +27,7 @@ export default function Post({ post, onLike, onDislike, hasEditButton }) {
       <p>{post.content}</p>
       <p>{new Date(post.createdOn).toLocaleDateString('bg-BG')}</p>
       <Button onClick={() => navigate(`/posts/${post.id}`)}>View</Button>
-      {hasEditButton ?
+      {userData.username === post.author ?
         (<Button onClick={() => { }}>Edit</Button>) : null}
     </div>
   )
@@ -41,8 +41,8 @@ Post.propTypes = {
     createdOn: PropTypes.string,
     likes: PropTypes.number,
     dislikes: PropTypes.number,
+    author: PropTypes.string,
   }),
   onLike: PropTypes.func,
   onDislike: PropTypes.func,
-  hasEditButton: PropTypes.bool,
 };
