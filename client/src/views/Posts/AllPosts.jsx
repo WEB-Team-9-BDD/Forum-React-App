@@ -40,9 +40,16 @@ export default function AllPosts() {
       <h1>All posts</h1>
       <label htmlFor="search">Search </label>
       <input value={search} onChange={e => setSearch(e.target.value)} type="text" name="search" id="search" /><br />
-      {posts.map((post) => <Post key={post.id} post={post} 
-      onLike={() => handleLike(post.id)} onDislike={() => handleDislike(post.id)} />
-      )}
+      {posts.map((post) => (
+        <Post
+          key={post.id}
+          post={{
+            ...post,
+            likes: typeof post.likes === 'number' ? post.likes : 0,
+            dislikes: typeof post.dislikes === 'number' ? post.dislikes : 0,
+          }}
+        />
+      ))}
     </div>
   );
 }

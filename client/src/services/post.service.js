@@ -67,29 +67,25 @@ export const getPostById = async (id) => {
 
 export const likePost = (postId) => {
   const postLike = ref(db, `/posts/${postId}`);
-  return runTransaction(postLike, (post) => {
-    if (post) {
-      if (post.likes) {
-        post.likes += 1;
-      } else {
-        post.likes = 1;
+  return new Promise((resolve, reject) => {
+    runTransaction(postLike, (post) => {
+      if (post) {
+        post.likes = (typeof post.likes === 'number' ? post.likes : 0) + 1;
       }
-    }
-    return post;
+      return post;
+    }).then(resolve).catch(reject);
   });
 };
 
 export const dislikePost = (postId) => {
   const postDislike = ref(db, `/posts/${postId}`);
-  return runTransaction(postDislike, (post) => {
-    if (post) {
-      if (post.dislikes) {
-        post.dislikes += 1;
-      } else {
-        post.dislikes = 1;
+  return new Promise((resolve, reject) => {
+    runTransaction(postDislike, (post) => {
+      if (post) {
+        post.dislikes = (typeof post.dislikes === 'number' ? post.dislikes : 0) + 1;
       }
-    }
-    return post;
+      return post;
+    }).then(resolve).catch(reject);
   });
 };
 
