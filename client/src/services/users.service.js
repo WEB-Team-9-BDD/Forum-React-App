@@ -25,3 +25,11 @@ export const makeUserAdmin = (email) => {
 
   return set(ref(db, `users/${email}/isAdmin`), true);
 };
+
+export const usersCount = async () => {
+  const snapshot = await get(ref(db, 'users'));
+  if (!snapshot.exists()) {
+    return 0;
+  }
+  return Object.keys(snapshot.val()).length;
+}

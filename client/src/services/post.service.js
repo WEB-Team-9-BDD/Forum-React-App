@@ -102,3 +102,20 @@ export const addCommentToPost = async (postId, author, comment) => {
   post.comments.push({ author, comment, commentedOn: Date.now() });
   return update(ref(db, `posts/${postId}`), post);
 };
+
+export const getCommentsCount = async (postId) => {
+  const postSnapshot = await get(ref(db, `posts/${postId}`));
+  if (!postSnapshot.exists()) {
+    throw new Error('Post not found.');
+  }
+  const post = postSnapshot.val();
+  return post.comments.length;
+};
+
+export const postCount = async () => {
+  const snapshot = await get(ref(db, 'posts'));
+  if (!snapshot.exists()) {
+    return 0;
+  }
+  return Object.keys(snapshot.val()).length;
+}
