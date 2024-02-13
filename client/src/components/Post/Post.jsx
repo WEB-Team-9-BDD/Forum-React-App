@@ -9,19 +9,26 @@ import { useNavigate } from 'react-router-dom';
  * 
  * @param {{ post: { id: string, title: string, content: string, createdOn: string, liked: boolean }, togglePostLike: function }} props 
  */
-export default function Post({ post, onLike, onDislike  }) {
+export default function Post({ post, onLike, onDislike, hasEditButton }) {
   const navigate = useNavigate();
-//   const { userData } = useContext(AppContext);
+  //   const { userData } = useContext(AppContext);
+
+  const editPost = async () => {
+
+  }
+
 
   return (
     <div className="post">
-      <h4>{post.title} 
+      <h4>{post.title}
         <Button onClick={onLike}>Like {post.likes}</Button>
         <Button onClick={onDislike}>Dislike {post.dislikes}</Button>
       </h4>
       <p>{post.content}</p>
       <p>{new Date(post.createdOn).toLocaleDateString('bg-BG')}</p>
       <Button onClick={() => navigate(`/posts/${post.id}`)}>View</Button>
+      {hasEditButton ?
+        (<Button onClick={() => { }}>Edit</Button>) : null}
     </div>
   )
 }
@@ -37,4 +44,5 @@ Post.propTypes = {
   }),
   onLike: PropTypes.func,
   onDislike: PropTypes.func,
+  hasEditButton: PropTypes.bool,
 };
