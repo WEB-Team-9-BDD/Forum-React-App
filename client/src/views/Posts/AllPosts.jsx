@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { getAllPosts } from "../../services/post.service";
+import { getAllPosts, getPostById } from "../../services/post.service";
 import Post from "../../components/Post/Post";
 import { useSearchParams } from "react-router-dom";
 import { likePost, dislikePost } from '../../services/post.service'; // replace with the actual path
@@ -23,12 +23,14 @@ export default function AllPosts() {
   }, [search]);
 
   const handleLike = async (id) => {
-    const updatedPost = await likePost(id);
+    await likePost(id);
+    const updatedPost = await getPostById(id);
     setPosts(posts.map(post => post.id === id ? updatedPost : post));
   };
-
+  
   const handleDislike = async (id) => {
-    const updatedPost = await dislikePost(id);
+    await dislikePost(id);
+    const updatedPost = await getPostById(id);
     setPosts(posts.map(post => post.id === id ? updatedPost : post));
   };
 

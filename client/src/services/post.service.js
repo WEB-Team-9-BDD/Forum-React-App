@@ -65,7 +65,7 @@ export const getPostById = async (id) => {
   return post;
 };
 
-export const likePost = (handle, postId) => {
+export const likePost = (postId) => {
   const postLike = ref(db, `/posts/${postId}`);
   return runTransaction(postLike, (post) => {
     if (post) {
@@ -79,7 +79,7 @@ export const likePost = (handle, postId) => {
   });
 };
 
-export const dislikePost = (handle, postId) => {
+export const dislikePost = (postId) => {
   const postDislike = ref(db, `/posts/${postId}`);
   return runTransaction(postDislike, (post) => {
     if (post) {
