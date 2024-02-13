@@ -17,9 +17,10 @@ a:hover {
 
 .main-content {
   transition: margin-left 0.8s ease;
-  margin-left: 240px;
+  margin-left: 250px;
 }
 
 .sidebar-open {
   margin-left: 0;
+  transform: translateX(0);
 }
