@@ -42,7 +42,7 @@ export const getAllPosts = async (search, createdBy) => {
         : [],
     }));
 
-  console.log(posts);
+  // console.log(posts);
 
   return posts;
 };
@@ -65,7 +65,7 @@ export const getPostById = async (id) => {
   return post;
 };
 
-export const likePost = (handle, postId) => {
+export const likePost = (postId) => {
   const postLike = ref(db, `/posts/${postId}`);
   return runTransaction(postLike, (post) => {
     if (post) {
@@ -79,7 +79,7 @@ export const likePost = (handle, postId) => {
   });
 };
 
-export const dislikePost = (handle, postId) => {
+export const dislikePost = (postId) => {
   const postDislike = ref(db, `/posts/${postId}`);
   return runTransaction(postDislike, (post) => {
     if (post) {
@@ -127,25 +127,15 @@ export async function getCommentsByPostId(postId) {
   });
 }
 
-// export const getCommentsCount = async (postId) => {
-//   const postSnapshot = await get(ref(db, `posts/${postId}`));
-//   if (!postSnapshot.exists()) {
-//     throw new Error('Post not found.');
-//   }
-//   const post = postSnapshot.val();
-//   post.comments.push({ author, comment, commentedOn: Date.now() });
-//   return update(ref(db, `posts/${postId}`), post);
-// };
-
-// export const getCommentsCount = async (postId) => {
-//   const postSnapshot = await get(ref(db, `posts/${postId}`));
-//   if (!postSnapshot.exists()) {
-//     throw new Error('Post not found.');
-//   }
-//   const post = postSnapshot.val();
-//   console.log(post.comment);
-//   return Array.isArray(post.comments) ? post.comments.length : 0;
-// };
+export const getCommentsCount = async (postId) => {
+  const postSnapshot = await get(ref(db, `posts/${postId}`));
+  if (!postSnapshot.exists()) {
+    throw new Error('Post not found.');
+  }
+  const post = postSnapshot.val();
+  post.comments.push({ author, comment, commentedOn: Date.now() });
+  return update(ref(db, `posts/${postId}`), post);
+};
 
 export const getCommentsCount = async (postId) => {
   const postSnapshot = await get(ref(db, `posts/${postId}`));

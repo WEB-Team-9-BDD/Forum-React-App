@@ -18,12 +18,14 @@ export default function SinglePost() {
   }, [id]);
 
   const handleLike = async () => {
-    const updatedPost = await likePost(id);
+    await likePost(id);
+    const updatedPost = await getPostById(id);
     setPost(updatedPost);
   };
 
   const handleDislike = async () => {
-    const updatedPost = await dislikePost(id);
+    await dislikePost(id);
+    const updatedPost = await getPostById(id);
     setPost(updatedPost);
   };
 
