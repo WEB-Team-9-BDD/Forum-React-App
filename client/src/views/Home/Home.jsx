@@ -39,9 +39,11 @@ export default function Home() {
         checkLoginStatus();
     }, [user]);
 
-    const mostCommentedPosts = [...posts].sort((a, b) => b.commentsCount - a.commentsCount).slice(0, 10);
     
-    const lastTenPosts = posts.slice(-10);
+
+    const mostCommentedPosts = [...posts].sort((a, b) => a.commentsCount - b.commentsCount).slice(0, 10);
+    
+    const lastTenPosts = posts.slice(-10).reverse();
     
     return (
         <div className="wrapper d-flex flex-column w-100">
@@ -75,3 +77,5 @@ export default function Home() {
         </div>
     );
 }
+
+//{posts.map((post) => <Post key={post.id} post={post} 
