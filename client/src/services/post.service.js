@@ -157,5 +157,6 @@ export const postCount = async () => {
 
 export const deletePost = async (postId) => {
   await remove(ref(db, `posts/${postId}`));
- 
+  await remove(ref(db, `comments/${postId}`));
+
 }
