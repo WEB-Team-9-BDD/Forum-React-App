@@ -41,7 +41,7 @@ export const getAllPosts = async (search, createdBy) => {
         ? Object.keys(snapshot.val()[key].createdBy)
         : [],
     }))
-    .filter((post) => post.title.toLowerCase().includes(search.toLowerCase()));
+    // .filter((post) => post.title.toLowerCase().includes(search.toLowerCase()));
 
 
   // console.log(posts);
