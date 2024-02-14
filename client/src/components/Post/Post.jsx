@@ -7,6 +7,7 @@ import { AppContext } from '../../context/AppContext';
 import { deletePost } from '../../services/post.service';
 import toast from "react-hot-toast";
 import { likePost, dislikePost } from '../../services/post.service';
+import { SlLike, SlDislike } from "react-icons/sl";
 
 export default function Post({ post }) {
   const navigate = useNavigate();
@@ -57,8 +58,8 @@ export default function Post({ post }) {
   return (
     <div className="post">
       <h4>{post.title}
-        <Button disabled={updating} onClick={handleLike}>{likeActive ? 'Unlike' : 'Like'}</Button>
-        <Button disabled={updating} onClick={handleDislike}>{dislikeActive ? 'Undislike' : 'Dislike'}</Button>
+        <Button disabled={updating} onClick={handleLike}><SlLike className={likeActive ? 'like-active' : ''} /></Button>
+        <Button disabled={updating} onClick={handleDislike}><SlDislike className={dislikeActive ? 'dislike-active' : ''}/></Button>
       </h4>
       <p>{post.content}</p>
       <p>{new Date(post.createdOn).toLocaleDateString('bg-BG')}</p>
@@ -68,8 +69,7 @@ export default function Post({ post }) {
           <Button onClick={() => { }}>Edit</Button>
           <Button onClick={deleteSinglePost}>Delete</Button>
         </>) : null
-      }
-      <Button onClick={() => navigate(`/posts/${post.id}`)}>View</Button>
+      }      
       {userData.username === post.author ? (<Button onClick={() => { }}>Edit</Button>) : null}
     </div>
   )

@@ -6,18 +6,26 @@
     align-items: center;
   }
 
-  .liked {
-    background-color: green;
+  button {
+    border: none;
+    background: none;
+    cursor: pointer;
+    
   }
   
-  .unliked {
-    background-color: grey;
+  button:disabled {
+    cursor: not-allowed;
   }
   
-  .disliked {
-    background-color: red;
+  button svg {
+    width: 24px;
+    height: 24px;
   }
   
-  .undisliked {
-    background-color: grey;
+  button .like-active {
+    color: rgb(8, 231, 164);
+  }
+  
+  button .dislike-active {
+    color: rgb(230, 112, 112);
   }
