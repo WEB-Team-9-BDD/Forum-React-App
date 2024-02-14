@@ -1,0 +1,49 @@
+.table {
+    padding: 20px;
+    width: 100%;
+}
+
+.column {
+    height: 3.5rem;
+    padding: 20px;
+    border: 1px solid rgba(214, 200, 200, 0.555);
+    justify-content: center;
+    text-align: center;
+    font-size: 1.25rem;
+    box-shadow: 1px 1px 15px 1px rgba(156, 182, 202, 0.536);
+}
+.title-column {
+    text-align: left;
+}
+
+.search-wrapper {
+    background-color: white;
+    width: 50%;
+    border-radius: 10px;
+    height: 3rem;
+    padding: 0 15px;
+    box-shadow: 0px 0px 8px #ddd;
+    display: flex;
+    align-items: center;
+    margin: 10px;
+}
+.search-wrapper svg {
+    font-size: x-large;
+    margin-right: 5px;
+}
+
+.search-wrapper input {
+    background-color: transparent;
+    border: none;
+    height: 80%;
+    font-size: 1.25rem;
+    width: 100%;
+    margin-left: 5px;
+    
+}
+
+.search-wrapper input:focus{
+ outline: none;   
+ box-shadow: none;
+}
+
