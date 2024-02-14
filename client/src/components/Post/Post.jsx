@@ -1,21 +1,24 @@
 import PropTypes from 'prop-types';
-// import './Post.css';
+import './Post.css';
 import Button from '../Button/Button';
 import { useNavigate } from 'react-router-dom';
-import { useContext } from 'react';
+import { useContext, useState, useEffect, useCallback } from 'react';
 import { AppContext } from '../../context/AppContext';
 import { deletePost } from '../../services/post.service';
 import toast from "react-hot-toast";
+import { likePost, dislikePost } from '../../services/post.service';
 
-/**
- * 
- * @param {{ post: { id: string, title: string, content: string, createdOn: string, likes: number, dislikes: number, author: string }, onLike: function, onDislike: function }} props 
- */
-export default function Post({ post, onLike, onDislike }) {
+export default function Post({ post }) {
   const navigate = useNavigate();
   const { userData } = useContext(AppContext);
+  const [updating, setUpdating] = useState(false);
+  const [likeActive, setLikeActive] = useState(false);
+  const [dislikeActive, setDislikeActive] = useState(false);
 
-  // const editPost = async () => {
+  useEffect(() => {
+    setLikeActive(post.likedBy.includes(userData.username));
+    setDislikeActive(post.dislikedBy.includes(userData.username));
+  }, [post, userData.username]);
 
   // }
   const deleteSinglePost = async () => {
@@ -27,13 +30,35 @@ export default function Post({ post, onLike, onDislike }) {
       toast.error(error.code);
     }
   }
+  const handleLike = useCallback(async () => {
+    if (updating) return;
+    setUpdating(true);
+    if (dislikeActive) {
+      await dislikePost(userData.username, post.id);
+      setDislikeActive(false);
+    }
+    await likePost(userData.username, post.id);
+    setLikeActive(!likeActive);
+    setUpdating(false);
+  }, [userData.username, post.id, likeActive, dislikeActive, updating]);
 
+  const handleDislike = useCallback(async () => {
+    if (updating) return;
+    setUpdating(true);
+    if (likeActive) {
+      await likePost(userData.username, post.id);
+      setLikeActive(false);
+    }
+    await dislikePost(userData.username, post.id);
+    setDislikeActive(!dislikeActive);
+    setUpdating(false);
+  }, [userData.username, post.id, likeActive, dislikeActive, updating]);
 
   return (
     <div className="post">
       <h4>{post.title}
-        <Button onClick={onLike}>Like {post.likes}</Button>
-        <Button onClick={onDislike}>Dislike {post.dislikes}</Button>
+        <Button disabled={updating} onClick={handleLike}>{likeActive ? 'Unlike' : 'Like'}</Button>
+        <Button disabled={updating} onClick={handleDislike}>{dislikeActive ? 'Undislike' : 'Dislike'}</Button>
       </h4>
       <p>{post.content}</p>
       <p>{new Date(post.createdOn).toLocaleDateString('bg-BG')}</p>
@@ -44,6 +69,8 @@ export default function Post({ post, onLike, onDislike }) {
           <Button onClick={deleteSinglePost}>Delete</Button>
         </>) : null
       }
+      <Button onClick={() => navigate(`/posts/${post.id}`)}>View</Button>
+      {userData.username === post.author ? (<Button onClick={() => { }}>Edit</Button>) : null}
     </div>
   )
 }
@@ -54,10 +81,8 @@ Post.propTypes = {
     title: PropTypes.string,
     content: PropTypes.string,
     createdOn: PropTypes.string,
-    likes: PropTypes.number,
-    dislikes: PropTypes.number,
+    likedBy: PropTypes.array,
+    dislikedBy: PropTypes.array,
     author: PropTypes.string,
   }),
-  onLike: PropTypes.func,
-  onDislike: PropTypes.func,
 };

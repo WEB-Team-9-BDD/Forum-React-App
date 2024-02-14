@@ -3,7 +3,7 @@ import {
   push,
   set,
   onValue,
-  // update,
+  update,
   ref,
   query,
   orderByChild,
@@ -18,8 +18,6 @@ export const addPost = async (author, title, content) => {
     title,
     content,
     createdOn: Date.now(),
-    likes: 0,
-    dislikes: 0,
     comments: [],
   });
 };
@@ -63,33 +61,33 @@ export const getPostById = async (id) => {
     createdBy: snapshot.val().createdBy
       ? Object.keys(snapshot.val().createdBy)
       : [],
+      likedBy: snapshot.val().likedBy ? Object.keys(snapshot.val().likedBy) : [],
+      dislikedBy: snapshot.val().dislikedBy ? Object.keys(snapshot.val().dislikedBy) : [],
   };
 
-  return post;
+  return post;};
+
+
+export const likePost = async (username, postId) => {
+  const updates = {};
+  updates[`/posts/${postId}/likedBy/${username}`] = true;
+  updates[`/users/${username}/likedPosts/${postId}`] = true;
+
+  await update(ref(db), updates);
+
+  await remove(ref(db, `/posts/${postId}/dislikedBy/${username}`));
+  await remove(ref(db, `/users/${username}/dislikedPosts/${postId}`));
 };
 
-export const likePost = (postId) => {
-  const postLike = ref(db, `/posts/${postId}`);
-  return new Promise((resolve, reject) => {
-    runTransaction(postLike, (post) => {
-      if (post) {
-        post.likes = (typeof post.likes === 'number' ? post.likes : 0) + 1;
-      }
-      return post;
-    }).then(resolve).catch(reject);
-  });
-};
+export const dislikePost = async (username, postId) => {
+  const updates = {};
+  updates[`/posts/${postId}/dislikedBy/${username}`] = true;
+  updates[`/users/${username}/dislikedPosts/${postId}`] = true;
 
-export const dislikePost = (postId) => {
-  const postDislike = ref(db, `/posts/${postId}`);
-  return new Promise((resolve, reject) => {
-    runTransaction(postDislike, (post) => {
-      if (post) {
-        post.dislikes = (typeof post.dislikes === 'number' ? post.dislikes : 0) + 1;
-      }
-      return post;
-    }).then(resolve).catch(reject);
-  });
+  await update(ref(db), updates);
+
+  await remove(ref(db, `/posts/${postId}/likedBy/${username}`));
+  await remove(ref(db, `/users/${username}/likedPosts/${postId}`));
 };
 
 export const addCommentToPost = async (postId, author, comment) => {

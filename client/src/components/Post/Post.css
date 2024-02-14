@@ -2,4 +2,22 @@
     padding: 10px;
     border: 1px solid #eee;
     border-radius: 5px;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .liked {
+    background-color: green;
+  }
+  
+  .unliked {
+    background-color: grey;
+  }
+  
+  .disliked {
+    background-color: red;
+  }
+  
+  .undisliked {
+    background-color: grey;
   }
