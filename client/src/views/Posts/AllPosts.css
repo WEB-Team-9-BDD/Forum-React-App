@@ -3,17 +3,30 @@
     width: 100%;
 }
 
+div.p-column-header-content {
+    background-color: rgb(179, 226, 242);
+    height: 2.5rem;
+    font-size: large;
+    justify-content: center;
+}
+
 .column {
-    height: 3.5rem;
+    height: 3rem;
     padding: 20px;
     border: 1px solid rgba(214, 200, 200, 0.555);
     justify-content: center;
     text-align: center;
     font-size: 1.25rem;
-    box-shadow: 1px 1px 15px 1px rgba(156, 182, 202, 0.536);
+    box-shadow: 1px 1px 20px 1px rgba(156, 182, 202, 0.536);
 }
+
 .title-column {
     text-align: left;
+    width: 35rem;
+}
+
+.date-column {
+    width: 12rem;
 }
 
 .search-wrapper {
@@ -27,6 +40,7 @@
     align-items: center;
     margin: 10px;
 }
+
 .search-wrapper svg {
     font-size: x-large;
     margin-right: 5px;
@@ -39,11 +53,38 @@
     font-size: 1.25rem;
     width: 100%;
     margin-left: 5px;
-    
+
 }
 
-.search-wrapper input:focus{
- outline: none;   
- box-shadow: none;
+.search-wrapper input:focus {
+    outline: none;
+    box-shadow: none;
 }
 
+.action-column {
+    width: 8rem;
+}
+
+.edit-button {
+    color: rgb(0, 94, 255);
+    font-size: 40px;
+    /* border: 1px solid black; */
+    margin: 3px;
+    padding: 5px;
+}
+
+.delete-button {
+    color: rgb(168, 95, 95);
+    font-size: 35px;
+    /* border: 1px solid black; */
+    margin: 3px;
+    padding: 5px;
+}
+
+.delete-button:hover {
+    cursor: pointer;
+}
+
+.edit-button:hover {
+    cursor: pointer;
+}
