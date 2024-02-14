@@ -11,7 +11,7 @@ import { AppContext } from '../../context/AppContext';
  */
 export default function Post({ post, onLike, onDislike }) {
   const navigate = useNavigate();
-    const {  userData } = useContext(AppContext);
+  const { userData } = useContext(AppContext);
 
   // const editPost = async () => {
 
@@ -26,9 +26,13 @@ export default function Post({ post, onLike, onDislike }) {
       </h4>
       <p>{post.content}</p>
       <p>{new Date(post.createdOn).toLocaleDateString('bg-BG')}</p>
-      <Button onClick={() => navigate(`/posts/${post.id}`)}>View</Button>
+      {/* <Button onClick={() => navigate(`/posts/${post.id}`)}>View</Button> */}
       {userData.username === post.author ?
-        (<Button onClick={() => { }}>Edit</Button>) : null}
+        (<>
+          <Button onClick={() => { }}>Edit</Button>
+          <Button onClick={() => { }}>Delete</Button>
+        </>) : null
+      }
     </div>
   )
 }
