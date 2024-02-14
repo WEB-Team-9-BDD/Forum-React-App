@@ -1,5 +1,5 @@
-import { useContext, useEffect, useState } from "react";
-import { getAllPosts, getPostById } from "../../services/post.service";
+import { useCallback, useContext, useEffect, useState } from "react";
+import { deletePost, getAllPosts, getCommentsCount, getPostById } from "../../services/post.service";
 import { Link, useSearchParams } from "react-router-dom";
 import { likePost, dislikePost } from '../../services/post.service'; // replace with the actual path
 import { DataTable } from 'primereact/datatable';
@@ -10,6 +10,7 @@ import { FiSearch } from "react-icons/fi";
 import { AppContext } from '../../context/AppContext'
 import { CiEdit } from "react-icons/ci";
 import { RiDeleteBin6Line } from "react-icons/ri";
+import toast from "react-hot-toast";
 import 'primereact/resources/themes/lara-light-indigo/theme.css'
 import './AllPosts.css';
 
@@ -20,21 +21,20 @@ export default function AllPosts() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [filters, setFilters] = useState({
     global: { value: null, matchMode: FilterMatchMode.CONTAINS },
-
-  })
+  });
+  // const [comments, setComments] = useState([]);
 
   const search = searchParams.get('search') || '';
 
-  const setSearch = (value) => {
-    setSearchParams({ search: value });
-  };
+  // const setSearch = (value) => {
+  //   setSearchParams({ search: value });
+  // };
+ 
 
   useEffect(() => {
-    getAllPosts(search)
-      .then(setPosts);
+    getAllPosts().then(setPosts);
+  }, [posts]);
 
-  }, [search]);
-  
   const handleLike = async (id) => {
     await likePost(id);
     const updatedPost = await getPostById(id);
@@ -67,43 +67,52 @@ export default function AllPosts() {
     </>
   )
 
+  const deleteSinglePost = useCallback(async (postId) => {
+    try {
+      await deletePost(postId);
+      toast.success('Post successfully deleted');
+
+    } catch (error) {
+      toast.error(error.code);
+    }
+  }, []);
+
   const setButtons = (post) => {
     return userData.username === post.author ? (
       <div className="justify-content-center">
         <CiEdit className="edit-button" />
-        <RiDeleteBin6Line className="delete-button" />
+        <RiDeleteBin6Line onClick={() => deleteSinglePost(post.id)} className="delete-button" />
       </div>
     ) : null;
   }
 
-  return (
-    <div className="table">
-      <h1>All posts</h1>
-      <h2></h2>
-      <div className="search-wrapper">
-        <FiSearch />
-        <InputText type='search' onInput={(e) =>
-          setFilters({
-            global: { value: e.target.value, matchMode: FilterMatchMode.CONTAINS },
-          })
-        } />
-      </div>
-      < DataTable value={posts} className="table-data"
-        paginator rows={10} rowsPerPageOptions={[10, 25, 50]}
-        sortMode="multiple" footer={footer} filters={filters} removableSort
-      >
-        <Column className="column title-column" field='title' header='Post title' body={makeTitleALink} sortable />
-        <Column className="column" field='' header='categories' sortable />
-        <Column className="column date-column" field='createdOn' header='Created on' body={formatDateType} sortable />
-        {/* <Column className="column" field='author' header='Author' sortable /> */}
-        <Column className="column" field='likes' header='Likes' sortable />
-        <Column className="column" field='comments' header='Comments' sortable />
-        <Column className="column action-column" header='Actions' body={setButtons} />
-      </DataTable>
+return (
+  <div className="table">
+    <h1>All posts</h1>
+    <h2></h2>
+    <div className="search-wrapper">
+      <FiSearch />
+      <InputText id='all-posts-searchbar' type='search' onInput={(e) =>
+        setFilters({
+          global: { value: e.target.value, matchMode: FilterMatchMode.CONTAINS },
+        })
+      } />
+    </div>
+    < DataTable value={posts} className="table-data"
+      paginator rows={10} rowsPerPageOptions={[10, 25, 50]}
+      sortMode="multiple" footer={footer} filters={filters} removableSort
+    >
+      <Column className="column title-column" field='title' header='Post title' body={makeTitleALink} sortable />
+      <Column className="column" field='' header='categories' sortable />
+      <Column className="column date-column" field='createdOn' header='Created on' body={formatDateType} sortable />
+      <Column className="column" field='likes' header='Likes' sortable />
+      <Column className="column" field='commentsCount' header='Comments' sortable />
+      <Column className="column action-column" header='Actions' body={setButtons} />
+    </DataTable>
 
-    </div >
+  </div >
 
-  );
+);
 }
 
 

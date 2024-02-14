@@ -5,9 +5,10 @@ import {
   onValue,
   // update,
   ref,
-  query,  
+  query,
   orderByChild,
   runTransaction,
+  remove
 } from 'firebase/database';
 import { db } from '../config/firebase-config';
 
@@ -41,7 +42,7 @@ export const getAllPosts = async (search, createdBy) => {
         ? Object.keys(snapshot.val()[key].createdBy)
         : [],
     }))
-    // .filter((post) => post.title.toLowerCase().includes(search.toLowerCase()));
+  // .filter((post) => post.title.toLowerCase().includes(search.toLowerCase()));
 
 
   // console.log(posts);
@@ -141,7 +142,7 @@ export const getCommentsCount = async (postId) => {
     throw new Error('Post not found.');
   }
   const post = postSnapshot.val();
-  console.log(post.comment);
+  // console.log(post.comment);
   return post.comments ? Object.keys(post.comments).length : 0;
 };
 
@@ -151,4 +152,10 @@ export const postCount = async () => {
     return 0;
   }
   return Object.keys(snapshot.val()).length;
+}
+
+
+export const deletePost = async (postId) => {
+  await remove(ref(db, `posts/${postId}`));
+ 
 }

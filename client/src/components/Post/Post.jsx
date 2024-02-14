@@ -4,6 +4,8 @@ import Button from '../Button/Button';
 import { useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { AppContext } from '../../context/AppContext';
+import { deletePost } from '../../services/post.service';
+import toast from "react-hot-toast";
 
 /**
  * 
@@ -16,6 +18,15 @@ export default function Post({ post, onLike, onDislike }) {
   // const editPost = async () => {
 
   // }
+  const deleteSinglePost = async () => {
+    try {
+      await deletePost(post.id);
+      toast.success('Post successfully deleted');
+      navigate('/posts')
+    } catch (error) {
+      toast.error(error.code);
+    }
+  }
 
 
   return (
@@ -30,7 +41,7 @@ export default function Post({ post, onLike, onDislike }) {
       {userData.username === post.author ?
         (<>
           <Button onClick={() => { }}>Edit</Button>
-          <Button onClick={() => { }}>Delete</Button>
+          <Button onClick={deleteSinglePost}>Delete</Button>
         </>) : null
       }
     </div>
