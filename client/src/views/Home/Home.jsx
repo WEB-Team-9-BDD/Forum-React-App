@@ -1,15 +1,18 @@
 import { Link } from 'react-router-dom';
 import './Home.css'
-import { useEffect, useState } from 'react';
-import { getAllPosts, getCommentsCount, postCount } from '../../services/post.service';
+import { useEffect, useState, useContext } from 'react';
+import { getAllPosts, getCommentsCount, postCount, getPostById } from '../../services/post.service';
 import { usersCount } from '../../services/users.service';
-import { isLoggedIn as isLoggedInService } from '../../services/auth.service';
+//import { isLoggedIn as isLoggedInService } from '../../services/auth.service';
+import { AppContext } from '../../context/AppContext';
 
 export default function Home() {
     const [posts, setPosts] = useState([]);
     const [countUsers, setCountUsers] = useState(0);
     const [countPosts, setCountPosts] = useState(0);
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    //const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+    const { user } = useContext(AppContext);
 
     useEffect(() => {
         const fetchPosts = async () => {
@@ -24,9 +27,9 @@ export default function Home() {
 
     useEffect(() => {
         const checkLoginStatus = async () => {
-            const loggedIn = await isLoggedInService();
-            setIsLoggedIn(loggedIn);
-            if (!loggedIn) {
+            // const loggedIn = await isLoggedInService();
+            // setIsLoggedIn(!user);
+            if (!user) {
                 const users = await usersCount();
                 const posts = await postCount();
                 setCountUsers(users);
@@ -34,7 +37,7 @@ export default function Home() {
             }
         };
         checkLoginStatus();
-    }, []);
+    }, [user]);
 
     const mostCommentedPosts = [...posts].sort((a, b) => b.commentsCount - a.commentsCount).slice(0, 10);
     
@@ -44,7 +47,7 @@ export default function Home() {
         <div className="wrapper d-flex flex-column w-100">
             <div className="header d-flex justify-content-center align-items-center w-100">
                 <h1>DDB Forum</h1>
-                {!isLoggedIn && (
+                {!user && (
                     <div>
                         <p>Users: {countUsers}</p>
                         <p>Posts: {countPosts}</p>

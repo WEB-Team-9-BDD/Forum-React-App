@@ -50,7 +50,11 @@ export default function SinglePost() {
       <h1>Single Post</h1>
       {post && (
         <Post 
-          post={post} 
+          post={{
+            ...post,
+            likes: typeof post.likes === 'number' ? post.likes : 0,
+            dislikes: typeof post.dislikes === 'number' ? post.dislikes : 0,
+          }} 
           onLike={handleLike} 
           onDislike={handleDislike} 
         />

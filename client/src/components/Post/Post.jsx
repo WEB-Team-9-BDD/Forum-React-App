@@ -7,15 +7,15 @@ import { AppContext } from '../../context/AppContext';
 
 /**
  * 
- * @param {{ post: { id: string, title: string, content: string, createdOn: string, liked: boolean }, togglePostLike: function }} props 
+ * @param {{ post: { id: string, title: string, content: string, createdOn: string, likes: number, dislikes: number, author: string }, onLike: function, onDislike: function }} props 
  */
 export default function Post({ post, onLike, onDislike }) {
   const navigate = useNavigate();
-    const { user, userData } = useContext(AppContext);
+    const {  userData } = useContext(AppContext);
 
-  const editPost = async () => {
+  // const editPost = async () => {
 
-  }
+  // }
 
 
   return (
