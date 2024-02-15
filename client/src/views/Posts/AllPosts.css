@@ -11,7 +11,7 @@ div.p-column-header-content {
 }
 
 .column {
-    height: 3rem;
+    max-height: 1rem;
     padding: 20px;
     border: 1px solid rgba(214, 200, 200, 0.555);
     justify-content: center;
@@ -62,13 +62,12 @@ div.p-column-header-content {
 }
 
 .action-column {
-    width: 8rem;
+    max-width: 9rem;
 }
 
 .edit-button {
     color: rgb(0, 94, 255);
     font-size: 40px;
-    /* border: 1px solid black; */
     margin: 3px;
     padding: 5px;
 }
@@ -76,7 +75,12 @@ div.p-column-header-content {
 .delete-button {
     color: rgb(168, 95, 95);
     font-size: 35px;
-    /* border: 1px solid black; */
+    margin: 3px;
+    padding: 5px;
+}
+
+.share-button {
+    font-size: 35px;
     margin: 3px;
     padding: 5px;
 }
@@ -86,5 +90,9 @@ div.p-column-header-content {
 }
 
 .edit-button:hover {
+    cursor: pointer;
+}
+
+.share-button:hover {
     cursor: pointer;
 }
