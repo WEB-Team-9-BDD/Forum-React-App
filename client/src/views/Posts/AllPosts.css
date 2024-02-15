@@ -1,0 +1,98 @@
+.table {
+    padding: 20px;
+    width: 100%;
+}
+
+div.p-column-header-content {
+    background-color: rgb(179, 226, 242);
+    height: 2.5rem;
+    font-size: large;
+    justify-content: center;
+}
+
+.column {
+    max-height: 1rem;
+    padding: 20px;
+    border: 1px solid rgba(214, 200, 200, 0.555);
+    justify-content: center;
+    text-align: center;
+    font-size: 1.25rem;
+    box-shadow: 1px 1px 20px 1px rgba(156, 182, 202, 0.536);
+}
+
+.title-column {
+    text-align: left;
+    width: 35rem;
+}
+
+.date-column {
+    width: 12rem;
+}
+
+.search-wrapper {
+    background-color: white;
+    width: 50%;
+    border-radius: 10px;
+    height: 3rem;
+    padding: 0 15px;
+    box-shadow: 0px 0px 8px #ddd;
+    display: flex;
+    align-items: center;
+    margin: 10px;
+}
+
+.search-wrapper svg {
+    font-size: x-large;
+    margin-right: 5px;
+}
+
+.search-wrapper input {
+    background-color: transparent;
+    border: none;
+    height: 80%;
+    font-size: 1.25rem;
+    width: 100%;
+    margin-left: 5px;
+
+}
+
+.search-wrapper input:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+.action-column {
+    max-width: 9rem;
+}
+
+.edit-button {
+    color: rgb(0, 94, 255);
+    font-size: 40px;
+    margin: 3px;
+    padding: 5px;
+}
+
+.delete-button {
+    color: rgb(168, 95, 95);
+    font-size: 35px;
+    margin: 3px;
+    padding: 5px;
+}
+
+.share-button {
+    font-size: 35px;
+    margin: 3px;
+    padding: 5px;
+}
+
+.delete-button:hover {
+    cursor: pointer;
+}
+
+.edit-button:hover {
+    cursor: pointer;
+}
+
+.share-button:hover {
+    cursor: pointer;
+}
