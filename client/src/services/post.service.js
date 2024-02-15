@@ -124,15 +124,10 @@ export async function getCommentsByPostId(postId) {
   });
 }
 
-// export const getCommentsCount = async (postId) => {
-//   const postSnapshot = await get(ref(db, `posts/${postId}`));
-//   if (!postSnapshot.exists()) {
-//     throw new Error('Post not found.');
-//   }
-//   const post = postSnapshot.val();
-//   post.comments.push({ author, comment, commentedOn: Date.now() });
-//   return update(ref(db, `posts/${postId}`), post);
-// };
+export const updateComment = async (postId, commentId, author, updatedComment) => {
+  const commentRef = ref(db, `comments/${postId}/${commentId}`);
+  return update(commentRef, { author, comment: updatedComment, commentedOn: Date.now() });
+};
 
 export const getCommentsCount = async (postId) => {
   const postSnapshot = await get(ref(db, `posts/${postId}`));
@@ -151,6 +146,20 @@ export const postCount = async () => {
   }
   return Object.keys(snapshot.val()).length;
 }
+
+export const likeCount = async (postId) => {
+  const snapshot = await get(ref(db, `posts/${postId}`));
+  if (!snapshot.exists() || !snapshot.val().likedBy) {
+    return 0;
+  }
+  return Object.keys(snapshot.val().likedBy).length;
+}
+
+export const updatePost = async (id, content) => {
+  await update(ref(db, `posts/${id}`), {
+    content: content,
+  });
+};
 
 
 export const deletePost = async (postId) => {

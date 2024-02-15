@@ -1,7 +1,8 @@
 import { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { getPostById, addCommentToPost, getCommentsByPostId } from '../../services/post.service';
+import { getPostById, addCommentToPost, getCommentsByPostId, updateComment } from '../../services/post.service';
 import Post from '../../components/Post/Post';
+import Button from '../../components/Button/Button';
 import { AppContext } from '../../context/AppContext';
 
 export default function SinglePost() {
@@ -10,6 +11,8 @@ export default function SinglePost() {
   const [comment, setComment] = useState('');
   const { id } = useParams();
   const { userData } = useContext(AppContext)
+  const [editedComment, setEditedComment] = useState('');
+  const [editingCommentId, setEditingCommentId] = useState(null);
 
   useEffect(() => {
     fetchPostAndComments();
@@ -38,6 +41,31 @@ export default function SinglePost() {
     await fetchPostAndComments();
   };
 
+
+  const handleEditedCommentChange = (event) => {
+    setEditedComment(event.target.value);
+  };
+
+  const handleEditComment = (commentId, commentContent) => {
+    setEditingCommentId(commentId);
+    setEditedComment(commentContent);
+  };
+  
+  const handleCommentChangeSubmit = async (event) => {
+    event.preventDefault();
+  
+    if (editedComment.length < 1 || editedComment.length > 500) {
+      return alert('Comment must be between 1 and 500 characters.');
+    }
+  
+    if (editingCommentId) {
+      await updateComment(id, editingCommentId, userData.username, editedComment);
+      setEditingCommentId(null);
+      setEditedComment('');
+      await fetchPostAndComments();
+    }
+  }
+
   return (
     <div>
       <h1>Single Post</h1>
@@ -49,10 +77,24 @@ export default function SinglePost() {
       <div>
         <h2>Comments</h2>
         {comments.map((comment) => (
-          <div key={comment.id}>
-            <p>{comment.author}: {comment.comment}</p>
-          </div>
-        ))}
+  <div key={comment.id}>
+    {editingCommentId === comment.id ? (
+      userData.username === comment.author ? (
+        <form onSubmit={handleCommentChangeSubmit}>
+          <input type="text" value={editedComment} onChange={handleEditedCommentChange} />
+          <button type="submit">Change</button>
+          <button type="button" onClick={() => setEditingCommentId(null)}>Cancel</button>
+        </form>
+      ) : (
+        <p>You are not the author of this comment, so you cannot edit it.</p>
+      )
+    ) : (
+      <p onDoubleClick={() => handleEditComment(comment.id, comment.comment)}>
+        {comment.author}: {comment.comment}
+      </p>
+    )}
+  </div>
+))}
       </div>
     </div>
   );

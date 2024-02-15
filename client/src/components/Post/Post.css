@@ -1,31 +1,61 @@
 .post {
-    padding: 10px;
-    border: 1px solid #eee;
-    border-radius: 5px;
-    justify-content: center;
-    align-items: center;
-  }
+  display: flex;
+  flex-direction: column;
+  
+  border: 1px solid #c07979;
+  border-radius: 5px;
+  justify-content: center;
+  align-items: center;
+  width: 80%; /* or any other value */
+  max-width: 80%; /* or any other value */
+  margin: 0 auto; /* center the container */
+ 
+}
 
-  button {
-    border: none;
-    background: none;
-    cursor: pointer;
-    
-  }
-  
-  button:disabled {
-    cursor: not-allowed;
-  }
-  
-  button svg {
-    width: 24px;
-    height: 24px;
-  }
-  
-  button .like-active {
-    color: rgb(8, 231, 164);
-  }
-  
-  button .dislike-active {
-    color: rgb(230, 112, 112);
-  }
+.post-header {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  border-style: groove;
+}
+
+.post-actions {
+  display: flex;
+  gap: 10px;
+}
+
+button {
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+}
+
+button svg {
+  width: 24px;
+  height: 24px;
+}
+
+button .like-active {
+  color: rgb(8, 231, 164);
+}
+
+button .dislike-active {
+  color: rgb(230, 112, 112);
+}
+
+.post-container {
+  width: 80%; /* or any other value */
+  max-width: 80%; /* or any other value */
+  margin: 0 auto; /* center the container */
+  padding: 20px; /* add some space around the content */
+}
+
+textarea {
+  width: 100%; /* Set the width to 100% of the parent container */
+  height: 200px; /* Set a fixed height */
+}

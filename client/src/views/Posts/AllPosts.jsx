@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { getAllPosts } from "../../services/post.service";
 import { Link, } from "react-router-dom";
-import { likePost, dislikePost } from '../../services/post.service'; // replace with the actual path
+import { likeCount } from '../../services/post.service'; // replace with the actual path
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { FilterMatchMode } from "primereact/api";
@@ -19,6 +19,7 @@ import SocialMediaShare from "../../components/SocialMediaShare/SocialMediaShare
 export default function AllPosts() {
   const { userData } = useContext(AppContext);
   const [posts, setPosts] = useState([]);
+  const [likesCounts, setLikesCounts] = useState({});
   const [filters, setFilters] = useState({
     global: { value: null, matchMode: FilterMatchMode.CONTAINS },
   });
@@ -39,17 +40,23 @@ export default function AllPosts() {
     setShowModal(!showModal);
   }
 
-  const handleLike = async (id) => {
-    await likePost(id);
-    const updatedPost = await getPostById(id);
-    setPosts(posts.map(post => post.id === id ? updatedPost : post));
-  };
+  useEffect(() => {
+    getAllPosts().then(setPosts);
+  }, [posts]);
 
-  const handleDislike = async (id) => {
-    await dislikePost(id);
-    const updatedPost = await getPostById(id);
-    setPosts(posts.map(post => post.id === id ? updatedPost : post));
-  };
+  useEffect(() => {
+    if (!posts) return;
+  
+    const fetchLikesCounts = async () => {
+      const newLikesCounts = {};
+      for (let post of posts) {
+        newLikesCounts[post.id] = await likeCount(post.id);
+      }
+      setLikesCounts(newLikesCounts);
+    };
+  
+    fetchLikesCounts();
+  }, [posts]);
 
 
   const formatDateType = (post) => {
@@ -105,7 +112,7 @@ export default function AllPosts() {
           <Column className="column title-column" field='title' header='Post title' body={makeTitleALink} sortable />
           <Column className="column" field='' header='categories' sortable />
           <Column className="column date-column" field='createdOn' header='Created on' body={formatDateType} sortable />
-          <Column className="column" field='likes' header='Likes' sortable />
+          <Column className="column" field='likes' header='Likes' body={(rowData) => likesCounts[rowData.id]} sortable />
           <Column className="column" field='commentsCount' header='Comments' sortable />
           <Column className="column action-column" header='Actions' body={setButtons} />
         </DataTable>

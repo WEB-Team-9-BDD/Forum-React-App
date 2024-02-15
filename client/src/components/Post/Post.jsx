@@ -4,7 +4,7 @@ import Button from '../Button/Button';
 import { useNavigate } from 'react-router-dom';
 import { useContext, useState, useEffect, useCallback } from 'react';
 import { AppContext } from '../../context/AppContext';
-import { deletePost } from '../../services/post.service';
+import { deletePost, updatePost } from '../../services/post.service';
 import toast from "react-hot-toast";
 import { likePost, dislikePost } from '../../services/post.service';
 import { SlLike, SlDislike } from "react-icons/sl";
@@ -15,6 +15,8 @@ export default function Post({ post }) {
   const [updating, setUpdating] = useState(false);
   const [likeActive, setLikeActive] = useState(false);
   const [dislikeActive, setDislikeActive] = useState(false);
+  const [editing, setEditing] = useState(false);
+  const [editContent, setEditContent] = useState(post.content);
 
   useEffect(() => {
     setLikeActive(post.likedBy.includes(userData.username));
@@ -31,6 +33,13 @@ export default function Post({ post }) {
       toast.error(error.code);
     }
   }
+
+  const handleEditSubmit = async (event) => {
+    event.preventDefault();
+    await updatePost(post.id, editContent);
+    setEditing(false);
+  };
+
   const handleLike = useCallback(async () => {
     if (updating) return;
     setUpdating(true);
@@ -57,13 +66,29 @@ export default function Post({ post }) {
 
   return (
     <div className="post">
-      <h4>{post.title}
-        <Button disabled={updating} onClick={handleLike}><SlLike className={likeActive ? 'like-active' : ''} /></Button>
-        <Button disabled={updating} onClick={handleDislike}><SlDislike className={dislikeActive ? 'dislike-active' : ''}/></Button>
-      </h4>
-      <p>{post.content}</p>
-      <p>{new Date(post.createdOn).toLocaleDateString('bg-BG')}</p>
-      {/* <Button onClick={() => navigate(`/posts/${post.id}`)}>View</Button> */}
+<div className="post-header">
+  <h2>{post.title}</h2>
+  <div className="post-actions">
+    <Button disabled={updating} onClick={handleLike}><SlLike className={likeActive ? 'like-active' : ''} /></Button>
+    <Button disabled={updating} onClick={handleDislike}><SlDislike className={dislikeActive ? 'dislike-active' : ''}/></Button>
+  </div>
+  <p>{new Date(post.createdOn).toLocaleDateString('bg-BG')}</p>
+</div>
+      <div className="post-container">
+      {editing ? (
+  userData.username === post.author ? (
+    <form onSubmit={handleEditSubmit}>
+      <textarea value={editContent} onChange={e => setEditContent(e.target.value)} />
+      <button type="submit">Save</button>
+      <button type="button" onClick={() => setEditing(false)}>Cancel</button>
+    </form>
+  ) : (
+    <p>You are not the author of this post, so you cannot edit it.</p>
+  )
+) : (
+  <p onDoubleClick={() => setEditing(true)}>{post.content}</p>
+)}
+ </div>
       {userData.username === post.author ?
         (<>
           <Button onClick={() => { }}>Edit</Button>

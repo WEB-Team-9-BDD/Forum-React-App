@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { AppContext } from "../../context/AppContext";
 import { useNavigate } from "react-router-dom";
 import toast from 'react-hot-toast';
@@ -8,9 +8,11 @@ import { updateEmail, updatePassword } from 'firebase/auth'
 import { logoutUser } from "../../services/auth.service";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
 
 export default function UpdateAccount() {
     const { user, userData, setAppState } = useContext(AppContext);
+    const [isAdmin, setIsAdmin] = useState(false);
     const [showPassword, setShowPassword] = useState({
         password: false,
         confirmPassword: false
@@ -20,6 +22,8 @@ export default function UpdateAccount() {
         firstName: userData.firstName,
         lastName: userData.lastName,
         email: userData.email,
+        phoneNumber: userData.phoneNumber,
+        isAdmin: userData.isAdmin,
         password: '',
         confirmPassword: '',
     });
@@ -47,10 +51,26 @@ export default function UpdateAccount() {
         }
     }
 
+    useEffect(() => {
+        const checkAdminStatus = async () => {
+            if (userData && user.isAdmin) {
+                setIsAdmin(true);
+            } else {
+                setIsAdmin(false);
+            }
+        };
+        checkAdminStatus();
+    }, [user, userData]);
+
 
     return (
         <div>
             <div className="wrapper d-flex align-items-center justify-content-center w-100">
+            {userData.isAdmin && (
+                    <div>
+                        <Link to="/admin-powers">Admin Powers</Link>
+                    </div>
+                )}
                 <div className="update-account">
                     <h2 className="heading mb-3 text-center">Update Account</h2>
                     <form onSubmit={e => e.preventDefault()} >
@@ -79,6 +99,14 @@ export default function UpdateAccount() {
                                 type="text" name="last-name" id="last-name"
                                 value={form.lastName} onChange={updateForm('lastName')} />
                         </div>
+                        {userData.isAdmin && (
+                        <div className="form-group mb-2 ">
+                            <label className="form-label" htmlFor="phone-number">Phone Number: </label>
+                            <input autoComplete="off" className="form-control"
+                                type="text" name="phone" id="phone-number"
+                                value={form.phoneNumber} onChange={updateForm('phoneNumber')} />
+                        </div>
+                        )}
                         <hr />
                         <div className="form-group mb-2 ">
                             <label className="form-label" htmlFor="password">New password: </label>
