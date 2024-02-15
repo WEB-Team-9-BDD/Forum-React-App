@@ -139,7 +139,6 @@ export const getCommentsCount = async (postId) => {
     throw new Error('Post not found.');
   }
   const post = postSnapshot.val();
-  console.log(post.comment);
   return post.comments ? Object.keys(post.comments).length : 0;
 };
 

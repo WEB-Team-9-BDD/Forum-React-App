@@ -5,6 +5,7 @@ import { createUserUsername, getUserByUsername } from "../../services/users.serv
 import { registerUser } from "../../services/auth.service"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import { usersCount } from "../../services/users.service";
 import toast from 'react-hot-toast';
 import './CreateAccount.css'
 
@@ -18,7 +19,8 @@ export default function CreateAccount() {
         lastName: '',
         email: '',
         password: '',
-
+        isAdmin: false,
+        phoneNumber: '',
     });
     const navigate = useNavigate();
 
@@ -27,7 +29,7 @@ export default function CreateAccount() {
     }
 
     const createUser = async () => {
-        const { username, email, password, firstName, lastName } = form;
+        const { username, email, password, firstName, lastName, isAdmin, phoneNumber } = form;
 
         if (username.length === 0) {
             toast.error('Username cannot be empty');
@@ -44,7 +46,7 @@ export default function CreateAccount() {
         } else if (lastName.length < 4 || lastName.length > 32) {
             toast.error('Last name must be between 4 and 32 characters');
             return
-        } else {
+        } else{
             
             try {
                 const user = await getUserByUsername(username);
@@ -52,8 +54,13 @@ export default function CreateAccount() {
                     toast.error('Username already exists');
                     return
                 }
+                const users = await usersCount();
+                if(users === 0){
+                    form.isAdmin = true;
+                }
+
                 const userCredentials = await registerUser(email, password);
-                await createUserUsername(username, firstName, lastName, email, userCredentials.user.uid)
+                await createUserUsername(username, firstName, lastName, email, userCredentials.user.uid, isAdmin, phoneNumber)
 
                 setAppState({ user, userData: null });
                 navigate('/');

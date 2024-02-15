@@ -7,6 +7,7 @@ import Header from './components/Header/Header'
 import Login from './views/Login/Login'
 import CreateAccount from './views/CreateAccount/CreateAccount'
 import Loader from './components/Loader/Loader'
+import AdminPowers from './views/Admin/AdminPowers'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { auth } from './config/firebase-config'
 import { Toaster } from 'react-hot-toast'
@@ -68,6 +69,7 @@ function App() {
               <Route path='/post-create' element={<Authenticated><CreatePost /></Authenticated>} />
               <Route path='/user-profile' element={<Authenticated><UpdateAccount /></Authenticated>} />
               <Route path='/forgot-password' element={<ForgotPassword />} />
+              <Route path='/admin-powers' element={<Authenticated><AdminPowers /></Authenticated>} />
 
             </Routes>
           </div>

@@ -1,17 +1,14 @@
-import { Link } from 'react-router-dom';
 import './Home.css'
 import { useEffect, useState, useContext } from 'react';
-import { getAllPosts, getCommentsCount, postCount, getPostById } from '../../services/post.service';
+import { getAllPosts, getCommentsCount, postCount } from '../../services/post.service';
 import { usersCount } from '../../services/users.service';
-//import { isLoggedIn as isLoggedInService } from '../../services/auth.service';
 import { AppContext } from '../../context/AppContext';
+import HomePostPreview from './HomePostPreview';
 
 export default function Home() {
     const [posts, setPosts] = useState([]);
     const [countUsers, setCountUsers] = useState(0);
     const [countPosts, setCountPosts] = useState(0);
-    //const [isLoggedIn, setIsLoggedIn] = useState(false);
-
     const { user } = useContext(AppContext);
 
     useEffect(() => {
@@ -27,8 +24,6 @@ export default function Home() {
 
     useEffect(() => {
         const checkLoginStatus = async () => {
-            // const loggedIn = await isLoggedInService();
-            // setIsLoggedIn(!user);
             if (!user) {
                 const users = await usersCount();
                 const posts = await postCount();
@@ -38,8 +33,6 @@ export default function Home() {
         };
         checkLoginStatus();
     }, [user]);
-
-    
 
     const mostCommentedPosts = [...posts].sort((a, b) => a.commentsCount - b.commentsCount).slice(0, 10);
     
@@ -61,7 +54,12 @@ export default function Home() {
                     <div>
                         <h2>Recent Posts</h2>
                         {lastTenPosts.map(post => (
-                            <Link key={post.id} to={`/post/${post.id}`} className="recent-link">{post.title}</Link>
+                                <HomePostPreview
+                                key={post.id}
+                                post={{
+                                  ...post
+                                }}
+                              />
                         ))}
                     </div>
                 </div>
@@ -69,7 +67,12 @@ export default function Home() {
                     <div>
                         <h2>Most Commented Posts</h2>
                         {mostCommentedPosts.map(post => (
-                            <Link key={post.id} to={`/post/${post.id}`} className="most-commented-posts-link">{post.title}</Link>
+                                <HomePostPreview
+                                key={post.id}
+                                post={{
+                                  ...post,
+                                }}
+                              />
                         ))}
                     </div>
                 </div>
@@ -77,5 +80,3 @@ export default function Home() {
         </div>
     );
 }
-
-//{posts.map((post) => <Post key={post.id} post={post} 
