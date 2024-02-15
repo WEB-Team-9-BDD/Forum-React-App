@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
-import { deletePost, getAllPosts, getCommentsCount, getPostById } from "../../services/post.service";
-import { Link, useSearchParams } from "react-router-dom";
+import { getAllPosts } from "../../services/post.service";
+import { Link, } from "react-router-dom";
 import { likePost, dislikePost } from '../../services/post.service'; // replace with the actual path
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
@@ -10,11 +10,10 @@ import { FiSearch } from "react-icons/fi";
 import { AppContext } from '../../context/AppContext'
 import { CiEdit } from "react-icons/ci";
 import { RiDeleteBin6Line } from "react-icons/ri";
-import { GoShareAndroid } from "react-icons/go";
-import toast from "react-hot-toast";
 import 'primereact/resources/themes/lara-light-indigo/theme.css'
 import './AllPosts.css';
 import Modal from "../../components/Modal/Modal";
+import SocialMediaShare from "../../components/SocialMediaShare/SocialMediaShare";
 
 
 export default function AllPosts() {
@@ -30,14 +29,15 @@ export default function AllPosts() {
   // const setSearch = (value) => {
   //   setSearchParams({ search: value });
   // };
+  useEffect(() => {
+    getAllPosts().then(setPosts);
+
+  }, [posts]);
+
 
   const toggleModal = (postId) => {
     setShowModal(!showModal);
   }
-
-  useEffect(() => {
-    getAllPosts().then(setPosts);
-  }, [posts]);
 
   const handleLike = async (id) => {
     await likePost(id);
@@ -72,29 +72,19 @@ export default function AllPosts() {
     </>
   )
 
-  // const deleteSinglePost = async (postId) => {
-  //   setShowModal(true);
-  //   try {
-  //     await deletePost(postId);
-  //     toast.success('Post successfully deleted');
-
-  //   } catch (error) {
-  //     toast.error(error.code);
-  //   }
-  // };
-
   const setButtons = (post) => {
+    // console.log(post.id);
     return userData.username === post.author ? (
       <div className="justify-content-center">
         <CiEdit className="edit-button" />
         <RiDeleteBin6Line onClick={() => toggleModal(post.id)} className="delete-button" />
-        <GoShareAndroid className="share-button" />
-        <Modal show={showModal} toggle={toggleModal} id={post.id}/>
+        <SocialMediaShare id={post.id} />
+        <Modal show={showModal} toggle={toggleModal} id={post.id} />
       </div>
-    ) : (<GoShareAndroid className="share-button" />
+    ) : (<SocialMediaShare id={post.id} />
     )
   }
-  
+
   return (
     <>
       <div className="table">
