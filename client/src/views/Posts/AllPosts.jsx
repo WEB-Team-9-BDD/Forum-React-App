@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { deletePost, getAllPosts, getCommentsCount } from "../../services/post.service";
+import { deletePost, getAllPosts, postCommentsCounts } from "../../services/post.service";
 import { Link, } from "react-router-dom";
 import { likeCount } from '../../services/post.service'; // replace with the actual path
 import { DataTable } from 'primereact/datatable';
@@ -21,6 +21,8 @@ export default function AllPosts() {
   const { userData } = useContext(AppContext);
   const [posts, setPosts] = useState([]);
   const [likesCounts, setLikesCounts] = useState({});
+  const [commentsCount, setCommentsCount] = useState({});
+
   const [filters, setFilters] = useState({
     global: { value: null, matchMode: FilterMatchMode.CONTAINS },
   });
@@ -42,6 +44,20 @@ export default function AllPosts() {
     };
 
     fetchLikesCounts();
+  }, [posts]);
+
+  useEffect(() => {
+    if (!posts) return;
+
+    const fetchCommentsCount = async () => {
+      const newCommentsCount = {};
+      for (let post of posts) {
+        newCommentsCount[post.id] = await postCommentsCounts(post.id);
+      }
+      setCommentsCount(newCommentsCount);
+    };
+
+    fetchCommentsCount();
   }, [posts]);
 
   const toggleModal = () => {
@@ -87,7 +103,7 @@ export default function AllPosts() {
         <CiEdit className="edit-button" />
         <SocialMediaShare id={post.id} />
         <RiDeleteBin6Line onClick={() => toggleModal(post.id)} className="delete-button" />
-        <Modal show={showModal} toggle={toggleModal} id={post.id} onDelete={deleteSinglePost } />
+        <Modal show={showModal} toggle={toggleModal} id={post.id} onDelete={deleteSinglePost} />
       </div>
     ) : (<SocialMediaShare id={post.id} />
     )
@@ -113,7 +129,7 @@ export default function AllPosts() {
           <Column className="column" field='' header='categories' sortable />
           <Column className="column date-column" field='createdOn' header='Created on' body={formatDateType} sortable />
           <Column className="column" field='likes' header='Likes' body={(rowData) => likesCounts[rowData.id]} sortable />
-          <Column className="column" field='' header='Comments' sortable />
+          <Column className="column" field='' header='Comments' body={(rowData) => commentsCount[rowData.id]} sortable/>
           <Column className="column action-column" header='Actions' body={setButtons} />
         </DataTable>
       </div >
