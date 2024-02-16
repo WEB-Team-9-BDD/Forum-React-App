@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { getAllPosts } from "../../services/post.service";
+import { getAllPosts, getCommentsCount } from "../../services/post.service";
 import { Link, } from "react-router-dom";
 import { likeCount } from '../../services/post.service'; // replace with the actual path
 import { DataTable } from 'primereact/datatable';
@@ -24,21 +24,6 @@ export default function AllPosts() {
     global: { value: null, matchMode: FilterMatchMode.CONTAINS },
   });
   const [showModal, setShowModal] = useState(false);
-  // const [comments, setComments] = useState([]);
-  // const [searchParams, setSearchParams] = useSearchParams();
-  // const search = searchParams.get('search') || '';
-  // const setSearch = (value) => {
-  //   setSearchParams({ search: value });
-  // };
-  useEffect(() => {
-    getAllPosts().then(setPosts);
-
-  }, [posts]);
-
-
-  const toggleModal = (postId) => {
-    setShowModal(!showModal);
-  }
 
   useEffect(() => {
     getAllPosts().then(setPosts);
@@ -46,7 +31,7 @@ export default function AllPosts() {
 
   useEffect(() => {
     if (!posts) return;
-  
+
     const fetchLikesCounts = async () => {
       const newLikesCounts = {};
       for (let post of posts) {
@@ -54,10 +39,13 @@ export default function AllPosts() {
       }
       setLikesCounts(newLikesCounts);
     };
-  
+
     fetchLikesCounts();
   }, [posts]);
 
+  const toggleModal = () => {
+    setShowModal(!showModal);
+  }
 
   const formatDateType = (post) => {
     const fixedDate = new Date(post.createdOn);
@@ -80,12 +68,12 @@ export default function AllPosts() {
   )
 
   const setButtons = (post) => {
-    // console.log(post.id);
+    // console.log(post);
     return userData.username === post.author ? (
-      <div className="justify-content-center">
+      <div className='table-action-buttons'>
         <CiEdit className="edit-button" />
-        <RiDeleteBin6Line onClick={() => toggleModal(post.id)} className="delete-button" />
         <SocialMediaShare id={post.id} />
+        <RiDeleteBin6Line onClick={() => toggleModal(post.id)} className="delete-button" />
         <Modal show={showModal} toggle={toggleModal} id={post.id} />
       </div>
     ) : (<SocialMediaShare id={post.id} />
@@ -106,70 +94,17 @@ export default function AllPosts() {
           } />
         </div>
         < DataTable value={posts} className="table-data"
-          paginator rows={10} rowsPerPageOptions={[10, 25, 50]}
+          paginator rows={10} rowsPerPageOptions={[10, 20, 50]}
           sortMode="multiple" footer={footer} filters={filters} removableSort
         >
           <Column className="column title-column" field='title' header='Post title' body={makeTitleALink} sortable />
           <Column className="column" field='' header='categories' sortable />
           <Column className="column date-column" field='createdOn' header='Created on' body={formatDateType} sortable />
           <Column className="column" field='likes' header='Likes' body={(rowData) => likesCounts[rowData.id]} sortable />
-          <Column className="column" field='commentsCount' header='Comments' sortable />
+          <Column className="column" field='' header='Comments' sortable />
           <Column className="column action-column" header='Actions' body={setButtons} />
         </DataTable>
       </div >
     </>
   );
 }
-
-
-
-
-// import { useContext, useEffect, useState } from "react";
-// import { getAllPosts } from "../../services/post.service";
-// import PostPreview from "../../components/PostPreview/PostPreview";
-// import { useSearchParams } from "react-router-dom";
-// import { AppContext } from "../../context/AppContext";
-
-// export default function AllPosts() {
-//   const [posts, setPosts] = useState([]);
-//   const [searchParams, setSearchParams] = useSearchParams();
-//   // const [filters, setFilters] = useState({
-//   //   global: { value: null, matchMode: FilterMatchMode.CONTAINS },
-//   // })
-
-//   const search = searchParams.get('search') || '';
-
-//   const setSearch = (value) => {
-//     setSearchParams({ search: value });
-//   };
-
-//   useEffect(() => {
-//     getAllPosts(search).then(setPosts);
-
-//   }, [search]);
-
-
-//   return (
-// <div>
-//   <h1>All posts</h1>
-//   <label htmlFor="search">Search </label>
-//   <input value={search} onChange={e => setSearch(e.target.value)} type="text" name="search" id="search" /><br />
-//   {posts.map((post) => (
-//     <PostPreview
-//       key={post.id}
-//       post={{
-//         ...post,
-//         likes: typeof post.likes === 'number' ? post.likes : 0,
-//         dislikes: typeof post.dislikes === 'number' ? post.dislikes : 0,
-//       }}
-//     />
-//   ))}
-// </div>
-//   );
-// }
-
-{/* // <div> */ }
-//   {posts.map((post) => <Post key={post.id} post={post}
-//     onLike={() => handleLike(post.id)} onDislike={() => handleDislike(post.id)} />
-//   )}
-// </div>

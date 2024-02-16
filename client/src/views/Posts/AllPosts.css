@@ -17,7 +17,7 @@ div.p-column-header-content {
     justify-content: center;
     text-align: center;
     font-size: 1.25rem;
-    box-shadow: 1px 1px 20px 1px rgba(156, 182, 202, 0.536);
+    /* box-shadow: 1px 1px 20px 1px rgba(156, 182, 202, 0.536); */
 }
 
 .title-column {
@@ -26,7 +26,7 @@ div.p-column-header-content {
 }
 
 .date-column {
-    width: 12rem;
+    width: 11rem;
 }
 
 .search-wrapper {
@@ -62,27 +62,39 @@ div.p-column-header-content {
 }
 
 .action-column {
-    max-width: 9rem;
+    max-width: 7rem;
+    padding: 5px;
+    margin: 5px;
+    justify-content: center;
+    text-align: center;
+}
+
+.table-action-buttons {
+    justify-content: center;
+    text-align: center;
+    display:inline-flex;
+    padding: 5px;
+    margin: 5px;
 }
 
 .edit-button {
     color: rgb(0, 94, 255);
-    font-size: 40px;
-    margin: 2px;
-    padding: 5px;
+    font-size: 38px;
+    padding: 3px;
+    margin: 0 3px;
 }
 
 .delete-button {
     color: rgb(168, 95, 95);
-    font-size: 35px;
-    margin: 2px;
-    padding: 5px;
+    font-size: 36px;
+    padding: 3px;
+    margin: 0 3px;
 }
 
 .share-button {
-    font-size: 35px;
-    margin: 2px;
-    padding: 5px;
+    font-size: 34px;
+    padding: 3px;
+    margin: 0 3px;
 }
 
 .delete-button:hover {
