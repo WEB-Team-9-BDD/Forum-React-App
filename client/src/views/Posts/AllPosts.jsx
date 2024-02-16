@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { getAllPosts, getCommentsCount } from "../../services/post.service";
+import { deletePost, getAllPosts, getCommentsCount } from "../../services/post.service";
 import { Link, } from "react-router-dom";
 import { likeCount } from '../../services/post.service'; // replace with the actual path
 import { DataTable } from 'primereact/datatable';
@@ -14,6 +14,7 @@ import 'primereact/resources/themes/lara-light-indigo/theme.css'
 import './AllPosts.css';
 import Modal from "../../components/Modal/Modal";
 import SocialMediaShare from "../../components/SocialMediaShare/SocialMediaShare";
+import toast from "react-hot-toast";
 
 
 export default function AllPosts() {
@@ -27,7 +28,7 @@ export default function AllPosts() {
 
   useEffect(() => {
     getAllPosts().then(setPosts);
-  }, [posts]);
+  }, []);
 
   useEffect(() => {
     if (!posts) return;
@@ -67,14 +68,26 @@ export default function AllPosts() {
     </>
   )
 
+  const deleteSinglePost = async (postId) => {
+    try {
+      await deletePost(postId);
+      toast.success('Post successfully deleted');
+      const newPosts = posts.filter((post) => post.id !== postId);
+      setPosts(newPosts);
+      toggleModal();
+    } catch (error) {
+      toast.error(error.code);
+    }
+  };
+
+
   const setButtons = (post) => {
-    // console.log(post);
     return userData.username === post.author ? (
       <div className='table-action-buttons'>
         <CiEdit className="edit-button" />
         <SocialMediaShare id={post.id} />
         <RiDeleteBin6Line onClick={() => toggleModal(post.id)} className="delete-button" />
-        <Modal show={showModal} toggle={toggleModal} id={post.id} />
+        <Modal show={showModal} toggle={toggleModal} id={post.id} onDelete={deleteSinglePost } />
       </div>
     ) : (<SocialMediaShare id={post.id} />
     )
@@ -84,7 +97,6 @@ export default function AllPosts() {
     <>
       <div className="table">
         <h1>All posts</h1>
-        <h2></h2>
         <div className="search-wrapper">
           <FiSearch />
           <InputText id='all-posts-searchbar' type='search' onInput={(e) =>

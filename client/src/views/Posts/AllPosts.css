@@ -62,9 +62,9 @@ div.p-column-header-content {
 }
 
 .action-column {
-    max-width: 7rem;
-    padding: 5px;
-    margin: 5px;
+    width: 8rem;
+    padding: 3px;
+    margin: 3px;
     justify-content: center;
     text-align: center;
 }
@@ -81,14 +81,14 @@ div.p-column-header-content {
     color: rgb(0, 94, 255);
     font-size: 38px;
     padding: 3px;
-    margin: 0 3px;
+    margin: 0 3px;  
 }
 
 .delete-button {
     color: rgb(168, 95, 95);
     font-size: 36px;
     padding: 3px;
-    margin: 0 3px;
+    margin: 0 3px;    
 }
 
 .share-button {
