@@ -167,3 +167,14 @@ export const deletePost = async (postId) => {
   await remove(ref(db, `comments/${postId}`));
 
 }
+
+export const postCommentsCounts = async(postId) => {
+  const commentSnapshot = await get(ref(db, `comments/${postId}`));
+  if (!commentSnapshot.exists()) {
+    return 0;
+  }
+  const comments = commentSnapshot.val();
+  console.log(Object.keys(comments).length);
+
+  return Object.keys(comments).length;
+}
