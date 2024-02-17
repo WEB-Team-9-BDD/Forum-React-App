@@ -1,0 +1,12 @@
+.update-profile-button {
+    background-color: rgba(4, 84, 244, 0.559);
+    padding: 20px;
+}
+
+.profile-avatar {
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    border: 1px solid black;
+    margin: 10px;
+}
