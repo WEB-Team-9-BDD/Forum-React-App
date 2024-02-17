@@ -73,13 +73,12 @@ export default function AllPosts() {
   }, [posts]);
 
   useEffect(() => {
-    const initialEditedTitles = {};
+    const allEditedTitles = {};
     posts.forEach(post => {
-      initialEditedTitles[post.id] = post.title;
+      allEditedTitles[post.id] = post.title;
     });
-    setEditedTitles(initialEditedTitles);
+    setEditedTitles(allEditedTitles);
   }, [posts]);
-
 
   const toggleModal = () => {
     setShowModal(!showModal);
@@ -92,17 +91,8 @@ export default function AllPosts() {
   };
 
   const makeTitleALink = (post) => {
-
     return <Link to={`/posts/${post.id}`} >{post.title}</Link >
   };
-
-  const footer = (
-    <>
-      <div className="d-flex justify-content-center mt-2">
-        <h5>{`Total posts: ${fullPostsData ? fullPostsData.length : 0}`}</h5>
-      </div>
-    </>
-  );
 
   const deleteSinglePost = async (postId) => {
     try {
@@ -128,6 +118,14 @@ export default function AllPosts() {
     )
   };
 
+  const renderLikes = (post) => {
+    return post.likes;
+  };
+
+  const renderComments = (post) => {
+    return post.comments;
+  }
+
   const handleIsClicked = (post) => {
 
     return userData.username === post.author && post.id === postToEdit ?
@@ -146,14 +144,6 @@ export default function AllPosts() {
       : (makeTitleALink(post));
   }
 
-  const renderLikes = (post) => {
-    return post.likes;
-  };
-
-  const renderComments = (post) => {
-    return post.comments;
-  }
-
   const handleTitleEdit = (e, post) => {
     setEditedTitles({
       ...editedTitles, [post.id]: e.target.value
@@ -162,7 +152,7 @@ export default function AllPosts() {
 
   const editTitle = async (postId) => {
     if (editedTitles[postId].length < 16 || editedTitles[postId].length > 64) {
-     
+
       return toast.error('Title must be between 16 and 64 symbols.');
     } else {
       try {
@@ -180,6 +170,14 @@ export default function AllPosts() {
       }
     }
   }
+
+  const footer = (
+    <>
+      <div className="d-flex justify-content-center mt-2">
+        <h5>{`Total posts: ${fullPostsData ? fullPostsData.length : 0}`}</h5>
+      </div>
+    </>
+  );
 
   return (
     <>
@@ -200,10 +198,10 @@ export default function AllPosts() {
         >
           <Column className="column title-column" field='title' header='Post title'
             body={postToEdit ? handleIsClicked : makeTitleALink} sortable />
-          <Column className="column" field='' header='categories' />
+          <Column className="column category-column" field='category' header='categories' sortable />
           <Column className="column date-column" field='createdOn' header='Created on' body={formatDateType} sortable />
-          <Column className="column" field='likes' header='Likes' body={renderLikes} sortable />
-          <Column className="column" field='comments' header='Comments' body={renderComments} sortable />
+          <Column className="column likes-column" field='likes' header='Likes' body={renderLikes} sortable />
+          <Column className="column comments-column" field='comments' header='Comments' body={renderComments} sortable />
           <Column className="column action-column" header='Actions' body={setButtons} />
         </DataTable>
       </div >

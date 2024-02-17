@@ -29,6 +29,14 @@ div.p-column-header-content {
     width: 11rem;
 }
 
+.category-column {
+    width: 7rem;
+}
+
+.comments-column, .likes-column {
+    width: 8rem;
+}
+
 .search-wrapper {
     background-color: white;
     width: 50%;
