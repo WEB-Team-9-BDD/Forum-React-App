@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { deletePost, getAllPosts, postCommentsCounts } from "../../services/post.service";
+import { deletePost, editPostTitle, getAllPosts, postCommentsCounts } from "../../services/post.service";
 import { Link, } from "react-router-dom";
 import { likeCount } from '../../services/post.service'; // replace with the actual path
 import { DataTable } from 'primereact/datatable';
@@ -14,6 +14,8 @@ import 'primereact/resources/themes/lara-light-indigo/theme.css'
 import './AllPosts.css';
 import Modal from "../../components/Modal/Modal";
 import SocialMediaShare from "../../components/SocialMediaShare/SocialMediaShare";
+import { GiConfirmed } from "react-icons/gi";
+import { GiCancel } from "react-icons/gi";
 import toast from "react-hot-toast";
 
 
@@ -22,11 +24,20 @@ export default function AllPosts() {
   const [posts, setPosts] = useState([]);
   const [likesCounts, setLikesCounts] = useState({});
   const [commentsCount, setCommentsCount] = useState({});
-
+  const [showModal, setShowModal] = useState(false);
   const [filters, setFilters] = useState({
     global: { value: null, matchMode: FilterMatchMode.CONTAINS },
   });
-  const [showModal, setShowModal] = useState(false);
+  const [postToEdit, setPostToEdit] = useState(null);
+  const [editedTitles, setEditedTitles] = useState({});
+
+  const fullPostsData = posts.map((post) => {
+    return {
+      ...post, likes: likesCounts[post.id],
+      comments: commentsCount[post.id]
+    }
+  });
+
 
   useEffect(() => {
     getAllPosts().then(setPosts);
@@ -44,6 +55,7 @@ export default function AllPosts() {
     };
 
     fetchLikesCounts();
+
   }, [posts]);
 
   useEffect(() => {
@@ -60,35 +72,43 @@ export default function AllPosts() {
     fetchCommentsCount();
   }, [posts]);
 
+  useEffect(() => {
+    const initialEditedTitles = {};
+    posts.forEach(post => {
+      initialEditedTitles[post.id] = post.title;
+    });
+    setEditedTitles(initialEditedTitles);
+  }, [posts]);
+
+
   const toggleModal = () => {
     setShowModal(!showModal);
-  }
+  };
 
   const formatDateType = (post) => {
     const fixedDate = new Date(post.createdOn);
 
     return fixedDate.toLocaleDateString('bg-BG');
-  }
+  };
 
   const makeTitleALink = (post) => {
-    const link = <Link to={`/posts/${post.id}`} > {post.title}</Link >
 
-    return link;
-  }
+    return <Link to={`/posts/${post.id}`} >{post.title}</Link >
+  };
 
   const footer = (
     <>
       <div className="d-flex justify-content-center mt-2">
-        <h5>{`Total posts: ${posts ? posts.length : 0}`}</h5>
+        <h5>{`Total posts: ${fullPostsData ? fullPostsData.length : 0}`}</h5>
       </div>
     </>
-  )
+  );
 
   const deleteSinglePost = async (postId) => {
     try {
       await deletePost(postId);
       toast.success('Post successfully deleted');
-      const newPosts = posts.filter((post) => post.id !== postId);
+      const newPosts = fullPostsData.filter((post) => post.id !== postId);
       setPosts(newPosts);
       toggleModal();
     } catch (error) {
@@ -96,17 +116,69 @@ export default function AllPosts() {
     }
   };
 
-
   const setButtons = (post) => {
     return userData.username === post.author ? (
       <div className='table-action-buttons'>
-        <CiEdit className="edit-button" />
+        <CiEdit className="edit-button" onClick={() => setPostToEdit(post.id)} />
         <SocialMediaShare id={post.id} />
         <RiDeleteBin6Line onClick={() => toggleModal(post.id)} className="delete-button" />
         <Modal show={showModal} toggle={toggleModal} id={post.id} onDelete={deleteSinglePost} />
       </div>
     ) : (<SocialMediaShare id={post.id} />
     )
+  };
+
+  const handleIsClicked = (post) => {
+
+    return userData.username === post.author && post.id === postToEdit ?
+      (
+        <div className="edit-post-title">
+          <input className="edit-title-input" key={post.id} type="text"
+            value={editedTitles[post.id]}
+            onChange={(e) => handleTitleEdit(e, post)}
+          />
+          <div className="edit-title-buttons" >
+            <GiConfirmed className='edit-submit' type="submit" onClick={() => editTitle(post.id)} />
+            <GiCancel className='edit-cancel' type="submit" onClick={() => setPostToEdit(null)} />
+          </div>
+        </div>
+      )
+      : (makeTitleALink(post));
+  }
+
+  const renderLikes = (post) => {
+    return post.likes;
+  };
+
+  const renderComments = (post) => {
+    return post.comments;
+  }
+
+  const handleTitleEdit = (e, post) => {
+    setEditedTitles({
+      ...editedTitles, [post.id]: e.target.value
+    })
+  }
+
+  const editTitle = async (postId) => {
+    if (editedTitles[postId].length < 16 || editedTitles[postId].length > 64) {
+     
+      return toast.error('Title must be between 16 and 64 symbols.');
+    } else {
+      try {
+        await editPostTitle(postId, editedTitles[postId]);
+        toast.success('Post title updated successfully');
+        setPostToEdit(null);
+        setPosts(posts.map(post => {
+          if (post.id === postId) {
+            return { ...post, title: editedTitles[postId] };
+          }
+          return post;
+        }))
+      } catch (error) {
+        toast.error(error.message);
+      }
+    }
   }
 
   return (
@@ -121,15 +193,17 @@ export default function AllPosts() {
             })
           } />
         </div>
-        < DataTable value={posts} className="table-data"
+        < DataTable value={fullPostsData} className="table-data"
           paginator rows={10} rowsPerPageOptions={[10, 20, 50]}
-          sortMode="multiple" footer={footer} filters={filters} removableSort
+          sortMode="multiple" sortField="title"
+          footer={footer} filters={filters} removableSort
         >
-          <Column className="column title-column" field='title' header='Post title' body={makeTitleALink} sortable />
-          <Column className="column" field='' header='categories' sortable />
+          <Column className="column title-column" field='title' header='Post title'
+            body={postToEdit ? handleIsClicked : makeTitleALink} sortable />
+          <Column className="column" field='' header='categories' />
           <Column className="column date-column" field='createdOn' header='Created on' body={formatDateType} sortable />
-          <Column className="column" field='likes' header='Likes' body={(rowData) => likesCounts[rowData.id]} sortable />
-          <Column className="column" field='' header='Comments' body={(rowData) => commentsCount[rowData.id]} sortable/>
+          <Column className="column" field='likes' header='Likes' body={renderLikes} sortable />
+          <Column className="column" field='comments' header='Comments' body={renderComments} sortable />
           <Column className="column action-column" header='Actions' body={setButtons} />
         </DataTable>
       </div >

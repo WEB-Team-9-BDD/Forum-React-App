@@ -72,7 +72,7 @@ div.p-column-header-content {
 .table-action-buttons {
     justify-content: center;
     text-align: center;
-    display:inline-flex;
+    display: inline-flex;
     padding: 5px;
     margin: 5px;
 }
@@ -81,14 +81,14 @@ div.p-column-header-content {
     color: rgb(0, 94, 255);
     font-size: 38px;
     padding: 3px;
-    margin: 0 3px;  
+    margin: 0 3px;
 }
 
 .delete-button {
     color: rgb(168, 95, 95);
     font-size: 36px;
     padding: 3px;
-    margin: 0 3px;    
+    margin: 0 3px;
 }
 
 .share-button {
@@ -107,4 +107,34 @@ div.p-column-header-content {
 
 .share-button:hover {
     cursor: pointer;
+}
+
+
+.edit-post-title {
+    justify-content: center;
+    display: inline-flex;
+}
+
+.edit-title-input {
+    background-color: transparent;
+    border-radius: 10px;
+    border: 1px solid rgba(128, 128, 128, 0.451);
+    width: 27.5rem;
+    margin-right: 5px;
+    padding: 5px;
+}
+
+.edit-title-buttons {
+    font-size: 25px;
+    margin: 3px;
+}
+
+.edit-submit {
+ color:rgb(64, 223, 78);
+    margin: 3px;
+}
+
+.edit-cancel {
+    color: rgb(235, 79, 79);
+    margin: 3px;
 }
