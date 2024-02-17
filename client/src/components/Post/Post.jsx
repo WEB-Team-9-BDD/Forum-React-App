@@ -109,5 +109,6 @@ Post.propTypes = {
     likedBy: PropTypes.array,
     dislikedBy: PropTypes.array,
     author: PropTypes.string,
+    category: PropTypes.string,
   }),
 };

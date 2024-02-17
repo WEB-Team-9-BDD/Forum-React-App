@@ -12,11 +12,12 @@ import {
 } from 'firebase/database';
 import { db } from '../config/firebase-config';
 
-export const addPost = async (author, title, content) => {
+export const addPost = async (author, title, content, category) => {
   return push(ref(db, 'posts'), {
     author,
     title,
     content,
+    category, // new category field
     createdOn: Date.now(),
     comments: [],
   });
@@ -35,6 +36,7 @@ export const getAllPosts = async (search, createdBy) => {
     .map((key) => ({
       id: key,
       ...snapshot.val()[key],
+      category: snapshot.val()[key].category, // new category field
       createdOn: new Date(snapshot.val()[key].createdOn).toString(),
       createdBy: snapshot.val()[key].createdBy
         ? Object.keys(snapshot.val()[key].createdBy)
@@ -57,6 +59,7 @@ export const getPostById = async (id) => {
   const post = {
     id,
     ...snapshot.val(),
+    category: snapshot.val().category, // new category field
     createdOn: new Date(snapshot.val().createdOn).toString(),
     createdBy: snapshot.val().createdBy
       ? Object.keys(snapshot.val().createdBy)
