@@ -61,11 +61,12 @@ export const getPostById = async (id) => {
     createdBy: snapshot.val().createdBy
       ? Object.keys(snapshot.val().createdBy)
       : [],
-      likedBy: snapshot.val().likedBy ? Object.keys(snapshot.val().likedBy) : [],
-      dislikedBy: snapshot.val().dislikedBy ? Object.keys(snapshot.val().dislikedBy) : [],
+    likedBy: snapshot.val().likedBy ? Object.keys(snapshot.val().likedBy) : [],
+    dislikedBy: snapshot.val().dislikedBy ? Object.keys(snapshot.val().dislikedBy) : [],
   };
 
-  return post;};
+  return post;
+};
 
 
 export const likePost = async (username, postId) => {
@@ -168,13 +169,17 @@ export const deletePost = async (postId) => {
 
 }
 
-export const postCommentsCounts = async(postId) => {
+export const postCommentsCounts = async (postId) => {
   const commentSnapshot = await get(ref(db, `comments/${postId}`));
   if (!commentSnapshot.exists()) {
     return 0;
   }
   const comments = commentSnapshot.val();
-  console.log(Object.keys(comments).length);
 
   return Object.keys(comments).length;
 }
+
+export const editPostTitle = async (postId, newTitle) => {
+  await update(ref(db, `posts/${postId}`),
+  {title: newTitle});
+} 
