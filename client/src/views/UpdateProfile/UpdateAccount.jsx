@@ -3,7 +3,7 @@ import { AppContext } from "../../context/AppContext";
 import { useNavigate } from "react-router-dom";
 import toast from 'react-hot-toast';
 import './UpdateAccount.css'
-import { createUserUsername } from "../../services/users.service";
+import { createUser } from "../../services/users.service";
 import { updateEmail, updatePassword } from 'firebase/auth'
 import { logoutUser } from "../../services/auth.service";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -41,7 +41,7 @@ export default function UpdateAccount() {
                 toast.success('Password has been changed successfully!');
             }
             form.email !== userData.email ? await updateEmail(user, form.email) : null
-            await createUserUsername(userData.username, form.firstName, form.lastName, form.email, userData.uid);
+            await createUser(userData.username, form.firstName, form.lastName, form.email, userData.uid);
             await logoutUser();
             setAppState({ user: null, userData: null });
             toast.success('Account updated successfully!');
