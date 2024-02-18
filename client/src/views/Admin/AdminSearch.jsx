@@ -2,11 +2,17 @@ import { useState } from "react";
 import { getAllUsers } from "../../services/users.service";
 
 export default function AdminUsersSearch(){
-    const [searchInput, setSearchInput] = useState('');
+    const [searchInput, setSearchInput] = useState({
+        searchInput: '',
+    });
+
+    const updateForm = prop => e => {
+        setSearchInput({ ...searchInput, [prop]: e.target.value })
+    }
 
     const searchUsers = async () => {
         const allUsers = await getAllUsers(); 
-        const filteredUsers = allUsers.filter(user => user.email.includes(searchInput));
+        const filteredUsers = allUsers.filter(user => user.username.includes(searchInput.username));
         return filteredUsers;
       };
 
@@ -18,13 +24,14 @@ export default function AdminUsersSearch(){
 
     return (
         <form onSubmit={handleSubmit}>
-            <div className="form-group mb-2 ">
-                <label className="form-label" htmlFor="search">Search by E-mail: </label>
+            <h1>Make User Admin</h1>
+            <div className="form-group mb-2">
+                <label className="form-label" htmlFor="username">Username: </label>
                 <input autoComplete="off" className="form-control"
-                    type="text" name="search" id="search"
-                    value={searchInput} onChange={e => setSearchInput(e.target.value)} />
+                    type="text" name="username" id="username"
+                    value={searchInput.username} onChange={updateFormSeach('username')} />
             </div>
-            <button type="submit">Search</button>
+            <button className="btn btn-primary" onClick={searchUsers}>Search</button>
         </form>
     )
 }

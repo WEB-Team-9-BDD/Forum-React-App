@@ -13,14 +13,14 @@ export const logoutUser = () => {
   return signOut(auth);
 };
 
-export const isLoggedIn = () => {
-  return new Promise((resolve) => {
-    onAuthStateChanged(auth, user => {
-      if (user) {
-        resolve(true);
-      } else {
-        resolve(false);
-      }
-    });
-  });
-};
+// export const isLoggedIn = () => {
+//   return new Promise((resolve) => {
+//     onAuthStateChanged(auth, user => {
+//       if (user) {
+//         resolve(true);
+//       } else {
+//         resolve(false);
+//       }
+//     });
+//   });
+// };
