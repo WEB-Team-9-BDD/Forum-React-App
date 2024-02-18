@@ -38,15 +38,20 @@ export default function UpdateAccount() {
         try {
             if (form.confirmPassword.length && form.password === form.confirmPassword) {
                 await updatePassword(user, form.confirmPassword);
-                toast.success('Password has been changed successfully!');
+                const interval = setInterval(() => {
+                    toast.success('Password has been changed successfully!');
+                }, 200);
+                setTimeout(() => { clearInterval(interval) }, 400);
                 await logoutUser();
             }
             form.email !== userData.email ? await updateEmail(user, form.email) : null
             await updateUser(userData.username, form.firstName, form.lastName, form.email, userData.uid);
             setAppState({ user: null, userData: null });
-            setTimeout(() => {
+            await logoutUser();
+            const interval = setInterval(() => {
                 toast.success('Account updated successfully!');
-            }, 1600);
+            }, 100);
+            setTimeout(() => { clearInterval(interval) }, 300);
             navigate('/');
         } catch (error) {
             toast.error(error.message);
