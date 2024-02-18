@@ -3,68 +3,69 @@ import { AppContext } from "../../context/AppContext";
 import { Link, useNavigate } from "react-router-dom";
 import './PersonalProfile.css'
 import { getPostsByAuthor } from "../../services/post.service";
-import { uploadProfilePicture } from "../../services/users.service";
+import { getUserByUsername, uploadProfilePicture } from "../../services/users.service";
+import toast from "react-hot-toast";
+import ProfilePreview from "../../components/ProfilePreview/ProfilePreview";
+import { MdOutlinePostAdd } from "react-icons/md";
+import SocialMediaShare from '../../components/SocialMediaShare/SocialMediaShare'
 
 export default function PersonalProfile() {
-    const [photoURL, setPhotoURL] = useState('');
-    const { user, userData } = useContext(AppContext);
-    const [userPosts, setUserPosts] = useState([]);
-    const [image, setImage] = useState(null);
 
+    const { user, userData } = useContext(AppContext);
+    const [photoURL, setPhotoURL] = useState('');
+    const [userPosts, setUserPosts] = useState([]);
+    const [profilePhoto, setProfilePhoto] = useState(null);
     const navigate = useNavigate();
+
     useEffect(() => {
         getPostsByAuthor(userData.username).then(setUserPosts);
     }, []);
 
     useEffect(() => {
-        if (user?.photoURL) {
+        if (user && user.photoURL) {
             setPhotoURL(user.photoURL)
         }
-    }, [user]);
+    }, [user, photoURL]);
 
     const uploadPhoto = async () => {
         try {
-            await uploadProfilePicture(image, user);
+            await uploadProfilePicture(profilePhoto, user);
+            const updatedUser = await getUserByUsername(userData.username);
+            toast.success('Profile photo added successfully.')
+            setPhotoURL(updatedUser.photoURL);
         } catch (error) {
-            console.log(error.message);
+            toast.error(error.code);
         }
     }
 
     return (
         <>
-            <div>
-                <div>
-                    <h3>Profile preview</h3>
-                    <div >
-                        <img alt="avatar" className='profile-avatar' src={photoURL} />
-                        <input type="file" accept="image/*"
-                            onChange={(e) => setImage(e.target.files[0])} />
-                        <button className="btn btn-primary" onClick={uploadPhoto}>UPLOAD AVATAR</button>
-                        <p>Username: {userData.username}</p>
-                        <p>Registered: {new Date(userData.createdOn).toLocaleDateString('bg-BG')}</p>
-                        <p>Number of posts: {userPosts.length}</p>
-                        <p>Likes: X</p>
-                    </div>
-                    <button className="update-profile-button" onClick={() => navigate('/update-profile')}>Update profile</button>
+            <div className='user-profile-container'>
+                <ProfilePreview photoURL={photoURL} setProfilePhoto={setProfilePhoto}
+                    uploadPhoto={uploadPhoto} userPosts={userPosts} photo={profilePhoto} />
+
+                <div className="personal-profile-posts">
+                    <h4>My posts</h4>
+                    {userPosts.length ?
+                        (
+                            userPosts.map((post) => {
+                                return <div className="my-posts-item" key={post.id}>
+                                    <MdOutlinePostAdd />
+                                    <Link key={post.id} to={`/posts/${post.id}`} >{post.title}</Link >
+                                    <SocialMediaShare id={post.id} />
+                                </div>
+                            }
+                            )
+                        ) : (
+                            <div>
+                                <h5>You haven`t posted yet.</h5>
+                            </div>
+                        )
+                    }
                 </div>
                 <div>
-                    <h4>My posts</h4>
-                    <div className="personal-profile-posts">
-                        {userPosts ?
-                            (
-                                userPosts.map((post) => {
-                                    return <div key={post.id}>
-                                        <Link key={post.id} to={`/ posts / ${post.id}`} >{post.title}</Link >
-
-                                    </div>
-                                }
-                                )
-                            ) : (
-                                <h5>You haven`t posted yet.</h5>
-                            )
-                        }
-                    </div>
-                </div >
+                    <button className="btn btn-primary update-user-profile" onClick={() => navigate('/update-profile')}>Update profile</button>
+                </div>
             </div >
         </>
     )
