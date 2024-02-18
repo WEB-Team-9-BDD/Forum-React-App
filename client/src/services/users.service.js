@@ -1,4 +1,4 @@
-import { get, set, ref, query, equalTo, orderByChild, push } from 'firebase/database';
+import { get, set, ref, query, equalTo, orderByChild, update } from 'firebase/database';
 import { db, storage } from '../config/firebase-config';
 import { ref as sRef } from 'firebase/storage';
 import { getDownloadURL, uploadBytes } from 'firebase/storage';
@@ -18,6 +18,11 @@ export const createUser = (username, firstName, lastName, email, uid, isAdmin, p
 
   return set(ref(db, `users/${username}`), { username, firstName, lastName, uid, email, createdOn: Date.now(), likedPosts: {}, isAdmin, phoneNumber })
 };
+
+export const updateUser = (username, firstName, lastName, email, uid) => {
+
+  return update(ref(db, `users/${username}`), { username, firstName, lastName, email, uid});
+}
 
 export const getUserData = (uid) => {
 
