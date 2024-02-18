@@ -1,9 +1,9 @@
-import { useContext, useEffect, useState } from "react";
+import {useContext, useEffect, useState } from "react";
 import { AppContext } from "../../context/AppContext";
 import { Link, useNavigate } from "react-router-dom";
 import './PersonalProfile.css'
 import { getPostsByAuthor } from "../../services/post.service";
-import { getUserByUsername, uploadProfilePicture } from "../../services/users.service";
+import { uploadProfilePicture } from "../../services/users.service";
 import toast from "react-hot-toast";
 import ProfilePreview from "../../components/ProfilePreview/ProfilePreview";
 import { MdOutlinePostAdd } from "react-icons/md";
@@ -25,18 +25,18 @@ export default function PersonalProfile() {
         if (user && user.photoURL) {
             setPhotoURL(user.photoURL)
         }
-    }, [user, photoURL]);
+    }, [user]);
 
     const uploadPhoto = async () => {
         try {
-            await uploadProfilePicture(profilePhoto, user);
-            const updatedUser = await getUserByUsername(userData.username);
-            toast.success('Profile photo added successfully.')
-            setPhotoURL(updatedUser.photoURL);
+            const res = await uploadProfilePicture(profilePhoto, user);
+            setPhotoURL(res);
+            // setProfilePhoto(null);
+            toast.success('Profile photo added successfully.');
         } catch (error) {
             toast.error(error.code);
         }
-    }
+    };
 
     return (
         <>
