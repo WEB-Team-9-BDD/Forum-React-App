@@ -47,11 +47,9 @@ export const getUserDataByUsername = async (username) => {
 
 export const uploadProfilePicture = async (file, user) => {
 
-  const fileRef = sRef(storage,`images/${user.uid}.png`);
+  const fileRef = sRef(storage, `profile-photos/${user.uid}.png`);
   await uploadBytes(fileRef, file);
-
   const uploadedPhotoURL = await getDownloadURL(fileRef);
   updateProfile(user, { photoURL: uploadedPhotoURL });
 
-  console.log('Suppose to be uploaded');
 }
