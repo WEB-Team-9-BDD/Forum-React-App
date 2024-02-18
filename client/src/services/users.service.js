@@ -21,7 +21,7 @@ export const createUser = (username, firstName, lastName, email, uid, isAdmin, p
 
 export const updateUser = (username, firstName, lastName, email, uid) => {
 
-  return update(ref(db, `users/${username}`), { username, firstName, lastName, email, uid});
+  return update(ref(db, `users/${username}`), { username, firstName, lastName, email, uid });
 }
 
 export const getUserData = (uid) => {
@@ -57,4 +57,5 @@ export const uploadProfilePicture = async (file, user) => {
   const uploadedPhotoURL = await getDownloadURL(fileRef);
   updateProfile(user, { photoURL: uploadedPhotoURL });
 
+  return uploadedPhotoURL;
 }
