@@ -3,7 +3,7 @@ import { AppContext } from "../../context/AppContext";
 import { useNavigate } from "react-router-dom";
 import toast from 'react-hot-toast';
 import './UpdateAccount.css'
-import { createUserUsername } from "../../services/users.service";
+import { updateUser } from "../../services/users.service";
 import { updateEmail, updatePassword } from 'firebase/auth'
 import { logoutUser } from "../../services/auth.service";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -33,18 +33,25 @@ export default function UpdateAccount() {
         setForm({ ...form, [prop]: e.target.value })
     };
 
-    const updateUser = async () => {
+    const updateUserProfile = async () => {
 
         try {
-            if (form.confirmPassword && form.password === form.confirmPassword) {
+            if (form.confirmPassword.length && form.password === form.confirmPassword) {
                 await updatePassword(user, form.confirmPassword);
-                toast.success('Password has been changed successfully!');
+                const interval = setInterval(() => {
+                    toast.success('Password has been changed successfully!');
+                }, 200);
+                setTimeout(() => { clearInterval(interval) }, 400);
+                await logoutUser();
             }
             form.email !== userData.email ? await updateEmail(user, form.email) : null
-            await createUserUsername(userData.username, form.firstName, form.lastName, form.email, userData.uid);
-            await logoutUser();
+            await updateUser(userData.username, form.firstName, form.lastName, form.email, userData.uid);
             setAppState({ user: null, userData: null });
-            toast.success('Account updated successfully!');
+            await logoutUser();
+            const interval = setInterval(() => {
+                toast.success('Account updated successfully!');
+            }, 100);
+            setTimeout(() => { clearInterval(interval) }, 300);
             navigate('/');
         } catch (error) {
             toast.error(error.message);
@@ -66,7 +73,7 @@ export default function UpdateAccount() {
     return (
         <div>
             <div className="wrapper d-flex align-items-center justify-content-center w-100">
-            {userData.isAdmin && (
+                {userData.isAdmin && (
                     <div>
                         <Link to="/admin-powers">Admin Powers</Link>
                     </div>
@@ -100,12 +107,12 @@ export default function UpdateAccount() {
                                 value={form.lastName} onChange={updateForm('lastName')} />
                         </div>
                         {userData.isAdmin && (
-                        <div className="form-group mb-2 ">
-                            <label className="form-label" htmlFor="phone-number">Phone Number: </label>
-                            <input autoComplete="off" className="form-control"
-                                type="text" name="phone" id="phone-number"
-                                value={form.phoneNumber} onChange={updateForm('phoneNumber')} />
-                        </div>
+                            <div className="form-group mb-2 ">
+                                <label className="form-label" htmlFor="phone-number">Phone Number: </label>
+                                <input autoComplete="off" className="form-control"
+                                    type="text" name="phone" id="phone-number"
+                                    value={form.phoneNumber} onChange={updateForm('phoneNumber')} />
+                            </div>
                         )}
                         <hr />
                         <div className="form-group mb-2 ">
@@ -131,7 +138,7 @@ export default function UpdateAccount() {
                             </span>
                         </div>
                         <button type="submit" className="btn btn-success mt-4 mb-1 w-100"
-                            onClick={updateUser}>Update account</button>
+                            onClick={updateUserProfile}>Update account</button>
                     </form>
                 </div>
             </div >

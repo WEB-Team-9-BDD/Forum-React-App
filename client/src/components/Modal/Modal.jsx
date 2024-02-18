@@ -1,21 +1,8 @@
 import PropTypes from 'prop-types';
 import './Modal.css'
-import { deletePost } from '../../services/post.service';
-import toast from 'react-hot-toast';
 
-export default function Modal({ show, toggle, id }) {
-
-    const deleteSinglePost = async (postId) => {
-        try {
-          await deletePost(postId);
-          toast.success('Post successfully deleted');
-            toggle();
-        } catch (error) {
-          toast.error(error.code);
-        }
-      };
-
-
+export default function Modal({ show, toggle, id, onDelete }) {
+ 
     if (!show) return null;
     return (
 
@@ -25,7 +12,7 @@ export default function Modal({ show, toggle, id }) {
                 <h4>Are you sure want to delete this post ?</h4>
                 <div className='modal-buttons'>
                     <button className='btn btn-primary col-4'
-                        onClick={() => deleteSinglePost(id)}
+                        onClick={() => onDelete(id)}
                     >Yes</button>
                     <button className='btn btn-primary col-4'
                         onClick={toggle}
@@ -40,4 +27,5 @@ Modal.propTypes = {
     show: PropTypes.bool,
     toggle: PropTypes.func,
     id: PropTypes.string,
+    onDelete: PropTypes.func,
 }

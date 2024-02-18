@@ -17,7 +17,7 @@ div.p-column-header-content {
     justify-content: center;
     text-align: center;
     font-size: 1.25rem;
-    box-shadow: 1px 1px 20px 1px rgba(156, 182, 202, 0.536);
+    /* box-shadow: 1px 1px 20px 1px rgba(156, 182, 202, 0.536); */
 }
 
 .title-column {
@@ -26,7 +26,15 @@ div.p-column-header-content {
 }
 
 .date-column {
-    width: 12rem;
+    width: 11rem;
+}
+
+.category-column {
+    width: 7rem;
+}
+
+.comments-column, .likes-column {
+    width: 8rem;
 }
 
 .search-wrapper {
@@ -62,27 +70,39 @@ div.p-column-header-content {
 }
 
 .action-column {
-    max-width: 9rem;
+    width: 8rem;
+    padding: 3px;
+    margin: 3px;
+    justify-content: center;
+    text-align: center;
+}
+
+.table-action-buttons {
+    justify-content: center;
+    text-align: center;
+    display: inline-flex;
+    padding: 5px;
+    margin: 5px;
 }
 
 .edit-button {
     color: rgb(0, 94, 255);
-    font-size: 40px;
-    margin: 3px;
-    padding: 5px;
+    font-size: 38px;
+    padding: 3px;
+    margin: 0 3px;
 }
 
 .delete-button {
     color: rgb(168, 95, 95);
-    font-size: 35px;
-    margin: 3px;
-    padding: 5px;
+    font-size: 36px;
+    padding: 3px;
+    margin: 0 3px;
 }
 
 .share-button {
-    font-size: 35px;
-    margin: 3px;
-    padding: 5px;
+    font-size: 34px;
+    padding: 3px;
+    margin: 0 3px;
 }
 
 .delete-button:hover {
@@ -95,4 +115,34 @@ div.p-column-header-content {
 
 .share-button:hover {
     cursor: pointer;
+}
+
+
+.edit-post-title {
+    justify-content: center;
+    display: inline-flex;
+}
+
+.edit-title-input {
+    background-color: transparent;
+    border-radius: 10px;
+    border: 1px solid rgba(128, 128, 128, 0.451);
+    width: 27.5rem;
+    margin-right: 5px;
+    padding: 5px;
+}
+
+.edit-title-buttons {
+    font-size: 25px;
+    margin: 3px;
+}
+
+.edit-submit {
+ color:rgb(64, 223, 78);
+    margin: 3px;
+}
+
+.edit-cancel {
+    color: rgb(235, 79, 79);
+    margin: 3px;
 }

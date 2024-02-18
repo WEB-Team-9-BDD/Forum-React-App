@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { AppContext } from "../../context/AppContext"
 import { useNavigate } from "react-router-dom";
-import { createUserUsername, getUserByUsername } from "../../services/users.service"
+import { createUser, getUserByUsername } from "../../services/users.service"
 import { registerUser } from "../../services/auth.service"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
@@ -29,8 +29,8 @@ export default function CreateAccount() {
         setForm({ ...form, [prop]: e.target.value })
     }
 
-    const createUser = async () => {
-        const { username, email, password, firstName, lastName, isAdmin, phoneNumber, isBlocked } = form;
+    const createUserProfile = async () => {
+        const { username, email, password, firstName, lastName, isAdmin, phoneNumber } = form;
 
         if (username.length === 0) {
             toast.error('Username cannot be empty');
@@ -47,8 +47,8 @@ export default function CreateAccount() {
         } else if (lastName.length < 4 || lastName.length > 32) {
             toast.error('Last name must be between 4 and 32 characters');
             return
-        } else{
-            
+        } else {
+
             try {
                 const user = await getUserByUsername(username);
                 if (user.exists()) {
@@ -56,12 +56,12 @@ export default function CreateAccount() {
                     return
                 }
                 const users = await usersCount();
-                if(users === 0){
+                if (users === 0) {
                     form.isAdmin = true;
                 }
 
                 const userCredentials = await registerUser(email, password);
-                await createUserUsername(username, firstName, lastName, email, userCredentials.user.uid, isAdmin, phoneNumber, isBlocked)
+                await createUser(username, firstName, lastName, email, userCredentials.user.uid, isAdmin, phoneNumber)
 
                 setAppState({ user, userData: null });
                 navigate('/');
@@ -117,7 +117,7 @@ export default function CreateAccount() {
                         />
                     </div>
                     <button type="submit" className="btn btn-success mt-4 mb-3 w-100"
-                        onClick={createUser}>Create account</button>
+                        onClick={createUserProfile}>Create account</button>
                 </form>
             </div>
         </div >

@@ -12,17 +12,18 @@ import {
 } from 'firebase/database';
 import { db } from '../config/firebase-config';
 
-export const addPost = async (author, title, content) => {
+export const addPost = async (author, title, content, category) => {
   return push(ref(db, 'posts'), {
     author,
     title,
     content,
+    category, // new category field
     createdOn: Date.now(),
     comments: [],
   });
 };
 
-export const getAllPosts = async (search, createdBy) => {
+export const getAllPosts = async (createdBy) => {
   const snapshot = await get(
     query(ref(db, 'posts'), orderByChild('createdOn'))
   );
@@ -35,15 +36,12 @@ export const getAllPosts = async (search, createdBy) => {
     .map((key) => ({
       id: key,
       ...snapshot.val()[key],
+      category: snapshot.val()[key].category, // new category field
       createdOn: new Date(snapshot.val()[key].createdOn).toString(),
       createdBy: snapshot.val()[key].createdBy
         ? Object.keys(snapshot.val()[key].createdBy)
         : [],
     }))
-  // .filter((post) => post.title.toLowerCase().includes(search.toLowerCase()));
-
-
-  // console.log(posts);
 
   return posts;
 };
@@ -57,15 +55,17 @@ export const getPostById = async (id) => {
   const post = {
     id,
     ...snapshot.val(),
+    category: snapshot.val().category, // new category field
     createdOn: new Date(snapshot.val().createdOn).toString(),
     createdBy: snapshot.val().createdBy
       ? Object.keys(snapshot.val().createdBy)
       : [],
-      likedBy: snapshot.val().likedBy ? Object.keys(snapshot.val().likedBy) : [],
-      dislikedBy: snapshot.val().dislikedBy ? Object.keys(snapshot.val().dislikedBy) : [],
+    likedBy: snapshot.val().likedBy ? Object.keys(snapshot.val().likedBy) : [],
+    dislikedBy: snapshot.val().dislikedBy ? Object.keys(snapshot.val().dislikedBy) : [],
   };
 
-  return post;};
+  return post;
+};
 
 
 export const likePost = async (username, postId) => {
@@ -179,4 +179,43 @@ export const deletePost = async (postId) => {
   await remove(ref(db, `posts/${postId}`));
   await remove(ref(db, `comments/${postId}`));
 
+}
+
+export const postCommentsCounts = async (postId) => {
+  const commentSnapshot = await get(ref(db, `comments/${postId}`));
+  if (!commentSnapshot.exists()) {
+    return 0;
+  }
+  const comments = commentSnapshot.val();
+
+  return Object.keys(comments).length;
+}
+
+export const editPostTitle = async (postId, newTitle) => {
+  await update(ref(db, `posts/${postId}`),
+    { title: newTitle });
+}
+
+export const getPostsByAuthor = async (author) => {
+  const snapshot = await get(
+    query(ref(db, 'posts'), orderByChild('author'))
+  );
+  if (!snapshot.exists()) {
+
+    return [];
+  }
+
+  const posts = Object.keys(snapshot.val())
+    .map((key) => ({
+      id: key,
+      ...snapshot.val()[key],
+      category: snapshot.val()[key].category, // new category field
+      createdOn: new Date(snapshot.val()[key].createdOn).toString(),
+      createdBy: snapshot.val()[key].createdBy
+        ? Object.keys(snapshot.val()[key].createdBy)
+        : [],
+    }))
+    .filter((post) => post.author === author);
+
+  return posts;
 }
