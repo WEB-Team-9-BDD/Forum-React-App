@@ -1,9 +1,11 @@
-import { useContext, useState } from "react"
+import { useContext } from "react"
 import { AppContext } from "../../context/AppContext"
 import PropTypes from 'prop-types';
 import './ProfilePreview.css'
 import { CgProfile } from "react-icons/cg";
 import { MdFileUpload } from "react-icons/md";
+import { MdVerified } from "react-icons/md";
+
 
 export default function ProfilePreview({ photoURL, setProfilePhoto, uploadPhoto, userPosts, photo, fileName, setFileName }) {
     const { userData } = useContext(AppContext);
@@ -30,10 +32,13 @@ export default function ProfilePreview({ photoURL, setProfilePhoto, uploadPhoto,
 
                     <input type="file" accept="image/*"
                         id="profile-photo-upload" onChange={handleInputChange} />
-                    
-                    <p>Username: {userData.username}</p>
-                    <p>Registered: {new Date(userData.createdOn).toLocaleDateString('bg-BG')}</p>
-                    <p>Number of posts: {userPosts.length}</p>
+
+                    <h3>{userData.username} <MdVerified className="verified-user" /></h3>
+                    <p><strong> <em>{userData.firstName} {userData.lastName} </em></strong></p>
+                    <div>
+                        <p className="number-of-posts">Number of posts: <span>{userPosts.length}</span></p>
+                    </div>
+                    <p>Member since: <strong>{new Date(userData.createdOn).toLocaleDateString('bg-BG')}</strong></p>
                     <button className="photo-upload-button"
                         disabled={(!photo)}
                         onClick={uploadPhoto}><MdFileUpload />Upload AVATAR</button>
