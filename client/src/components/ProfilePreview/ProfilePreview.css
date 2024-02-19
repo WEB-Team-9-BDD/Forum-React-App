@@ -1,6 +1,48 @@
 .profile-preview {
     margin: 20px;
-background-color:rgba(127, 255, 212, 0.266);
-text-align: center;
-box-shadow: 1px 1px 10px 4px rgba(74, 72, 72, 0.447);
+    background-color: rgba(127, 255, 212, 0.266);
+    text-align: center;
+    box-shadow: 1px 1px 10px 4px rgba(74, 72, 72, 0.447);
+    width: 25rem;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.photo-upload-label {
+    color: white;
+    text-align: center;
+    padding: 10px 22px;
+    font-size: 18px;
+    letter-spacing: 1.2px;
+    cursor: pointer;
+    background-color: rgba(158, 163, 163, 0.335);
+    margin-bottom: 15px;
+    border-radius: 15px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 20rem;
+}
+.photo-upload-label:hover {
+    background-color: rgb(95, 158, 235);
+}
+
+.photo-upload-button {
+    color: white;
+    text-align: center;
+    padding: 15px 22px;
+    font-size: 18px;
+    letter-spacing: 1.2px;
+    cursor: pointer;
+    background-color: rgb(95, 158, 235);
+    margin-bottom: 25px;
+    border-radius: 15px;
+    justify-content: center;
+    text-align: center;
+}
+
+.photo-upload-button svg {
+    font-size: 43px;
+    margin: 5px;
 }
