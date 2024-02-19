@@ -15,6 +15,7 @@ export default function PersonalProfile() {
     const [photoURL, setPhotoURL] = useState('');
     const [userPosts, setUserPosts] = useState([]);
     const [profilePhoto, setProfilePhoto] = useState(null);
+    const [fileName, setFileName] = useState('');
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -31,7 +32,7 @@ export default function PersonalProfile() {
         try {
             const res = await uploadProfilePicture(profilePhoto, user);
             setPhotoURL(res);
-            // setProfilePhoto(null);
+            setFileName('');
             toast.success('Profile photo added successfully.');
         } catch (error) {
             toast.error(error.code);
@@ -42,7 +43,8 @@ export default function PersonalProfile() {
         <>
             <div className='user-profile-container'>
                 <ProfilePreview photoURL={photoURL} setProfilePhoto={setProfilePhoto}
-                    uploadPhoto={uploadPhoto} userPosts={userPosts} photo={profilePhoto} />
+                    uploadPhoto={uploadPhoto} userPosts={userPosts} photo={profilePhoto} 
+                    fileName={fileName} setFileName={setFileName}/>
 
                 <div className="personal-profile-posts">
                     <h4>My posts</h4>

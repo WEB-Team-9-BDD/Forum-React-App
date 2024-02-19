@@ -1,5 +1,6 @@
 .user-profile-container {
     display: inline-flex;
+    padding: 30px;
 }
 
 .update-profile-button {
