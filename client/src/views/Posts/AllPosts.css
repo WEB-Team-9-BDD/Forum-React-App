@@ -1,11 +1,13 @@
 .table {
-    padding: 20px;
+    padding:20px;
     width: 100%;
+    background-color: rgba(0, 0, 0, 0.83);
 }
 
 div.p-column-header-content {
-    background-color: rgb(179, 226, 242);
-    height: 2.5rem;
+    background: transparent;
+    background-color: rgba(0, 180, 251, 0.423);
+    height: 4rem;
     font-size: large;
     justify-content: center;
 }
@@ -33,7 +35,8 @@ div.p-column-header-content {
     width: 7rem;
 }
 
-.comments-column, .likes-column {
+.comments-column,
+.likes-column {
     width: 8rem;
 }
 
@@ -46,12 +49,11 @@ div.p-column-header-content {
     box-shadow: 0px 0px 8px #ddd;
     display: flex;
     align-items: center;
-    margin: 10px;
+    margin-bottom: 10px;
 }
 
 .search-wrapper svg {
     font-size: x-large;
-    margin-right: 5px;
 }
 
 .search-wrapper input {
@@ -138,11 +140,44 @@ div.p-column-header-content {
 }
 
 .edit-submit {
- color:rgb(64, 223, 78);
+    color: rgb(64, 223, 78);
     margin: 3px;
 }
 
 .edit-cancel {
     color: rgb(235, 79, 79);
     margin: 3px;
+}
+
+
+/* .p-paginator {
+    background: transparent;
+    background-color: rgba(49, 49, 49, 0.55);
+} */
+
+/* .p-datatable-tbody>tr {
+    background: transparent;
+    background-color: rgba(198, 123, 123, 0.346);
+} */
+
+
+ /* .p-paginator-bottom .p-paginator-pages {
+    background: transparent;
+    background-color: rgba(43, 151, 43, 0.996);
+}
+
+.p-paginator-page {
+    background: transparent;
+    background-color: rgba(49, 49, 49, 0.55);
+    border-radius: 30px;
+    color: white;
+} */
+
+
+tbody >tr {
+    background-color: rgba(255, 255, 255, 0.325);
+}
+
+tbody > tr:hover{
+background-color: rgba(77, 130, 236, 0.25);    
 }

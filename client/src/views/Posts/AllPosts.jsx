@@ -10,13 +10,13 @@ import { FiSearch } from "react-icons/fi";
 import { AppContext } from '../../context/AppContext'
 import { CiEdit } from "react-icons/ci";
 import { RiDeleteBin6Line } from "react-icons/ri";
-import 'primereact/resources/themes/lara-light-indigo/theme.css'
-import './AllPosts.css';
 import Modal from "../../components/Modal/Modal";
 import SocialMediaShare from "../../components/SocialMediaShare/SocialMediaShare";
 import { GiConfirmed } from "react-icons/gi";
 import { GiCancel } from "react-icons/gi";
 import toast from "react-hot-toast";
+import 'primereact/resources/themes/lara-light-blue/theme.css'
+import './AllPosts.css';
 
 
 export default function AllPosts() {
@@ -171,18 +171,17 @@ export default function AllPosts() {
     }
   }
 
-  const footer = (
-    <>
-      <div className="d-flex justify-content-center mt-2">
-        <h5>{`Total posts: ${fullPostsData ? fullPostsData.length : 0}`}</h5>
-      </div>
-    </>
-  );
+  // const footer = (
+  //   <>
+  //     <div className="table-footer d-flex justify-content-center mt-2">
+  //       <h5>{`Total posts: ${fullPostsData ? fullPostsData.length : 0}`}</h5>
+  //     </div>
+  //   </>
+  // );
 
   return (
     <>
       <div className="table">
-        <h1>All posts</h1>
         <div className="search-wrapper">
           <FiSearch />
           <InputText id='all-posts-searchbar' type='search' onInput={(e) =>
@@ -194,7 +193,7 @@ export default function AllPosts() {
         < DataTable value={fullPostsData} className="table-data"
           paginator rows={10} rowsPerPageOptions={[10, 20, 50]}
           sortMode="multiple" sortField="title"
-          footer={footer} filters={filters} removableSort
+        filters={filters} removableSort
         >
           <Column className="column title-column" field='title' header='Post title'
             body={postToEdit ? handleIsClicked : makeTitleALink} sortable />
