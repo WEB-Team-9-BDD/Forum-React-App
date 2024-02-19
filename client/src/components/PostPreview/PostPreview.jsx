@@ -1,23 +1,29 @@
 import PropTypes from 'prop-types';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { AppContext } from '../../context/AppContext';
 import Button from '../Button/Button';
+import './PostPreview.css'
 
 export default function PostPreview({ post }) {
   const navigate = useNavigate();
   const { userData } = useContext(AppContext);
 
+
+
   return (
-    <div className="post">
-      <h4>{post.title}
-        <p>Likes: {post.likes}</p>
-        <p>Dislikes: {post.dislikes}</p>
-      </h4>
-      <p>{post.content}</p>
+    <div className="post-preview">
+      <div className='post-preview-title'>
+        <Link to={`/posts/${post.id}`}>{post.title} </Link>
+      </div>
+      <div className='post-preview-content'>
+        <p>{post.content}</p>
+      </div>
+      <div className='post-preview-details'>
+      <Link to={`/posts/${post.id}/category/${post.category}`}>{post.category} </Link>
       <p>{new Date(post.createdOn).toLocaleDateString('bg-BG')}</p>
-      <Button onClick={() => navigate(`/posts/${post.id}`)}>View</Button>
-      {userData.username === post.author ? (<Button onClick={() => { }}>Edit</Button>) : null}
+      
+      </div>
     </div>
   )
 }
@@ -31,5 +37,6 @@ PostPreview.propTypes = {
     likes: PropTypes.number,
     dislikes: PropTypes.number,
     author: PropTypes.string,
+    category: PropTypes.string,
   }),
 };

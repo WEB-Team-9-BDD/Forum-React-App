@@ -1,0 +1,41 @@
+.post-preview {
+    border: 3px solid white;
+    padding: 15px;
+    margin: 10px;
+}
+
+.post-preview-title a {
+    background-color: rgba(0, 255, 255, 0.419);
+    width: 30rem;
+    padding: 15px;
+    border-radius: 10px;
+    color: white;
+}
+
+.post-preview-content {
+    height: 3rem;
+    max-width: 44rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: white;
+    margin: 15px 0;
+}
+
+.post-preview-content p {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.post-preview-details {
+    color: white;
+    display: inline-flex;
+}
+
+.post-preview-details p {
+    margin: 3px;
+}
+
+.post-preview-details a {
+    margin: 3px;
+    color: white
+}
