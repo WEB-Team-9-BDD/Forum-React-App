@@ -38,7 +38,7 @@ export default function SocialMediaShare({ id }) {
                     </div>
                 </>
             )}
-            <GoShareAndroid className="share-button" onClick={() => { setVisible(!visible) }} />
+            <GoShareAndroid className="share-button" onClick={toggleShare} />
         </div>
 
     )
