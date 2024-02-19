@@ -30,7 +30,7 @@ export default function CreateAccount() {
     }
 
     const createUserProfile = async () => {
-        const { username, email, password, firstName, lastName, isAdmin, phoneNumber } = form;
+        const { username, email, password, firstName, lastName, isAdmin, phoneNumber, isBlocked } = form;
 
         if (username.length === 0) {
             toast.error('Username cannot be empty');
@@ -61,7 +61,7 @@ export default function CreateAccount() {
                 }
 
                 const userCredentials = await registerUser(email, password);
-                await createUser(username, firstName, lastName, email, userCredentials.user.uid, isAdmin, phoneNumber)
+                await createUser(username, firstName, lastName, email, userCredentials.user.uid, isAdmin, phoneNumber, isBlocked)
 
                 setAppState({ user, userData: null });
                 navigate('/');

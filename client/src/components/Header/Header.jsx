@@ -41,6 +41,7 @@ export default function Header({ toggle }) {
                 <NavLink to="/">Home</NavLink>
                 <NavLink to="/posts">All posts</NavLink>
                 <NavLink to="/post-create">Create Post</NavLink>
+                {userData && userData.isAdmin ? <NavLink to="/admin-powers">Admin</NavLink> : undefined}
                 {!user ?
                     (<>
                         <NavLink to="/login">Login</NavLink>

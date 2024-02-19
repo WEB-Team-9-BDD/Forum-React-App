@@ -107,11 +107,11 @@ export default function AllPosts() {
   };
 
   const setButtons = (post) => {
-    return userData.username === post.author ? (
+    return userData.username === post.author || userData.isAdmin ? (
       <div className='table-action-buttons'>
-        <CiEdit className="edit-button" onClick={() => setPostToEdit(post.id)} />
+        {(userData.username === post.author && !userData.isBlocked) && <CiEdit className="edit-button" onClick={() => setPostToEdit(post.id)} />}
         <SocialMediaShare id={post.id} />
-        <RiDeleteBin6Line onClick={() => toggleModal(post.id)} className="delete-button" />
+        {(userData.isAdmin || (userData.username === post.author && !userData.isBlocked)) && <RiDeleteBin6Line onClick={() => toggleModal(post.id)} className="delete-button" />}
         <Modal show={showModal} toggle={toggleModal} id={post.id} onDelete={deleteSinglePost} />
       </div>
     ) : (<SocialMediaShare id={post.id} />

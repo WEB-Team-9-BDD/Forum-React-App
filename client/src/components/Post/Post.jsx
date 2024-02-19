@@ -89,13 +89,13 @@ export default function Post({ post }) {
   <p onDoubleClick={() => setEditing(true)}>{post.content}</p>
 )}
  </div>
-      {userData.username === post.author ?
+      {(userData.username === post.author && !userData.isBlocked) || userData.isAdmin ?
         (<>
-          <Button onClick={() => { }}>Edit</Button>
-          <Button onClick={deleteSinglePost}>Delete</Button>
+          {(!userData.isAdmin && userData.username === post.author && !userData.isBlocked) && <Button onClick={() => { }}>Edit</Button>}
+          {(userData.isAdmin || userData.username === post.author && !userData.isBlocked)&& <Button onClick={deleteSinglePost}>Delete</Button>}
         </>) : null
       }      
-      {userData.username === post.author ? (<Button onClick={() => { }}>Edit</Button>) : null}
+      {(userData.username === post.author && !userData.isBlocked) ? (<Button onClick={() => { }}>Edit</Button>) : null}
     </div>
   )
 }

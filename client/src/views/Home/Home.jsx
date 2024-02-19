@@ -9,7 +9,7 @@ export default function Home() {
     const [posts, setPosts] = useState([]);
     const [countUsers, setCountUsers] = useState(0);
     const [countPosts, setCountPosts] = useState(0);
-    const { user } = useContext(AppContext);
+    const { user, userData } = useContext(AppContext);
 
     useEffect(() => {
         const fetchPosts = async () => {
@@ -39,9 +39,18 @@ export default function Home() {
     const lastTenPosts = posts.slice(-10).reverse();
     
     return (
-        <div className="wrapper d-flex flex-column w-100">
-            <div className="header d-flex justify-content-center align-items-center w-100">
-                <h1>DDB Forum</h1>
+        <div className="home-page">
+            {user && userData && userData.isBlocked && (
+                <div className="blocked">
+                    <h4>Your account has been blocked!</h4>
+                    <p>You will not be able to edit or create any posts or comments.</p>
+                </div>
+            )}
+            <div className="title" aria-hidden="true">
+                <h1>Self Room</h1>
+                <p className="moto">Grow with us and help us growing</p>
+            </div>
+            <div className="not-logged-int">
                 {!user && (
                     <div>
                         <p>Users: {countUsers}</p>
@@ -54,12 +63,12 @@ export default function Home() {
                     <div>
                         <h2>Recent Posts</h2>
                         {lastTenPosts.map(post => (
-                                <HomePostPreview
+                            <HomePostPreview
                                 key={post.id}
                                 post={{
-                                  ...post
+                                    ...post
                                 }}
-                              />
+                            />
                         ))}
                     </div>
                 </div>
@@ -67,12 +76,12 @@ export default function Home() {
                     <div>
                         <h2>Most Commented Posts</h2>
                         {mostCommentedPosts.map(post => (
-                                <HomePostPreview
+                            <HomePostPreview
                                 key={post.id}
                                 post={{
-                                  ...post,
+                                    ...post,
                                 }}
-                              />
+                            />
                         ))}
                     </div>
                 </div>
