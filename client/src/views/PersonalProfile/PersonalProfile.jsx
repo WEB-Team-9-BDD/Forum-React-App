@@ -65,9 +65,6 @@ export default function PersonalProfile() {
                         )
                     }
                 </div>
-                <div>
-                    <button className="btn btn-primary update-user-profile" onClick={() => navigate('/update-profile')}>Update profile</button>
-                </div>
             </div >
         </>
     )
