@@ -40,7 +40,7 @@ export default function Home() {
     
     return (
         <div className="home-page">
-            {user && userData.isBlocked && (
+            {user && userData && userData.isBlocked && (
                 <div className="blocked">
                     <h4>Your account has been blocked!</h4>
                     <p>You will not be able to edit or create any posts or comments.</p>
