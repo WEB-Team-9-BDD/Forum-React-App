@@ -13,11 +13,11 @@ export default function Home() {
 
     useEffect(() => {
         const fetchPosts = async () => {
-            const posts = await getAllPosts();
-            for (let post of posts) {
-                post.commentsCount = await getCommentsCount(post.id);
+            const allPosts = await getAllPosts();
+            for (let currentPost of allPosts) {
+                currentPost.commentsCount = await getCommentsCount(currentPost.id);
             }
-            setPosts(posts);
+            setPosts(allPosts);
         };
         fetchPosts();
     }, []);
@@ -34,7 +34,7 @@ export default function Home() {
         checkLoginStatus();
     }, [user]);
 
-    const mostCommentedPosts = [...posts].sort((a, b) => a.commentsCount - b.commentsCount).slice(0, 10);
+    const mostCommentedPosts = [...posts].sort((a, b) => b.commentsCount - a.commentsCount).slice(0, 10);
     
     const lastTenPosts = posts.slice(-10).reverse();
     

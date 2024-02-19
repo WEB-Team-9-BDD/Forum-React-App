@@ -129,15 +129,28 @@ export const updateComment = async (postId, commentId, author, updatedComment) =
   return update(commentRef, { author, comment: updatedComment, commentedOn: Date.now() });
 };
 
-export const getCommentsCount = async (postId) => {
-  const postSnapshot = await get(ref(db, `posts/${postId}`));
-  if (!postSnapshot.exists()) {
-    throw new Error('Post not found.');
-  }
-  const post = postSnapshot.val();
-  // console.log(post.comment);
-  return post.comments ? Object.keys(post.comments).length : 0;
-};
+export async function getCommentsCount(postId) {
+  const commentsRef = ref(db, `comments/${postId}`);
+
+  return new Promise((resolve, reject) => {
+    onValue(commentsRef, (snapshot) => {
+      const data = snapshot.val();
+      if (!data) {
+        resolve([]);
+        return;
+      }
+
+      const comments = Object.keys(data).map((id) => ({
+        id,
+        ...data[id],
+      }));
+
+      resolve(comments.length);
+    }, (error) => {
+      reject(error);
+    });
+  });
+}
 
 export const postCount = async () => {
   const snapshot = await get(ref(db, 'posts'));

@@ -21,6 +21,7 @@ export default function CreateAccount() {
         password: '',
         isAdmin: false,
         phoneNumber: '',
+        isBlocked: false,
     });
     const navigate = useNavigate();
 
