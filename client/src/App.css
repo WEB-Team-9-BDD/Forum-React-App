@@ -4,7 +4,7 @@
   /* padding: 2rem; */
   /* text-align: center; */
   height: 100vh;
-  background-image: url('https://c.wallhere.com/photos/9e/14/2560x1440_px_blue_digital_art_underwater_water-724262.jpg!d');
+  background-image: url('https://img.freepik.com/free-photo/abstract-luxury-gradient-blue-background-smooth-dark-blue-with-black-vignette-studio-banner_1258-72791.jpg?w=1380&t=st=1708379041~exp=1708379641~hmac=084ea31324577b9145c0de472bf811959e639e28c4fd041d880c59f08c83f27e');
   /* background-repeat: no-repeat; */
   background-size: cover;
 }
@@ -15,9 +15,9 @@ a {
   text-decoration: inherit;
 }
 
-a:hover {
+/* a:hover {
   color: #000000;
-}
+} */
 
 .main-content {
   transition: margin-left 0.8s ease;
