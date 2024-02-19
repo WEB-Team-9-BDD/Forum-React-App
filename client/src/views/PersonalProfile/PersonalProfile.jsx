@@ -1,4 +1,4 @@
-import {useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AppContext } from "../../context/AppContext";
 import { Link, useNavigate } from "react-router-dom";
 import './PersonalProfile.css'
@@ -6,6 +6,7 @@ import { getPostsByAuthor } from "../../services/post.service";
 import { uploadProfilePicture } from "../../services/users.service";
 import toast from "react-hot-toast";
 import ProfilePreview from "../../components/ProfilePreview/ProfilePreview";
+import PostPreview from '../../components/PostPreview/PostPreview'
 import { MdOutlinePostAdd } from "react-icons/md";
 import SocialMediaShare from '../../components/SocialMediaShare/SocialMediaShare'
 
@@ -43,19 +44,19 @@ export default function PersonalProfile() {
         <>
             <div className='user-profile-container'>
                 <ProfilePreview photoURL={photoURL} setProfilePhoto={setProfilePhoto}
-                    uploadPhoto={uploadPhoto} userPosts={userPosts} photo={profilePhoto} 
-                    fileName={fileName} setFileName={setFileName}/>
+                    uploadPhoto={uploadPhoto} userPosts={userPosts} photo={profilePhoto}
+                    fileName={fileName} setFileName={setFileName} />
 
                 <div className="personal-profile-posts">
-                    <h4>My posts</h4>
                     {userPosts.length ?
                         (
                             userPosts.map((post) => {
-                                return <div className="my-posts-item" key={post.id}>
-                                    <MdOutlinePostAdd />
-                                    <Link key={post.id} to={`/posts/${post.id}`} >{post.title}</Link >
-                                    <SocialMediaShare id={post.id} />
-                                </div>
+                                return <PostPreview post={post} key={post.id} />
+                                // return <div className="my-posts-item" key={post.id}>
+                                //     <MdOutlinePostAdd />
+                                //     <Link key={post.id} to={`/posts/${post.id}`} >{post.title}</Link >
+                                //     <SocialMediaShare id={post.id} />
+                                // </div>
                             }
                             )
                         ) : (

@@ -1,6 +1,8 @@
 .user-profile-container {
     display: inline-flex;
-    padding: 30px;
+    /* padding: 30px; */
+    background-color: rgb(24, 114, 192);
+    width: 100%;
 }
 
 .update-profile-button {
@@ -27,13 +29,15 @@
     color: rgba(1, 143, 244, 0.596);
 }
 
-
 .personal-profile-posts {
     background-color: rgba(86, 76, 76, 0.319);
     box-shadow: 1px 1px 3px 2px rgba(86, 76, 76, 0.319);
-    justify-content: center;
-    text-align: center;
-    width: 35rem;
+    width: 52rem;
+    height: 38rem;
+    margin: 20px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
 }
 
 .my-posts-item {
