@@ -55,13 +55,13 @@ export default function Header({ toggle }) {
                     <>
                         <div className="profile-view" onClick={toggleProfile}>
                             <img src={`${user.photoURL}`} alt="avatar" className="header-profile-pic" />
-                            <p>{getUserInitials()}</p>
+                            <p>{userData ? getUserInitials() : null}</p>
                         </div>
                         {visible && (
                             <div className="header-profile">
                                 <div className="profile-overlay" onClick={toggleProfile}></div>
                                 <div className="header-profile-content">
-                                    <NavLink to="/user-profile" onClick={toggleProfile}><CgProfile className="profile-icons" />Profile</NavLink>
+                                    <NavLink to="/user-profile" onClick={toggleProfile}><CgProfile className="profile-icons" />My room</NavLink>
                                     <NavLink to="/update-profile" onClick={toggleProfile}><MdOutlineSettings className="profile-icons" />Settings</NavLink>
                                     <div className="logout" onClick={logout}> <FaPowerOff className="profile-icons" />
                                         Log out</div>
