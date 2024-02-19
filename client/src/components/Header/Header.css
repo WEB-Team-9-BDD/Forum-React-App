@@ -14,15 +14,17 @@ header a {
     color: white;
 }
 
-header a:hover {
-    color: aquamarine;
-border: 1px solid aquamarine;
-padding: 10px;
-border-radius: 5px;
+header .header-link:hover {
+    /* color: aquamarine; */
+/* border: 1px solid aquamarine; */
+color: aquamarine;
+border-bottom: 7px solid aquamarine;
+padding: 27px;
+/* border-radius: 5px; */
 }
 
 header svg {
-    color: white;
+    color: rgba(127, 255, 212, 0.538);
     cursor: pointer;
     width: 30px;
     height: 30px;
@@ -38,7 +40,11 @@ header svg {
     border-radius: 10px;
     width: 9rem;
     height: 4.5rem;
+    color: white;
     cursor: pointer;
+}
+.profile-view p:hover{
+text-shadow: 1px 1px 5px white;
 }
 
 .profile-view p {
@@ -119,5 +125,9 @@ header svg {
 }
 
 .header-username{
+    color: white;
+}
+
+.sidebar-svg, .logout svg{
     color: white;
 }

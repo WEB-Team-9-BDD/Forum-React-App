@@ -37,14 +37,14 @@ export default function Header({ toggle }) {
     return (
         <>
             <header>
-                <RxHamburgerMenu onClick={toggle} />
-                <NavLink to="/">Home</NavLink>
-                <NavLink to="/posts">Growth room</NavLink>
-                <NavLink to="/post-create">Create Post</NavLink>
-                {userData && userData.isAdmin ? <NavLink to="/admin-powers">Admin</NavLink> : undefined}
+                <RxHamburgerMenu className='sidebar-svg' onClick={toggle} />
+                <NavLink className='header-link' to="/">Home</NavLink>
+                <NavLink className='header-link' to="/posts">Growth room</NavLink>
+                <NavLink className='header-link' to="/post-create">Create Post</NavLink>
+                {userData && userData.isAdmin ? <NavLink className='header-link' to="/admin-powers">Admin</NavLink> : undefined}
                 {!user ?
                     (<>
-                        <NavLink to="/login">Login</NavLink>
+                        <NavLink className='header-link' to="/login">Login</NavLink>
                     </>
                     ) : (
                         <>
