@@ -57,7 +57,9 @@ export default function Header({ toggle }) {
                 {user &&
                     <>
                         <div className="profile-view" onClick={toggleProfile}>
-                            <img src={`${user.photoURL}`} alt="avatar" className="header-profile-pic" />
+                            {!user.photoURL ? <CgProfile className='header-profile-pic' /> :
+                                <img src={`${user.photoURL}`} alt="avatar" className="header-profile-pic" />
+                            }
                             <p>{userData ? getUserInitials() : null}</p>
                         </div>
                         {visible && (
