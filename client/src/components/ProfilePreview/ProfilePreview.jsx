@@ -17,7 +17,6 @@ export default function ProfilePreview({ photoURL, setProfilePhoto, uploadPhoto,
 
     return (
         <div className="profile-preview">
-            <h3>Profile preview</h3>
             <div >
                 {(!photoURL) ?
                     <CgProfile className="profile-avatar-icon" /> :
@@ -29,9 +28,9 @@ export default function ProfilePreview({ photoURL, setProfilePhoto, uploadPhoto,
                         htmlFor="profile-photo-upload">
                         Choose file<span>{fileName ? (`: ${fileName}`) : null}</span></label>
 
-
                     <input type="file" accept="image/*"
                         id="profile-photo-upload" onChange={handleInputChange} />
+                    
                     <p>Username: {userData.username}</p>
                     <p>Registered: {new Date(userData.createdOn).toLocaleDateString('bg-BG')}</p>
                     <p>Number of posts: {userPosts.length}</p>
