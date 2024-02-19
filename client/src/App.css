@@ -3,11 +3,13 @@
   /* margin: 0 auto; */
   /* padding: 2rem; */
   /* text-align: center; */
+  height: 100vh;
+  /* background-color: #000dff; */
 }
 
 a {
   font-weight: 500;
-  color: #646cff;
+  color: #5a5757;
   text-decoration: inherit;
 }
 
