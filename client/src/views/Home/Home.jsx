@@ -39,9 +39,12 @@ export default function Home() {
     const lastTenPosts = posts.slice(-10).reverse();
     
     return (
-        <div className="wrapper d-flex flex-column w-100">
-            <div className="header d-flex justify-content-center align-items-center w-100">
-                <h1>DDB Forum</h1>
+        <div className="home-page">
+            <div className="title" aria-hidden="true">
+                <h1>Self Room</h1>
+                <p className="moto">Grow with us and help us growing</p>
+                </div>
+            <div className="not-logged-int">
                 {!user && (
                     <div>
                         <p>Users: {countUsers}</p>
