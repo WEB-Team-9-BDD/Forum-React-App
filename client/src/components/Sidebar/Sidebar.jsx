@@ -9,7 +9,7 @@ export default function Sidebar({ categories, isOpen }) {
             <div className={`sidebar ${isOpen ? 'sidebar-open' : ''}`}>
                 <div>
                     <h4 className='sidebar-category-heading'>Categories</h4>
-                    <hr />
+                    <hr className='new1'/>
                     <ul className='sidebar-categories'>
                         {categories.map((category) => {
                            return <li key={category.id} className='category-item'>

@@ -39,7 +39,7 @@ export default function Header({ toggle }) {
             <header>
                 <RxHamburgerMenu onClick={toggle} />
                 <NavLink to="/">Home</NavLink>
-                <NavLink to="/posts">All posts</NavLink>
+                <NavLink to="/posts">Growth room</NavLink>
                 <NavLink to="/post-create">Create Post</NavLink>
                 {userData && userData.isAdmin ? <NavLink to="/admin-powers">Admin</NavLink> : undefined}
                 {!user ?
@@ -48,7 +48,9 @@ export default function Header({ toggle }) {
                     </>
                     ) : (
                         <>
-                            {`Welcome, ${userData?.username} `}
+                            <h4 className="header-username">
+                                {`${userData?.username[0].toUpperCase()}${userData?.username.slice(1)}'s room`}
+                            </h4>
                         </>
                     )
                 }

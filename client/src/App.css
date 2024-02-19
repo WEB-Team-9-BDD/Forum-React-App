@@ -4,7 +4,9 @@
   /* padding: 2rem; */
   /* text-align: center; */
   height: 100vh;
-  /* background-color: #000dff; */
+  background-image: url('https://c.wallhere.com/photos/9e/14/2560x1440_px_blue_digital_art_underwater_water-724262.jpg!d');
+  /* background-repeat: no-repeat; */
+  background-size: cover;
 }
 
 a {

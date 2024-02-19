@@ -1,7 +1,8 @@
 .user-profile-container {
     display: inline-flex;
     /* padding: 30px; */
-    background-color: rgb(24, 114, 192);
+    /* background-color: rgb(24, 114, 192); */
+    background:transparent;
     width: 100%;
 }
 
