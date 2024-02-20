@@ -44,6 +44,11 @@
     font-weight: bold;
     padding: 2px;
     color: white;
+    
+}
+
+.sign-up:hover {
+    color:white;
     text-shadow: 1px 1px 5px white;
 }
 
