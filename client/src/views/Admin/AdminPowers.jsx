@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { getUserByUsername, getUserDataByUsername, makeUserAdmin } from "../../services/users.service"
 import toast from 'react-hot-toast';
 import { getAllUsers } from "../../services/users.service";
 import { blockUser } from "../../services/users.service";
+import { unblockUser } from "../../services/users.service";
+import './AdminPowers.css';
 
 export default function AdminPowers() {
     // Make Admin Button
@@ -45,6 +47,7 @@ export default function AdminPowers() {
     });
 
     const [searchResults, setSearchResults] = useState([]);
+    const [searchPerformed, setSearchPerformed] = useState(false);
 
     const updateFormSearch = prop => e => {
         setSearchInput({ ...searchInput, [prop]: e.target.value })
@@ -59,8 +62,25 @@ export default function AdminPowers() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const results = await searchUsers();
-        setSearchResults(results); 
+        setSearchResults(results);
+        setSearchPerformed(true);
     };
+
+    const [allUsers, setAllUsers] = useState([]);
+
+    useEffect(() => {
+        const fetchAllUsers = async () => {
+            const users = await getAllUsers();
+            setAllUsers(users);
+        };
+        fetchAllUsers();
+    }, [])
+
+    useEffect(() => {
+        if (searchInput.username === '') {
+            setSearchPerformed(false);
+        }
+    }, [searchInput]);
 
     //Block user
     const [blockForm, setBlockForm] = useState({
@@ -72,7 +92,7 @@ export default function AdminPowers() {
         const userData = await getUserDataByUsername(username);
         try {
             if(userData.isBlocked){
-                toast.error('User is already blocked');
+                toast.error('Error! User is already blocked');
                 return
             }
 
@@ -85,27 +105,59 @@ export default function AdminPowers() {
         }
     };
 
+    //Unblock user
+    const [unblockForm, setUnblockForm] = useState({
+        username: '',
+        isBlocked: 'true',
+    });
+
+    const unblockUserHandler = async (username) => {
+        const userData = await getUserDataByUsername(username);
+        try {
+            if(!userData.isBlocked){
+                toast.error('Error! User is not blocked');
+                return
+            }
+
+            await unblockUser(username);
+
+            setUnblockForm({ ...unblockForm, isBlocked: false });
+            toast.success('User has been unblocked');
+        } catch (error) {
+            toast.error(error.message);
+        }
+    };
+
     return (
-        <div className="wrapper d-flex align-items-center justify-content-center w-100">
         <form onSubmit={handleSubmit}>
             <h1>Search user</h1>
-            <div className="form-group mb-2">
-                <label className="form-label" htmlFor="username">Username: </label>
-                <input autoComplete="off" className="form-control"
-                    type="text" name="username" id="username"
-                    value={searchInput.username} onChange={updateFormSearch('username')} />
-            </div>
-            <button className="btn btn-primary" onClick={handleSubmit}>Search</button>
-            <ul>
-                {searchResults.map((user, index) => (
+            <label className="form-label">Username: </label>
+            <input autoComplete="off" className="form-control"
+                type="text" id="username"
+                value={searchInput.username} onChange={updateFormSearch('username')} />
+            <button className="search-button" onClick={handleSubmit}>Search</button>
+            <h2>Search Results</h2>
+                {(!searchPerformed ? allUsers : searchResults).map((user, index) => (
                     <li key={index}>
                         {user.username}
-                        <button onClick={() => blockUserHandler(user.username)}>Block User</button>
+                        {!user.isBlocked ? 
+                            <button onClick={async () => {
+                                await blockUserHandler(user.username);
+                                const updatedUsers = allUsers.map(u => u.username === user.username ? {...u, isBlocked: true} : u);
+                                setAllUsers(updatedUsers);
+                                setSearchResults(updatedUsers.filter(u => u.username.includes(searchInput.username)));
+                            }}>Block User</button>
+                            :
+                            <button onClick={async () => {
+                                await unblockUserHandler(user.username);
+                                const updatedUsers = allUsers.map(u => u.username === user.username ? {...u, isBlocked: false} : u);
+                                setAllUsers(updatedUsers);
+                                setSearchResults(updatedUsers.filter(u => u.username.includes(searchInput.username)));
+                            }}>Unblock User</button>
+                        }
                         <button onClick={() => makeAdmin(user.username)}>Make Admin</button>
                     </li>
                 ))}
-            </ul>
         </form>
-        </div>
     );
 }

@@ -70,12 +70,16 @@ export const blockUser = (username) => {
   return set(ref(db, `users/${username}/isBlocked`), true);
 };
 
+export const unblockUser = (username) => {
+
+  return set(ref(db, `users/${username}/isBlocked`), false);
+};
+
 export const getAllUsers = async () => {
   const snapshot = await get(ref(db, 'users'));
   if (!snapshot.exists()) {
     return [];
   }
   const users = Object.keys(snapshot.val()).map(key => snapshot.val()[key]);
-  console.log(users);
   return users;
 }
