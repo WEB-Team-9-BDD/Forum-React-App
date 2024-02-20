@@ -1,7 +1,5 @@
 .user-profile-container {
     display: inline-flex;
-    /* padding: 30px; */
-    /* background-color: rgb(24, 114, 192); */
     background: transparent;
     width: 100%;
 }
@@ -31,10 +29,9 @@
 }
 
 .personal-profile-posts {
-    /* background-color: rgba(86, 76, 76, 0.319); */
-    background-color: rgba(69, 224, 172, 0.284);
+    background-color:rgba(0, 0, 0, 0.5);
     box-shadow: 1px 1px 3px 2px rgba(86, 76, 76, 0.319);
-    width: 52rem;
+    min-width: 68rem;
     height: 38rem;
     margin: 20px;
     overflow-y: auto;

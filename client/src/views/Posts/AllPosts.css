@@ -168,7 +168,7 @@ input[type="search"]:focus::-webkit-search-cancel-button {
     background-color: transparent;
     border-radius: 10px;
     border: 1px solid rgba(128, 128, 128, 0.451);
-    width: 27.5rem;
+    min-width: 30rem;
     margin-right: 5px;
     padding: 5px;
     border: 1px solid white;

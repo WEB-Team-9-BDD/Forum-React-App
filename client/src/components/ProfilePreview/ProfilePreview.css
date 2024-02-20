@@ -1,9 +1,9 @@
 .profile-preview {
     margin: 20px;
-    background-color: rgba(69, 224, 172, 0.284);
+    background-color: rgba(0, 0, 0, 0.5);
     text-align: center;
     box-shadow: 1px 1px 10px 4px rgba(74, 72, 72, 0.447);
-    width: 21rem;
+    min-width: 21rem;
     height:38rem;
     border-radius: 15px;
 }
@@ -36,7 +36,7 @@ input[type="file"] {
 }
 
 .photo-upload-label:hover {
-    background-color: rgb(95, 158, 235);
+    background-color:rgba(69, 224, 172, 0.284);
     box-shadow: 1px 1px 13px 1px white;
 }
 
@@ -47,7 +47,7 @@ input[type="file"] {
     font-size: 18px;
     letter-spacing: 1.2px;
     cursor: pointer;
-    background-color: rgb(95, 158, 235);
+    background-color: rgba(69, 224, 172, 0.284);
     border-radius: 15px;
     justify-content: center;
     text-align: center;
