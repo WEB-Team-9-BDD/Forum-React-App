@@ -72,9 +72,12 @@ tbody>tr:hover {
 }
 
 .search-wrapper svg {
-    /* background-color: rgba(0, 0, 0, 0.31); */
-    font-size: x-large;
-    color:white;
+    width: 32px;
+    height: 32px;
+}
+.search-icon-all circle, 
+.search-icon-all line{
+       color:white;
 }
 
 .search-wrapper input {

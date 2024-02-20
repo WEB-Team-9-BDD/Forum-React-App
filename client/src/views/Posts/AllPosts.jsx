@@ -177,7 +177,7 @@ export default function AllPosts() {
     <>
       <div className="table">
         <div className="search-wrapper">
-          <FiSearch />
+          <FiSearch className='search-icon-all'/>
           <InputText id='all-posts-searchbar' type='search' onInput={(e) =>
             setFilters({
               global: { value: e.target.value, matchMode: FilterMatchMode.CONTAINS },
