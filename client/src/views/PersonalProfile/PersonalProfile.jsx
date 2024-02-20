@@ -9,6 +9,8 @@ import ProfilePreview from "../../components/ProfilePreview/ProfilePreview";
 import PostPreview from '../../components/PostPreview/PostPreview'
 import { MdOutlinePostAdd } from "react-icons/md";
 import SocialMediaShare from '../../components/SocialMediaShare/SocialMediaShare'
+import { BsPostcardHeart } from "react-icons/bs";
+
 
 export default function PersonalProfile() {
 
@@ -52,16 +54,14 @@ export default function PersonalProfile() {
                         (
                             userPosts.map((post) => {
                                 return <PostPreview post={post} key={post.id} />
-                                // return <div className="my-posts-item" key={post.id}>
-                                //     <MdOutlinePostAdd />
-                                //     <Link key={post.id} to={`/posts/${post.id}`} >{post.title}</Link >
-                                //     <SocialMediaShare id={post.id} />
-                                // </div>
                             }
                             )
                         ) : (
-                            <div>
-                                <h5>You haven`t posted yet.</h5>
+                            <div className='profile-no-posts'>
+                                <div>
+                                    <BsPostcardHeart />
+                                    <h5>You haven`t posted yet.</h5>
+                                </div>
                             </div>
                         )
                     }

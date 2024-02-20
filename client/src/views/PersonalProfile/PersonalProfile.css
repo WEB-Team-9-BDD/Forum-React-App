@@ -2,7 +2,7 @@
     display: inline-flex;
     /* padding: 30px; */
     /* background-color: rgb(24, 114, 192); */
-    background:transparent;
+    background: transparent;
     width: 100%;
 }
 
@@ -31,7 +31,8 @@
 }
 
 .personal-profile-posts {
-    background-color: rgba(86, 76, 76, 0.319);
+    /* background-color: rgba(86, 76, 76, 0.319); */
+    background-color: rgba(69, 224, 172, 0.284);
     box-shadow: 1px 1px 3px 2px rgba(86, 76, 76, 0.319);
     width: 52rem;
     height: 38rem;
@@ -39,6 +40,7 @@
     overflow-y: auto;
     display: flex;
     flex-direction: column;
+    border-radius: 15px;
 }
 
 .my-posts-item {
@@ -61,5 +63,30 @@
 
 .update-user-profile {
     padding: 10px;
-    margin-left: 65px
+    margin-left: 65px;
+}
+
+.profile-no-posts {
+    justify-content: center;
+    text-align: center;
+    margin: 6rem;
+    display: flex;
+}
+
+.profile-no-posts div {
+    border-radius: 50%;
+    border: 3px solid white;
+    width: 350px;
+    height: 350px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.profile-no-posts div svg {
+    width: 150px;
+    height: 150px;
+    margin-bottom: 10px;
 }
