@@ -47,20 +47,20 @@ tbody>tr:hover {
 }
 
 .date-column {
-    width: 11rem;
+    width: 8rem;
 }
 
 .category-column {
-    width: 7rem;
+    width: 10rem;
 }
 
 .comments-column,
 .likes-column {
-    width: 8rem;
+    width: 6rem;
 }
 
 .search-wrapper {
-    background-color: white;
+    background-color: rgba(0, 0, 0, 0.31);
     width: 50%;
     border-radius: 10px;
     height: 3rem;
@@ -72,7 +72,9 @@ tbody>tr:hover {
 }
 
 .search-wrapper svg {
+    /* background-color: rgba(0, 0, 0, 0.31); */
     font-size: x-large;
+    color:white;
 }
 
 .search-wrapper input {
@@ -82,7 +84,7 @@ tbody>tr:hover {
     font-size: 1.25rem;
     width: 100%;
     margin-left: 5px;
-    color: black;
+    color: white;
 }
 
 input[type="search"]::-webkit-search-cancel-button {
@@ -106,7 +108,7 @@ input[type="search"]:focus::-webkit-search-cancel-button {
 }
 
 .action-column {
-    width: 8rem;
+    width: 7rem;
     padding: 3px;
     margin: 3px;
     justify-content: center;
