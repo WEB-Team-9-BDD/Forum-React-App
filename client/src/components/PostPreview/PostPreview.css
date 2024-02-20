@@ -29,13 +29,28 @@
 .post-preview-details {
     color: white;
     display: inline-flex;
+    align-items: center;
 }
 
 .post-preview-details p {
-    margin: 3px;
+    margin: 0 12px;
+}
+.post-preview-details p svg{
+    width: 18px;
+    height: 18px;
+    margin:0 6px;
 }
 
 .post-preview-details a {
-    margin: 3px;
+    margin: 0 3px;
     color: white
+}
+
+.post-preview-details a{
+    margin: 0 6px;
+}
+.post-preview-details a svg {
+    margin: 5px;
+    width: 25px;
+    height: 25px;
 }

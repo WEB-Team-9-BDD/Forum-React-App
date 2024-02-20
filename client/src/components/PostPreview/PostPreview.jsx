@@ -1,15 +1,28 @@
 import PropTypes from 'prop-types';
 import { Link, useNavigate } from 'react-router-dom';
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { AppContext } from '../../context/AppContext';
-import Button from '../Button/Button';
+import { TbCategoryPlus } from "react-icons/tb";
+import { SlLike, SlDislike } from "react-icons/sl";
+
 import './PostPreview.css'
+import { dislikeCount, likeCount } from '../../services/post.service';
+import { postCategories } from '../../constants/postCategories';
 
 export default function PostPreview({ post }) {
-  const navigate = useNavigate();
-  const { userData } = useContext(AppContext);
+  const { user, userData } = useContext(AppContext);
+  const [likes, SetLikes] = useState(0);
+  const [dislikes, SetDislikes] = useState(0);
 
-
+  useEffect(() => {
+    const fetchCounts = async () => {
+      const likesCount = await likeCount(post.id);
+      SetLikes(likesCount)
+      const disLikesCount = await dislikeCount(post.id);
+      SetDislikes(disLikesCount);
+    }
+    fetchCounts();
+  }, [post]);
 
   return (
     <div className="post-preview">
@@ -20,9 +33,11 @@ export default function PostPreview({ post }) {
         <p>{post.content}</p>
       </div>
       <div className='post-preview-details'>
-      <Link to={`/posts/${post.id}/category/${post.category}`}>{post.category} </Link>
-      <p>{new Date(post.createdOn).toLocaleDateString('bg-BG')}</p>
-      
+        <Link to={`/${post.category}`}><TbCategoryPlus />
+          {post.category} </Link>
+        <p>{new Date(post.createdOn).toLocaleDateString('bg-BG')}</p>
+        <p><SlLike />{likes}</p>
+        <p><SlDislike />{dislikes}</p>
       </div>
     </div>
   )
