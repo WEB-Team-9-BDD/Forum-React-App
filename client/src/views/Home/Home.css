@@ -1,4 +1,73 @@
-.btn-primary {
-    display: block;
-    width: 100%;
-}
+.home-page {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    color: white;
+  }
+  
+  .title {
+    text-align: center;
+    margin-bottom: 20px;
+    color: white;
+  }
+  
+  
+  .moto {
+    white-space: nowrap;
+    animation: move 20s linear infinite;
+    overflow: hidden;
+    position: relative;
+    color: aquamarine;
+  }
+  
+  @keyframes move {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+  }
+  
+  .blocked {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 20px;
+    margin-bottom: 20px;
+    border: 1px solid #f5c6cb;
+    border-radius: 4px;
+  }
+  
+  .not-logged-int {
+    text-align: center;
+    margin-bottom: 20px;
+    color: white;
+  }
+  
+  .content {
+    display: flex;
+    justify-content: space-between;
+    color: white;
+  }
+  
+  .recent, .mostCommented {
+    color: white;
+    width: 45%;
+  }
+  
+  .recent h2, .mostCommented h2 {
+    text-align: center;
+    color: white;
+  }
+  
+  .content {
+    display: flex;
+    justify-content: space-between;
+    clear: white;
+  }
+  
+  .recent h2, .mostCommented h2 {
+    text-align: center;
+    color: white;
+  }
+  
+  .post-title {
+    color: #333;
+    font-size: 1.2em;
+  }
+  
