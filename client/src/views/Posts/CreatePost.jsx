@@ -1,7 +1,8 @@
 import { useContext, useState } from 'react';
 import { AppContext } from '../../context/AppContext';
-import { addPost } from '../../services/post.service';
+import { addPost, addTagToPost } from '../../services/post.service';
 import Button from '../../components/Button/Button';
+import { db } from '../../config/firebase-config';
 
 export default function CreatePost() {
   const { userData } = useContext(AppContext);
@@ -9,7 +10,11 @@ export default function CreatePost() {
     title: '',
     content: '',
     category: 'Category1',
+    tags: [],
   });
+  const [tags, setTags] = useState([]);
+  const [tag, setTag] = useState ([''])
+  const [isPostCreated, setIsPostCreated] = useState(false);
 
   const categories = ['Category1', 'Category2', 'Category3', 'Category4']
 
@@ -20,7 +25,47 @@ export default function CreatePost() {
     });
   };
 
+  const addTag = (tag) => {
+    if (tag) { // Only add the tag if it's not undefined
+      const newTags = [...tags, tag];
+      setTags(newTags);
+      setPost({
+        ...post,
+        tags: newTags,
+      });
+    }
+  };
+
+  const handleTagChange = (index, event) => {
+    if (index >= 0 && index < tags.length) { // Check if index is valid
+      const newTags = [...tags];
+      newTags[index] = event.target.value;
+      setTags(newTags);
+    }
+  };
+
+  const handleTagAdd = (tag) => {
+    if (tag && tag.trim() !== '' && tags.length < 5) { // Add a check for empty string
+      setTags([...tags, tag]);
+      setTag(''); // Clear the input field
+    } else if (!tag || tag.trim() === '') { // Add a check for empty string
+      alert('Please enter a tag.');
+    } else {
+      alert('You can only add up to 5 tags.');
+    }
+  };
+
+  const handleTagRemove = (index) => {
+    const newTags = [...tags];
+    newTags.splice(index, 1);
+    setTags(newTags);
+  };
+
+
+
+
   const createPost = async () => {
+    event.preventDefault();
     if (post.title.length < 16 || post.title.length > 64) {
       return alert('Title must be between 16 and 64 symbols.');
     }
@@ -31,13 +76,39 @@ export default function CreatePost() {
     // If no category is selected, use the default category
     const category = post.category || 'Category1';
   
-    await addPost(userData.username, post.title, post.content, category);
+    const newPostRef = await addPost(userData.username, post.title, post.content, category, tags);
+  const postId = newPostRef.key; // Extract the ID from the Reference object
+
   
-    setPost({
-      title: '',
-      content: '',
-      category: 'Category1', // reset category to default
-    });
+
+  for (let tag of tags) {
+    if (tag) { // Only process the tag if it's not empty or undefined
+      await addTag(tag);
+      const { tagIsValid, tagExists, finalTag } = await addTagToPost(postId, tag);
+
+      if (!tagIsValid) {
+        alert(`Tag "${tag}" is invalid.`);
+        continue;
+      }
+      if (!tagExists) {
+        alert(`Tag "${tag}" was not found in the database and has been created.`);
+      }      
+    }
+  }
+
+
+  setPost({
+    title: '',
+    content: '',
+    category: 'Category1', // reset category to default
+    tags: [], // reset tags
+  });
+  
+  setIsPostCreated(true);
+
+  window.location.reload();
+
+  // setTags([])
   }
 
   return (
@@ -55,6 +126,37 @@ export default function CreatePost() {
         </option>
       ))}
     </select><br/><br/>
+    <label htmlFor="input-tags"> Tags:</label><br/>
+{tags.map((tag, index) => (
+  <div className="tag-input-row" key={index}>
+    <input 
+      type="text" 
+      name='input-tags'
+      id={`input-tag-${index}`}
+      value={tag} 
+      onChange={event => handleTagChange(index, event)}
+    />
+    <button onClick={() => handleTagRemove(index)}>Remove Tag</button>
+  </div>
+))}
+<div className="tag-input-row">
+  <input 
+    type="text" 
+    name='input-tags'
+    id={`input-tag-new`}
+    value={tag} 
+    onChange={event => setTag(event.target.value)}
+    onKeyDown={event => {
+      if (event.key === 'Enter') {
+        event.preventDefault(); 
+        handleTagAdd(tag);
+      }
+    }}
+  />
+  <button onClick={() => handleTagAdd(tag)}>Add Tag</button>
+</div>
+
+    <br/><br/>
     <Button onClick={createPost}>New Post+</Button>
     </div>
   )

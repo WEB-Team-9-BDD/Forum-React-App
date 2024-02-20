@@ -12,14 +12,15 @@ import {
 } from 'firebase/database';
 import { db } from '../config/firebase-config';
 
-export const addPost = async (author, title, content, category) => {
+export const addPost = async (author, title, content, category, tagRefs) => {
   return push(ref(db, 'posts'), {
     author,
     title,
     content,
-    category, // new category field
+    category,
     createdOn: Date.now(),
     comments: [],
+    tags: tagRefs,
   });
 };
 
@@ -62,9 +63,20 @@ export const getPostById = async (id) => {
       : [],
     likedBy: snapshot.val().likedBy ? Object.keys(snapshot.val().likedBy) : [],
     dislikedBy: snapshot.val().dislikedBy ? Object.keys(snapshot.val().dislikedBy) : [],
+    // tags: await Promise.all(snapshot.val().tags.map(getTagById)),
   };
 
   return post;
+};
+
+const getTagById = async (id) => {
+  const snapshot = await get(ref(db, `tags/${id}`));
+  return snapshot.val();
+};
+
+export const isPostLikedByUser = async (username, postId) => {
+  const snapshot = await get(ref(db, `/posts/${postId}/likedBy/${username}`));
+  return snapshot.val() === true;
 };
 
 
@@ -79,6 +91,11 @@ export const likePost = async (username, postId) => {
   await remove(ref(db, `/users/${username}/dislikedPosts/${postId}`));
 };
 
+export const unlikePost = async (username, postId) => {
+  const postRef = ref(db, `posts/${postId}/likedBy/${username}`);
+  await remove(postRef);
+};
+
 export const dislikePost = async (username, postId) => {
   const updates = {};
   updates[`/posts/${postId}/dislikedBy/${username}`] = true;
@@ -88,6 +105,11 @@ export const dislikePost = async (username, postId) => {
 
   await remove(ref(db, `/posts/${postId}/likedBy/${username}`));
   await remove(ref(db, `/users/${username}/likedPosts/${postId}`));
+};
+
+export const undislikePost = async (username, postId) => {
+  const postRef = ref(db, `posts/${postId}/dislikedBy/${username}`);
+  await remove(postRef);
 };
 
 export const addCommentToPost = async (postId, author, comment) => {
@@ -218,4 +240,48 @@ export const getPostsByAuthor = async (author) => {
     .filter((post) => post.author === author);
 
   return posts;
+}
+
+export const addTag = async (tag) => {
+  return set(ref(db, `tags/${tag}`), { name: tag });
+};
+
+export const addTagToPost = async (postId, tag) => {
+  // Check if the tag is valid
+  if (!tag || tag.length > 10) {
+    console.log('Invalid tag');
+    return;
+  }
+
+  // Check if the tag exists
+  const tagRef = ref(db, `tags/${tag}`);
+  const tagSnapshot = await get(tagRef);
+
+  if (!tagSnapshot.exists()) {
+    // If the tag does not exist, create it
+    await addTag(tag); // use addTag function
+  }
+
+  // Add the tag to the post
+  const postTagRef = ref(db, `posts/${postId}/tags/${tag}`);
+  await set(postTagRef, true);
+};
+
+export async function getTagsByPostId(postId) {
+  const tagsRef = ref(db, `posts/${postId}/tags`);
+
+  return new Promise((resolve, reject) => {
+    onValue(tagsRef, (snapshot) => {
+      const data = snapshot.val();
+      if (!data) {
+        resolve([]);
+        return;
+      }
+
+      // If data is already an array, just resolve it directly
+      resolve(data);
+    }, (error) => {
+      reject(error);
+    });
+  });
 }
