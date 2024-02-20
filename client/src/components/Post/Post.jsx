@@ -4,10 +4,12 @@ import Button from '../Button/Button';
 import { useNavigate } from 'react-router-dom';
 import { useContext, useState, useEffect, useCallback } from 'react';
 import { AppContext } from '../../context/AppContext';
-import { deletePost, updatePost, editPostTitle } from '../../services/post.service';
+import { deletePost, updatePost, editPostTitle, getPostById} from '../../services/post.service';
 import toast from "react-hot-toast";
-import { likePost, dislikePost } from '../../services/post.service';
+import { likePost, dislikePost, undislikePost, unlikePost } from '../../services/post.service';
 import { SlLike, SlDislike } from "react-icons/sl";
+
+
 
 export default function Post({ post }) {
   const navigate = useNavigate();
@@ -19,11 +21,21 @@ export default function Post({ post }) {
   const [editContent, setEditContent] = useState(post.content);
   const [editedTitle, setEditedTitle] = useState(post.title);
   const [editingTitle, setEditingTitle] = useState(false);
+  const [postState, setPost] = useState(post);
 
-  useEffect(() => {
-    setLikeActive(post.likedBy.includes(userData.username));
-    setDislikeActive(post.dislikedBy.includes(userData.username));
-  }, [post, userData.username]);
+// Fetch post data when component mounts
+useEffect(() => {
+  const fetchPost = async () => {
+    const fetchedPost = await getPostById(post.id); // Use getPostById instead of getPost
+    setPost(fetchedPost);
+  };
+
+  fetchPost();
+}, [post.id])
+   
+const updatePost = (updatedPost) => {
+  setPost(updatedPost);
+};
 
   const deleteSinglePost = async () => {
     try {
@@ -34,63 +46,90 @@ export default function Post({ post }) {
       toast.error(error.code);
     }
   }
+  const handleEditSubmit = async (event) => {
+    event.preventDefault();
+  
+    if (editContent.length < 1 || editContent.length > 500) {
+      return alert('Post content must be between 1 and 500 characters.');
+    }
+  
+    if (editedTitle.length < 1 || editedTitle.length > 100) {
+      return alert('Post title must be between 1 and 100 characters.');
+    }
+  
+    try {
+      await updatePost(post.id, editContent);
+      await editPostTitle(post.id, editedTitle);
+      setPost({ ...postState, title: editedTitle, content: editContent });
+      setEditing(false);
+      setEditingTitle(false);
+      toast.success('Post successfully updated');      
+    } catch (error) {
+      toast.error(error.code);
+    }    
+  };
+  
+  // Handler for changing edited post content
+  const handleEditContentChange = (event) => {
+    setEditContent(event.target.value);
+  };
+  
+  // Handler for changing edited post title
+  const handleEditedTitleChange = (event) => {
+    setEditedTitle(event.target.value);
+  };
 
   const handleEdit = () => {
     setEditing(true);
-    setEditingTitle(true);
-  };
+    setEditingTitle(true);}; 
 
-  const handleTitleEditSubmit = async (event) => {    
-    event.preventDefault();
-    await editPostTitle(post.id, editedTitle);
-    setEditingTitle(false);
-  };
-
-  const handleEditSubmit = async (event) => {
-    event.preventDefault();
-    try {
-      await updatePost(post.id, editContent);
-      setEditing(false);
-    } catch (error) {
-      console.error('Failed to update post:', error);
-      // Show some error message to the user
-    }
-  };
+  useEffect(() => {
+    setLikeActive(post.likedBy.includes(userData.username));
+    setDislikeActive(post.dislikedBy.includes(userData.username));
+  }, [post, userData.username]);
 
   const handleLike = useCallback(async () => {
     if (updating) return;
     setUpdating(true);
-    if (dislikeActive) {
-      await dislikePost(userData.username, post.id);
-      setDislikeActive(false);
+    if (likeActive) {
+      await unlikePost(userData.username, post.id);
+      setLikeActive(false);
+    } else {
+      if (dislikeActive) {
+        await undislikePost(userData.username, post.id);
+        setDislikeActive(false);
+      }
+      await likePost(userData.username, post.id);
+      setLikeActive(true);
     }
-    await likePost(userData.username, post.id);
-    setLikeActive(!likeActive);
     setUpdating(false);
   }, [userData.username, post.id, likeActive, dislikeActive, updating]);
-
+  
   const handleDislike = useCallback(async () => {
     if (updating) return;
     setUpdating(true);
-    if (likeActive) {
-      await likePost(userData.username, post.id);
-      setLikeActive(false);
+    if (dislikeActive) {
+      await undislikePost(userData.username, post.id);
+      setDislikeActive(false);
+    } else {
+      if (likeActive) {
+        await unlikePost(userData.username, post.id);
+        setLikeActive(false);
+      }
+      await dislikePost(userData.username, post.id);
+      setDislikeActive(true);
     }
-    await dislikePost(userData.username, post.id);
-    setDislikeActive(!dislikeActive);
     setUpdating(false);
   }, [userData.username, post.id, likeActive, dislikeActive, updating]);
 
-  console.log(userData.username, post.author); // Check the username and author
-  console.log(userData.isBlocked)
 
   return (
     <div className="post">
       <div className="post-header">
         {editingTitle ? (
-          userData.username === post.author ? (
-            <form onSubmit={handleTitleEditSubmit}>
-              <input type="text" value={editedTitle} onChange={e => setEditedTitle(e.target.value)} />
+          userData.username === postState.author ? (
+            <form onSubmit={handleEditSubmit}>
+              <input type="text" value={editedTitle} onChange={handleEditedTitleChange} />
               <Button type="submit">Save</Button>
               <Button type="button" onClick={() => setEditingTitle(false)}>Cancel</Button>
             </form>
@@ -98,19 +137,19 @@ export default function Post({ post }) {
             <p>You are not the author of this post, so you cannot edit it.</p>
           )
         ) : (
-          <h2 onDoubleClick={() => setEditingTitle(true)}>{post.title}</h2>
+          <h2 onDoubleClick={() => setEditingTitle(true)}>{postState.title}</h2>
         )}
         <div className="post-actions">
           <Button disabled={updating} onClick={handleLike}><SlLike className={likeActive ? 'like-active' : ''} /></Button>
           <Button disabled={updating} onClick={handleDislike}><SlDislike className={dislikeActive ? 'dislike-active' : ''}/></Button>
         </div>
-        <p>{new Date(post.createdOn).toLocaleDateString('bg-BG')}</p>
+        <p>{new Date(postState.createdOn).toLocaleDateString('bg-BG')}</p>
       </div>
       <div className="post-container">
         {editing ? (
-          userData.username === post.author ? (
+          userData.username === postState.author ? (
             <form onSubmit={handleEditSubmit}>
-              <textarea value={editContent} onChange={e => setEditContent(e.target.value)} />
+              <textarea value={editContent} onChange={handleEditContentChange} />
               <button type="submit">Save</button>
               <button type="button" onClick={() => setEditing(false)}>Cancel</button>
             </form>
@@ -118,10 +157,10 @@ export default function Post({ post }) {
             <p>You are not the author of this post, so you cannot edit it.</p>
           )
         ) : (
-          <p onDoubleClick={() => setEditing(true)}>{post.content}</p>
+          <p onDoubleClick={() => setEditing(true)}>{postState.content}</p>
         )}
       </div>
-      {(userData.username === post.author && !userData.isBlocked) || userData.isAdmin ?
+      {(userData.username === postState.author && !userData.isBlocked) || userData.isAdmin ?
         (<>
           {(userData.username === post.author && !userData.isBlocked) && <Button onClick={handleEdit}>Edit</Button>}
           {(userData.isAdmin || userData.username === post.author && !userData.isBlocked)&& <Button onClick={deleteSinglePost}>Delete</Button>}
@@ -142,4 +181,4 @@ Post.propTypes = {
     author: PropTypes.string,
     category: PropTypes.string,
   }),
-};
+}; 
