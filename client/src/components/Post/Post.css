@@ -1,8 +1,7 @@
 .post {
   display: flex;
   flex-direction: column;
-  background-color:  rgba(16, 66, 66, 0.419);
-  
+  background-color:  rgba(16, 66, 66, 0.419); 
   border: 1px ;
   border-radius: 10px;
   justify-content: center;

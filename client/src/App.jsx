@@ -23,6 +23,7 @@ import SinglePost from './views/Posts/SinglePost'
 import CreatePost from './views/Posts/CreatePost'
 import PersonalProfile from './views/PersonalProfile/PersonalProfile.jsx'
 import PostsByCategory from './views/Category/Category.jsx'
+import UserPreview from './components/UserPreview/UserPreview.jsx'
 
 
 function App() {
@@ -75,6 +76,7 @@ function App() {
               <Route path='/admin-powers' element={<Authenticated><AdminPowers /></Authenticated>} />
               <Route path='/category/:category' element={<Authenticated><PostsByCategory /></Authenticated>} />
               <Route path='/:category' element={<Authenticated><PostsByCategory /></Authenticated>} />
+              <Route path='/user/:username' element={<UserPreview />} />
             </Routes>
           </div>
         </AppContext.Provider>

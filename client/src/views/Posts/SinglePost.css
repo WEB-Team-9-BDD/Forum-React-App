@@ -1,7 +1,26 @@
-body {
+.single-post {
     color: white
 }
 
-.single-post-container {
+.comment-container {
     display: flex;
-}
+    flex-direction: column;
+    background-color: rgba(16, 66, 66, 0.419);
+    border: 1px solid white;
+    border-radius: 10px;
+    justify-content: flex-start; /* align items to the top */
+    align-items: center;
+    width: 60%; /* adjust as needed */
+    max-width: 60%; /* adjust as needed */
+    margin: 20px auto; /* adjust as needed */
+    color: white;
+  }
+  
+  .comment-header {
+    display: flex;
+    border-radius: 10px;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgba(5, 45, 78, 0.877);
+  }

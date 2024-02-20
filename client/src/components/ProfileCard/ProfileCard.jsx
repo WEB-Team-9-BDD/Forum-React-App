@@ -5,6 +5,7 @@ import { CgProfile } from "react-icons/cg";
 import './ProfileCard.css'
 import { getPostsByAuthor } from '../../services/post.service';
 import Loader from '../../components/Loader/Loader'
+import { Link } from 'react-router-dom';
 
 export default function ProfileCard({ username }) {
     const [currentUser, setCurrentUser] = useState(null);
@@ -25,7 +26,7 @@ export default function ProfileCard({ username }) {
                             <img alt="avatar-mini" className='mini-profile-avatar' src={currentUser.photoURL} />
                         }
                         <div>
-                            <h3>{currentUser.username}</h3>
+                            <Link to={`/user/${currentUser.username}`}>{currentUser.username}</Link>
                             <p><strong> <em>{currentUser.firstName} {currentUser.lastName} </em></strong></p>
                             <div>
                                 <p className="number-of-posts">Number of posts: <span>{userPosts.length}</span></p>
