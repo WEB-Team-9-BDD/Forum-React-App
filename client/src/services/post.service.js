@@ -12,6 +12,7 @@ import {
   equalTo
 } from 'firebase/database';
 import { db } from '../config/firebase-config';
+import { postCategories } from '../constants/postCategories';
 
 export const addPost = async (author, title, content, category, tagRefs) => {
   return push(ref(db, 'posts'), {
@@ -49,10 +50,10 @@ export const getAllPosts = async (createdBy) => {
 };
 
 export const getPostsByCategory = async (category) => {
-  category = category.charAt(0).toUpperCase() + category.slice(1);
+  const categoryTitle = postCategories.find(cat => cat.path === `/${category}`).title;
   
   const snapshot = await get(
-    query(ref(db, 'posts'), orderByChild('category'), equalTo(category))
+    query(ref(db, 'posts'), orderByChild('category'), equalTo(categoryTitle))
   );
   
   if (!snapshot.exists()) {
