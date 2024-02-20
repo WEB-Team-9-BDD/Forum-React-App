@@ -18,11 +18,7 @@
     position: relative;
     color: aquamarine;
   }
-  
-  @keyframes move {
-    0% { transform: translateX(-100%); }
-    100% { transform: translateX(100%); }
-  }
+
   
   .blocked {
     background-color: #f8d7da;
@@ -39,12 +35,6 @@
     color: white;
   }
   
-  .content {
-    display: flex;
-    justify-content: space-between;
-    color: white;
-  }
-  
   .recent, .mostCommented {
     color: white;
     width: 45%;
@@ -54,18 +44,7 @@
     text-align: center;
     color: white;
   }
-  
-  .content {
-    display: flex;
-    justify-content: space-between;
-    clear: white;
-  }
-  
-  .recent h2, .mostCommented h2 {
-    text-align: center;
-    color: white;
-  }
-  
+
   .post-title {
     color: #333;
     font-size: 1.2em;
