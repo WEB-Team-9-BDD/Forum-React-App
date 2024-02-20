@@ -1,15 +1,14 @@
 import { useContext, useEffect, useState } from "react";
 import { AppContext } from "../../context/AppContext";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import './PersonalProfile.css'
 import { getPostsByAuthor } from "../../services/post.service";
-import { uploadProfilePicture } from "../../services/users.service";
+import { updatePhotoURL, uploadProfilePicture } from "../../services/users.service";
 import toast from "react-hot-toast";
 import ProfilePreview from "../../components/ProfilePreview/ProfilePreview";
 import PostPreview from '../../components/PostPreview/PostPreview'
-import { MdOutlinePostAdd } from "react-icons/md";
-import SocialMediaShare from '../../components/SocialMediaShare/SocialMediaShare'
 import { BsPostcardHeart } from "react-icons/bs";
+import ProfileCard from "../../components/ProfileCard/ProfileCard";
 
 
 export default function PersonalProfile() {
@@ -19,7 +18,6 @@ export default function PersonalProfile() {
     const [userPosts, setUserPosts] = useState([]);
     const [profilePhoto, setProfilePhoto] = useState(null);
     const [fileName, setFileName] = useState('');
-    const navigate = useNavigate();
 
     useEffect(() => {
         getPostsByAuthor(userData.username).then(setUserPosts);
@@ -35,6 +33,7 @@ export default function PersonalProfile() {
         try {
             const res = await uploadProfilePicture(profilePhoto, user);
             setPhotoURL(res);
+            await updatePhotoURL(userData.username, res);
             setFileName('');
             toast.success('Profile photo added successfully.');
         } catch (error) {
@@ -60,7 +59,7 @@ export default function PersonalProfile() {
                             <div className='profile-no-posts'>
                                 <div>
                                     <BsPostcardHeart />
-                                    <h5>You haven`t posted yet.</h5>
+                                    <h5>No posted yet.</h5>
                                 </div>
                             </div>
                         )
