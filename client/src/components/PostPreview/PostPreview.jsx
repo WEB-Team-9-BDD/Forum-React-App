@@ -24,6 +24,8 @@ export default function PostPreview({ post }) {
     fetchCounts();
   }, [post]);
 
+  const path = postCategories.find((category) => category.title === post.category).path;
+
   return (
     <div className="post-preview">
       <div className='post-preview-title'>
@@ -33,7 +35,7 @@ export default function PostPreview({ post }) {
         <p>{post.content}</p>
       </div>
       <div className='post-preview-details'>
-        <Link to={`/${post.category}`}><TbCategoryPlus />
+        <Link to={`${path}`}><TbCategoryPlus />
           {post.category} </Link>
         <p>{new Date(post.createdOn).toLocaleDateString('bg-BG')}</p>
         <p><SlLike />{likes}</p>

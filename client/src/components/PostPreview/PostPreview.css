@@ -1,7 +1,12 @@
 .post-preview {
-    border: 3px solid white;
     padding: 15px;
     margin: 10px;
+    justify-content: center;
+    text-align: center;
+    border-radius: 15px;
+}
+.post-preview:hover{
+    box-shadow: 1px 1px 13px 1px white;
 }
 
 .post-preview-title a {
@@ -13,7 +18,7 @@
 }
 
 .post-preview-content {
-    height: 3rem;
+    height: 2.5rem;
     max-width: 44rem;
     overflow: hidden;
     text-overflow: ellipsis;
