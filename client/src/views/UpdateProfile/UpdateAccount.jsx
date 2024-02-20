@@ -72,7 +72,7 @@ export default function UpdateAccount() {
 
     return (
         <div>
-            <div className="wrapper d-flex align-items-center justify-content-center w-100">
+            <div className="background-wrapper">
                 {userData.isAdmin && (
                     <div>
                         <Link to="/admin-powers">Admin Powers</Link>
