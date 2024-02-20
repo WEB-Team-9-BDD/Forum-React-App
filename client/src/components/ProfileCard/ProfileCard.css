@@ -1,0 +1,22 @@
+.mini-preview {
+    margin: 20px;
+    background-color: rgba(0, 0, 0, 0.519);
+    text-align: center;
+    box-shadow: 1px 1px 10px 4px rgba(74, 72, 72, 0.447);
+    width: 15rem;
+    height: 20rem;
+    border-radius: 15px;
+}
+
+.mini-profile-avatar {
+    width: 7rem;
+    height: 7rem;
+    border-radius: 50%;
+    border: 2px solid white;
+    margin: 1.5rem;
+}
+
+.number-of-posts span {
+    font-weight: bolder;
+    font-size: larger;
+}
