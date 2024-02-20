@@ -4,35 +4,39 @@ import { ref as sRef } from 'firebase/storage';
 import { getDownloadURL, uploadBytes } from 'firebase/storage';
 import { updateProfile } from 'firebase/auth';
 
-export const getUserByUsername = (username) => {
+export const getUserByUsername = async (username) => {
 
   return get(ref(db, `users/${username}`));
 };
 
-export const getUserByEmail = (email) => {
+export const getUserByEmail = async (email) => {
 
   return get(ref(db, `users'/${email}`));
 };
 
-export const createUser = (username, firstName, lastName, email, uid, isAdmin, phoneNumber, isBlocked) => {
+export const createUser = async (username, firstName, lastName, email, uid, isAdmin, phoneNumber, isBlocked, photoURL) => {
 
-  return set(ref(db, `users/${username}`), { username, firstName, lastName, uid, email, createdOn: Date.now(), likedPosts: {}, isAdmin, phoneNumber, isBlocked })
+  return set(ref(db, `users/${username}`), { username, firstName, lastName, uid, email, createdOn: Date.now(), likedPosts: {}, isAdmin, phoneNumber, isBlocked,photoURL })
 };
 
-export const updateUser = (username, firstName, lastName, email, uid) => {
+export const updateUser = async (username, firstName, lastName, email, uid) => {
 
   return update(ref(db, `users/${username}`), { username, firstName, lastName, email, uid });
 }
 
-export const getUserData = (uid) => {
+export const getUserData = async (uid) => {
 
   return get(query(ref(db, 'users'), orderByChild('uid'), equalTo(uid)));
 };
 
-export const makeUserAdmin = (email) => {
+export const makeUserAdmin = async (email) => {
 
   return set(ref(db, `users/${email}/isAdmin`), true);
 };
+
+export const updatePhotoURL = async (username, photoURL) => {
+  return set(ref(db, `users/${username}/photoURL`), photoURL);
+}
 
 export const usersCount = async () => {
   const snapshot = await get(ref(db, 'users'));
@@ -60,12 +64,12 @@ export const uploadProfilePicture = async (file, user) => {
   return uploadedPhotoURL;
 }
 
-export const createUserUsername = (username, firstName, lastName,email, uid, isAdmin, phoneNumber,isBlocked ) => {
+export const createUserUsername = async (username, firstName, lastName, email, uid, isAdmin, phoneNumber, isBlocked) => {
 
   return set(ref(db, `users/${username}`), { username, firstName, lastName, uid, email, createdOn: Date.now(), likedPosts: {}, isAdmin, phoneNumber, isBlocked })
 };
 
-export const blockUser = (username) => {
+export const blockUser = async(username) => {
 
   return set(ref(db, `users/${username}/isBlocked`), true);
 };
