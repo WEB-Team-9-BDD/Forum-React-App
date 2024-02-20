@@ -217,6 +217,14 @@ export const likeCount = async (postId) => {
   return Object.keys(snapshot.val().likedBy).length;
 }
 
+export const dislikeCount = async (postId) => {
+  const snapshot = await get(ref(db, `posts/${postId}`));
+  if (!snapshot.exists() || !snapshot.val().dislikedBy) {
+    return 0;
+  }
+  return Object.keys(snapshot.val().dislikedBy).length;
+}
+
 export const updatePost = async (id, content) => {
   await update(ref(db, `posts/${id}`), {
     content: content,
