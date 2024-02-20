@@ -33,7 +33,7 @@ export default function ProfilePreview({ photoURL, setProfilePhoto, uploadPhoto,
                     <input type="file" accept="image/*"
                         id="profile-photo-upload" onChange={handleInputChange} />
 
-                    <h3>{userData.username} {user.emailVerified ? <MdVerified className="verified-user" /> : null}</h3>
+                    <h3 className="user-profile-name">{userData.username} {user.emailVerified ? <MdVerified className="verified-user" /> : null}</h3>
                     <p><strong> <em>{userData.firstName} {userData.lastName} </em></strong></p>
                     <div>
                         <p className="number-of-posts">Number of posts: <span>{userPosts.length}</span></p>
