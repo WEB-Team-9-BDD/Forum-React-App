@@ -1,13 +1,13 @@
+import { AppContext } from '../../context/AppContext'
 import { useContext, useEffect, useState } from "react";
 import { deletePost, editPostTitle, getAllPosts, postCommentsCounts } from "../../services/post.service";
-import { Link, } from "react-router-dom";
-import { likeCount } from '../../services/post.service'; // replace with the actual path
+import { Link } from "react-router-dom";
+import { likeCount } from '../../services/post.service'; 
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { FilterMatchMode } from "primereact/api";
 import { InputText } from "primereact/inputtext";
 import { FiSearch } from "react-icons/fi";
-import { AppContext } from '../../context/AppContext'
 import { CiEdit } from "react-icons/ci";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import Modal from "../../components/Modal/Modal";
@@ -171,13 +171,7 @@ export default function AllPosts() {
     }
   }
 
-  // const footer = (
-  //   <>
-  //     <div className="table-footer d-flex justify-content-center mt-2">
-  //       <h5>{`Total posts: ${fullPostsData ? fullPostsData.length : 0}`}</h5>
-  //     </div>
-  //   </>
-  // );
+
 
   return (
     <>
