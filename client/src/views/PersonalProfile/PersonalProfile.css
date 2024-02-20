@@ -1,7 +1,8 @@
 .user-profile-container {
-    display: inline-flex;
+    /* display: inline-flex; */
+    display: flex;
+    flex-direction: row;
     background: transparent;
-    width: 100%;
 }
 
 .update-profile-button {
@@ -16,7 +17,6 @@
     height: 150px;
     border: 1px solid black;
     margin: 10px;
-
 }
 
 .profile-avatar-icon {
@@ -31,7 +31,6 @@
 .personal-profile-posts {
     background-color:rgba(0, 0, 0, 0.5);
     box-shadow: 1px 1px 3px 2px rgba(86, 76, 76, 0.319);
-    min-width: 68rem;
     height: 38rem;
     margin: 20px;
     overflow-y: auto;

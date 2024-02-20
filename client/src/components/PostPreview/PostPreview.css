@@ -1,11 +1,10 @@
 .post-preview {
-    padding: 15px;
-    margin: 10px;
+    padding: 1rem;
+    margin: 5px;
     justify-content: center;
     border-radius: 15px;
-    height: 12.5rem;
+    height: 13rem;
     text-align: center;
-    width: 100%;
 }
 
 .post-preview:hover {
@@ -23,17 +22,15 @@
 .post-preview-title a {
     border-radius: 10px;
     color: white;
-    border: none;
-    outline: none;
     font-size: 22px;
 }
 
 .post-preview-title a:hover {
-   color:aquamarine
+   color:rgb(36, 223, 161)
 }
 
 .post-preview-content {
-    height: 2.5rem;
+    height: 2.75rem;
     overflow: hidden;
     text-overflow: ellipsis;
     color: white;
@@ -45,7 +42,8 @@
     color: white;
     display: inline-flex;
     align-items: center;
-    padding: 10px;
+    padding: 5px;
+    margin-bottom: 5px;
 }
 
 .post-preview-details p {
@@ -79,7 +77,7 @@
 }
 
 ::-webkit-scrollbar {
-    width: 5px;
+    width: 1px;
 }
 
 ::-webkit-scrollbar-thumb {
