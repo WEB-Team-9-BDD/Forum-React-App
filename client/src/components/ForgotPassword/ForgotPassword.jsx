@@ -31,9 +31,9 @@ export default function ForgotPassword() {
     }
 
     return (
-        <div className="forgot wrapper d-flex align-items-center justify-content-center w-100">
+        <div className="forgot-wrapper">
             <div className="forgot-psw">
-                <h2 className="heading mb-3 text-center">Forgot Password</h2>
+                <h2 className="login-header">Forgot Password</h2>
                 <form name='reset-password' onSubmit={e => e.preventDefault()}>
                     <div className="form-group mb-2 ">
                         <label className="form-label" htmlFor="email">Email: </label>
