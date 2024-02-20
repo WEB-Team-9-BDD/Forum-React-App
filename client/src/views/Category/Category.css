@@ -8,3 +8,8 @@
     flex-direction: column;
     border-radius: 15px;
 }
+
+div h1 {
+    color: white;
+    text-shadow: 1px 1px 13px white;
+}
