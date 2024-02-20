@@ -225,9 +225,14 @@ export const dislikeCount = async (postId) => {
 }
 
 export const updatePost = async (id, content) => {
-  await update(ref(db, `posts/${id}`), {
+  const postRef = ref(db, `posts/${id}`);
+  await update(postRef, {
     content: content,
   });
+  
+  // Fetch the updated post
+  const snapshot = await get(postRef);
+  return snapshot.val();
 };
 
 

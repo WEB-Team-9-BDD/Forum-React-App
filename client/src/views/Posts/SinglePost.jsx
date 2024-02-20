@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getPostById, addCommentToPost, getCommentsByPostId, updateComment } from '../../services/post.service';
 import Post from '../../components/Post/Post';
@@ -25,6 +25,7 @@ export default function SinglePost() {
     const fetchedComments = await getCommentsByPostId(id);
     setComments(fetchedComments);
   };
+
 
   const handleCommentChange = (event) => {
     setComment(event.target.value);
