@@ -1,32 +1,37 @@
 .post {
   display: flex;
   flex-direction: column;
+  background-color:  rgba(16, 66, 66, 0.419);
   
-  border: 1px solid #c07979;
-  border-radius: 5px;
+  border: 1px ;
+  border-radius: 10px;
   justify-content: center;
   align-items: center;
   width: 80%; /* or any other value */
   max-width: 80%; /* or any other value */
   margin: 0 auto; /* center the container */
+  color: white;
  
 }
 
 .post-header {
   display: flex;
+  border-radius: 10px;
   width: 100%;
   justify-content: space-between;
-  align-items: center;
-  border-style: groove;
+  align-items: center;  
+  background-color: rgba(5, 45, 78, 0.877);
+  
 }
 
-.post-actions {
+.post-actions {  
   display: flex;
   gap: 10px;
 }
 
 button {
   border: none;
+  color:rgb(164, 202, 202);
   background: none;
   cursor: pointer;
 }
@@ -35,7 +40,7 @@ button:disabled {
   cursor: not-allowed;
 }
 
-button svg {
+button svg {  
   width: 24px;
   height: 24px;
 }
@@ -49,8 +54,9 @@ button .dislike-active {
 }
 
 .post-container {
-  width: 80%; /* or any other value */
-  max-width: 80%; /* or any other value */
+  background-color:  rgba(16, 66, 66, 0);
+  width: 100%; /* or any other value */
+  max-width: 100%; /* or any other value */
   margin: 0 auto; /* center the container */
   padding: 20px; /* add some space around the content */
 }
@@ -58,4 +64,5 @@ button .dislike-active {
 textarea {
   width: 100%; /* Set the width to 100% of the parent container */
   height: 200px; /* Set a fixed height */
+  background-color: rgba(16, 66, 66, 0.419);
 }

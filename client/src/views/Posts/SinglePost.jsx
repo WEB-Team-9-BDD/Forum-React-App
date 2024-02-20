@@ -4,6 +4,7 @@ import { getPostById, addCommentToPost, getCommentsByPostId, updateComment } fro
 import Post from '../../components/Post/Post';
 import Button from '../../components/Button/Button';
 import { AppContext } from '../../context/AppContext';
+import './SinglePost.css'
 
 export default function SinglePost() {
   const [post, setPost] = useState(null);
