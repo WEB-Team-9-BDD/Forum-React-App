@@ -7,22 +7,20 @@ import {
   ref,
   query,
   orderByChild,
-  runTransaction,
   remove,
   equalTo
 } from 'firebase/database';
 import { db } from '../config/firebase-config';
 import { postCategories } from '../constants/postCategories';
 
-export const addPost = async (author, title, content, category, tagRefs) => {
+export const addPost = async (author, title, content, category) => {
   return push(ref(db, 'posts'), {
     author,
     title,
     content,
     category,
     createdOn: Date.now(),
-    comments: [],
-    tags: tagRefs,
+    comments: [],    
   });
 };
 
