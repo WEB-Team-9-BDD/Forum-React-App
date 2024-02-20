@@ -8,7 +8,8 @@ import {
   query,
   orderByChild,
   runTransaction,
-  remove
+  remove,
+  equalTo
 } from 'firebase/database';
 import { db } from '../config/firebase-config';
 
@@ -46,6 +47,32 @@ export const getAllPosts = async (createdBy) => {
 
   return posts;
 };
+
+export const getPostsByCategory = async (category) => {
+  category = category.charAt(0).toUpperCase() + category.slice(1);
+  
+  const snapshot = await get(
+    query(ref(db, 'posts'), orderByChild('category'), equalTo(category))
+  );
+  
+  if (!snapshot.exists()) {
+    return [];
+  }
+
+  const posts = Object.keys(snapshot.val())
+    .map((key) => ({
+      id: key,
+      ...snapshot.val()[key],
+      category: snapshot.val()[key].category,
+      createdOn: new Date(snapshot.val()[key].createdOn).toString(),
+      createdBy: snapshot.val()[key].createdBy
+        ? Object.keys(snapshot.val()[key].createdBy)
+        : [],
+    }));
+
+  return posts;
+};
+
 
 export const getPostById = async (id) => {
   const snapshot = await get(ref(db, `posts/${id}`));

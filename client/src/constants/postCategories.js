@@ -19,7 +19,7 @@ export const postCategories = [
     },
     {
         id: nextId(),
-        title: 'Emotional intelligence',
-        path: '/emotional-intelligence',
+        title: 'Freestyle',
+        path: '/freestyle',
     },
 ]

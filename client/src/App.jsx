@@ -22,6 +22,7 @@ import AllPosts from './views/Posts/AllPosts'
 import SinglePost from './views/Posts/SinglePost'
 import CreatePost from './views/Posts/CreatePost'
 import PersonalProfile from './views/PersonalProfile/PersonalProfile.jsx'
+import PostsByCategory from './views/Category/Category.jsx'
 
 
 function App() {
@@ -72,7 +73,8 @@ function App() {
               <Route path='/update-profile' element={<Authenticated><UpdateAccount /></Authenticated>} />
               <Route path='/forgot-password' element={<ForgotPassword />} />
               <Route path='/admin-powers' element={<Authenticated><AdminPowers /></Authenticated>} />
-
+              <Route path='/category/:category' element={<Authenticated><PostsByCategory /></Authenticated>} />
+              <Route path='/:category' element={<Authenticated><PostsByCategory /></Authenticated>} />
             </Routes>
           </div>
         </AppContext.Provider>

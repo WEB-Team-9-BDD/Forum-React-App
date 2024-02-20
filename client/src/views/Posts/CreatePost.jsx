@@ -3,20 +3,21 @@ import { AppContext } from '../../context/AppContext';
 import { addPost, addTagToPost } from '../../services/post.service';
 import Button from '../../components/Button/Button';
 import { db } from '../../config/firebase-config';
+import { postCategories } from '../../constants/postCategories';
 
 export default function CreatePost() {
   const { userData } = useContext(AppContext);
   const [post, setPost] = useState({
     title: '',
     content: '',
-    category: 'Category1',
+    category: 'Freestyle',
     tags: [],
   });
   const [tags, setTags] = useState([]);
   const [tag, setTag] = useState ([''])
   const [isPostCreated, setIsPostCreated] = useState(false);
 
-  const categories = ['Category1', 'Category2', 'Category3', 'Category4']
+  const categories = postCategories.map(category => category.title);
 
   const updatePost = (value, key) => {
     setPost({
@@ -74,7 +75,7 @@ export default function CreatePost() {
     }
   
     // If no category is selected, use the default category
-    const category = post.category || 'Category1';
+    const category = post.category || 'Freestyle';
   
     const newPostRef = await addPost(userData.username, post.title, post.content, category, tags);
   const postId = newPostRef.key; // Extract the ID from the Reference object
@@ -100,7 +101,7 @@ export default function CreatePost() {
   setPost({
     title: '',
     content: '',
-    category: 'Category1', // reset category to default
+    category: 'Freestyle', // reset category to default
     tags: [], // reset tags
   });
   
