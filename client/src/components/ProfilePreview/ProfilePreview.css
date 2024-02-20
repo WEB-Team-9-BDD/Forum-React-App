@@ -37,6 +37,7 @@ input[type="file"] {
 
 .photo-upload-label:hover {
     background-color: rgb(95, 158, 235);
+    box-shadow: 1px 1px 13px 1px white;
 }
 
 .photo-upload-button {
@@ -50,6 +51,7 @@ input[type="file"] {
     border-radius: 15px;
     justify-content: center;
     text-align: center;
+    box-shadow: 1px 1px 13px 1px white;
 }
 
 .photo-upload-button svg {
@@ -60,4 +62,13 @@ input[type="file"] {
 .number-of-posts span {
     font-weight: bolder;
     font-size: larger;
+}
+
+.profile-avatar-icon {
+    color: rgba(127, 255, 212, 0.538);
+    margin-top: 25px;
+    margin-bottom: 15px;
+    width: 13rem;
+    height: 13rem;
+    border: 1px solid white;
 }

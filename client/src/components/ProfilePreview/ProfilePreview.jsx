@@ -8,7 +8,7 @@ import { MdVerified } from "react-icons/md";
 
 
 export default function ProfilePreview({ photoURL, setProfilePhoto, uploadPhoto, userPosts, photo, fileName, setFileName }) {
-    const { userData } = useContext(AppContext);
+    const { user, userData } = useContext(AppContext);
 
     const handleInputChange = (e) => {
         if (e.target.files[0]) {
@@ -33,7 +33,7 @@ export default function ProfilePreview({ photoURL, setProfilePhoto, uploadPhoto,
                     <input type="file" accept="image/*"
                         id="profile-photo-upload" onChange={handleInputChange} />
 
-                    <h3>{userData.username} <MdVerified className="verified-user" /></h3>
+                    <h3>{userData.username} {user.emailVerified ? <MdVerified className="verified-user" /> : null}</h3>
                     <p><strong> <em>{userData.firstName} {userData.lastName} </em></strong></p>
                     <div>
                         <p className="number-of-posts">Number of posts: <span>{userPosts.length}</span></p>
