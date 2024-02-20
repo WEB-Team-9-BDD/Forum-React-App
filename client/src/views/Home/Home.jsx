@@ -3,7 +3,7 @@ import { useEffect, useState, useContext } from 'react';
 import { getAllPosts, getCommentsCount, postCount } from '../../services/post.service';
 import { usersCount } from '../../services/users.service';
 import { AppContext } from '../../context/AppContext';
-import HomePostPreview from './HomePostPreview';
+import HomePostPreview from '../../components/HomePostPreview/HomePostPreview';
 
 export default function Home() {
     const [posts, setPosts] = useState([]);
