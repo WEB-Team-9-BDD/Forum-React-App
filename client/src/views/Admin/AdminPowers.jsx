@@ -129,7 +129,7 @@ export default function AdminPowers() {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form className="admin-powers-form" onSubmit={handleSubmit}>
             <h1>Search user</h1>
             <label className="form-label">Username: </label>
             <input autoComplete="off" className="form-control"
@@ -141,21 +141,21 @@ export default function AdminPowers() {
                     <li key={index}>
                         {user.username}
                         {!user.isBlocked ? 
-                            <button onClick={async () => {
+                            <button className="block" onClick={async () => {
                                 await blockUserHandler(user.username);
                                 const updatedUsers = allUsers.map(u => u.username === user.username ? {...u, isBlocked: true} : u);
                                 setAllUsers(updatedUsers);
                                 setSearchResults(updatedUsers.filter(u => u.username.includes(searchInput.username)));
                             }}>Block User</button>
                             :
-                            <button onClick={async () => {
+                            <button className="Unblock" onClick={async () => {
                                 await unblockUserHandler(user.username);
                                 const updatedUsers = allUsers.map(u => u.username === user.username ? {...u, isBlocked: false} : u);
                                 setAllUsers(updatedUsers);
                                 setSearchResults(updatedUsers.filter(u => u.username.includes(searchInput.username)));
                             }}>Unblock User</button>
                         }
-                        <button onClick={() => makeAdmin(user.username)}>Make Admin</button>
+                        <button className="make-admin" onClick={() => makeAdmin(user.username)}>Make Admin</button>
                     </li>
                 ))}
         </form>
