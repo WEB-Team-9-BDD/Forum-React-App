@@ -73,11 +73,6 @@ export default function UpdateAccount() {
     return (
         <div>
             <div className="background-wrapper">
-                {userData.isAdmin && (
-                    <div>
-                        <Link to="/admin-powers">Admin Powers</Link>
-                    </div>
-                )}
                 <div className="update-account">
                     <h2 className="heading mb-3 text-center">Update Account</h2>
                     <form onSubmit={e => e.preventDefault()} >
