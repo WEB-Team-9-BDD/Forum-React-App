@@ -50,31 +50,31 @@ export default function Login() {
     }
 
     return (
-        <div className="wrapper d-flex align-items-center justify-content-center w-100">
+        <div className="background-wrapper">
             <div className="login">
-                <h1 className="heading mb-3 text-center">User Login</h1>
+                <h1 className="login-header">User Login</h1>
                 <form onSubmit={e => e.preventDefault()}>
-                <div className="form-group mb-2 ">
-                    <label htmlFor="email" className="form-label">Your e-mail: </label>
-                    <input autoComplete="off" className="form-control" type="email" name="email" id="email" value={form.email}
-                        onChange={updateForm('email')}/>
-                </div>
-                <div className="form-group mb-1">
-                    <label htmlFor="password" className="form-label">Password: </label>
-                    <input autoComplete="off" className="form-control"
-                        type={showPassword ? 'text' : 'password'} name="password" id="password"
-                        value={form.password}
-                        onChange={updateForm('password')}
-                         />
-                    <span className="password-span"><FontAwesomeIcon
-                        onClick={() => setShowPassword(!showPassword)}
-                        icon={showPassword ? faEye : faEyeSlash} />
-                    </span>
-                </div>
-                <Link className='forgot-password' to='/forgot-password'>Forgot password?</Link>
-                <button type="submit" onClick={login} className="btn btn-success mt-4 mb-2 w-100">Login</button>
-                <br />
-                <p className="mb-3">Don`t have an account ?<Link className="font-weight-bold" to='/create-account'> Sign up</Link></p>
+                    <div className="form-group mb-2 ">
+                        <label htmlFor="email" className="form-label">Your e-mail: </label>
+                        <input autoComplete="off" className="form-control" type="email" name="email" id="email" value={form.email}
+                            onChange={updateForm('email')} />
+                    </div>
+                    <div className="form-group mb-1">
+                        <label htmlFor="password" className="form-label">Password: </label>
+                        <input autoComplete="off" className="form-control"
+                            type={showPassword ? 'text' : 'password'} name="password" id="password"
+                            value={form.password}
+                            onChange={updateForm('password')}
+                        />
+                        <span className="password-span"><FontAwesomeIcon
+                            onClick={() => setShowPassword(!showPassword)}
+                            icon={showPassword ? faEye : faEyeSlash} />
+                        </span>
+                    </div>
+                    <Link className='forgot-password' to='/forgot-password'>Forgot password?</Link>
+                    <button type="submit" onClick={login} className="btn btn-success mt-4 mb-2 w-100">Login</button>
+                    <br />
+                    <p className="mb-2">Don`t have an account ?<Link className="sign-up" to='/create-account'> Sign up</Link></p>
                 </form>
             </div >
         </div>
