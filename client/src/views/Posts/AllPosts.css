@@ -1,30 +1,49 @@
 .table {
-    padding:20px;
+    padding: 20px;
     width: 100%;
-    background-color: rgba(0, 0, 0, 0.83);
+    background-color: none;
 }
 
 div.p-column-header-content {
     background: transparent;
-    background-color: rgba(0, 180, 251, 0.423);
-    height: 4rem;
+    background-color: rgba(0, 0, 0, 0.91);
+    height: 4.5rem;
     font-size: large;
     justify-content: center;
 }
 
+div.p-column-header-content:hover {
+    border-bottom: 7px solid aquamarine;
+}
+
+
 .column {
-    max-height: 1rem;
+    max-height: 1.5rem;
     padding: 20px;
-    border: 1px solid rgba(214, 200, 200, 0.555);
     justify-content: center;
     text-align: center;
-    font-size: 1.25rem;
-    /* box-shadow: 1px 1px 20px 1px rgba(156, 182, 202, 0.536); */
+    font-size: 1.2rem;
+    box-shadow: 1px 1px 30px rgba(156, 182, 202, 0.536);
+}
+
+tbody>tr:hover {
+    background-color: rgba(30, 53, 80, 0.691);
 }
 
 .title-column {
     text-align: left;
     width: 35rem;
+    margin: 0 auto;
+}
+
+.table-post-title {
+    color: rgb(221, 216, 216);
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.table-post-title:hover {
+    color: white;
 }
 
 .date-column {
@@ -49,7 +68,7 @@ div.p-column-header-content {
     box-shadow: 0px 0px 8px #ddd;
     display: flex;
     align-items: center;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 }
 
 .search-wrapper svg {
@@ -63,8 +82,23 @@ div.p-column-header-content {
     font-size: 1.25rem;
     width: 100%;
     margin-left: 5px;
-
+    color: black;
 }
+
+input[type="search"]::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+    height: 1.2em;
+    width: 1.2em;
+    border-radius: 50em;
+    background: url(https://pro.fontawesome.com/releases/v5.10.0/svgs/solid/times-circle.svg) no-repeat 50% 50%;
+    background-size: contain;
+    pointer-events: none;
+}
+
+input[type="search"]:focus::-webkit-search-cancel-button {
+    pointer-events: all;
+}
+
 
 .search-wrapper input:focus {
     outline: none;
@@ -88,15 +122,15 @@ div.p-column-header-content {
 }
 
 .edit-button {
-    color: rgb(0, 94, 255);
+    color: rgba(127, 255, 212, 0.704);
     font-size: 38px;
     padding: 3px;
     margin: 0 3px;
 }
 
 .delete-button {
-    color: rgb(168, 95, 95);
-    font-size: 36px;
+    color: rgb(200, 95, 95);
+    font-size: 34px;
     padding: 3px;
     margin: 0 3px;
 }
@@ -132,6 +166,7 @@ div.p-column-header-content {
     width: 27.5rem;
     margin-right: 5px;
     padding: 5px;
+    border: 1px solid white;
 }
 
 .edit-title-buttons {
@@ -140,7 +175,7 @@ div.p-column-header-content {
 }
 
 .edit-submit {
-    color: rgb(64, 223, 78);
+    color: rgba(64, 223, 77, 0.986);
     margin: 3px;
 }
 
@@ -149,21 +184,10 @@ div.p-column-header-content {
     margin: 3px;
 }
 
-
-/* .p-paginator {
+ .p-paginator-bottom .p-paginator-pages {
     background: transparent;
-    background-color: rgba(49, 49, 49, 0.55);
-} */
-
-/* .p-datatable-tbody>tr {
-    background: transparent;
-    background-color: rgba(198, 123, 123, 0.346);
-} */
-
-
- /* .p-paginator-bottom .p-paginator-pages {
-    background: transparent;
-    background-color: rgba(43, 151, 43, 0.996);
+    background-color: rgba(8, 8, 8, 0.996);
+    border-radius: 20%;
 }
 
 .p-paginator-page {
@@ -171,13 +195,17 @@ div.p-column-header-content {
     background-color: rgba(49, 49, 49, 0.55);
     border-radius: 30px;
     color: white;
-} */
-
-
-tbody >tr {
-    background-color: rgba(255, 255, 255, 0.325);
 }
 
-tbody > tr:hover{
-background-color: rgba(77, 130, 236, 0.25);    
+.p-dropdown-label{
+background-color:rgba(49, 49, 49, 0.55);
+}
+
+.p-dropdown-trigger svg{
+color: white;
+}
+
+div .p-dropdown{
+background-color: rgb(0, 0, 0);
+border-radius: 15%;
 }

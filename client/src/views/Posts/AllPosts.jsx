@@ -15,7 +15,7 @@ import SocialMediaShare from "../../components/SocialMediaShare/SocialMediaShare
 import { GiConfirmed } from "react-icons/gi";
 import { GiCancel } from "react-icons/gi";
 import toast from "react-hot-toast";
-import 'primereact/resources/themes/lara-light-blue/theme.css'
+import 'primereact/resources/themes/bootstrap4-dark-blue/theme.css'
 import './AllPosts.css';
 
 
@@ -91,7 +91,7 @@ export default function AllPosts() {
   };
 
   const makeTitleALink = (post) => {
-    return <Link to={`/posts/${post.id}`} >{post.title}</Link >
+    return <Link className='table-post-title' to={`/posts/${post.id}`} >{post.title}</Link >
   };
 
   const deleteSinglePost = async (postId) => {
