@@ -51,6 +51,8 @@ input[type="file"] {
     border-radius: 15px;
     justify-content: center;
     text-align: center;
+}
+.photo-upload-button:hover{
     box-shadow: 1px 1px 13px 1px white;
 }
 
