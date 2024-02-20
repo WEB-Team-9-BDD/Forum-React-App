@@ -73,9 +73,9 @@ export default function CreateAccount() {
     }
 
     return (
-        <div className="wrapper d-flex align-items-center justify-content-center w-100">
+        <div className="create-background-wrapper">
             <div className="create-account">
-                <h1 className="heading mb-3 text-center">Create Account</h1>
+                <h1 className="create-account-header">Create Account</h1>
                 <form onSubmit={e => e.preventDefault()} >
                     <div className="form-group mb-2 ">
                         <label className="form-label" htmlFor="username">Username: </label>
