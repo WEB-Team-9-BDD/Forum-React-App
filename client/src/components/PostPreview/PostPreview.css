@@ -5,7 +5,8 @@
     text-align: center;
     border-radius: 15px;
 }
-.post-preview:hover{
+
+.post-preview:hover {
     box-shadow: 1px 1px 13px 1px white;
 }
 
@@ -19,16 +20,11 @@
 
 .post-preview-content {
     height: 2.5rem;
-    max-width: 44rem;
+    min-width: 44rem;
     overflow: hidden;
     text-overflow: ellipsis;
     color: white;
     margin: 15px 0;
-}
-
-.post-preview-content p {
-    overflow: hidden;
-    text-overflow: ellipsis;
 }
 
 .post-preview-details {
@@ -40,10 +36,11 @@
 .post-preview-details p {
     margin: 0 12px;
 }
-.post-preview-details p svg{
+
+.post-preview-details p svg {
     width: 18px;
     height: 18px;
-    margin:0 6px;
+    margin: 0 6px;
 }
 
 .post-preview-details a {
@@ -51,11 +48,17 @@
     color: white
 }
 
-.post-preview-details a{
+.post-preview-details a {
     margin: 0 6px;
 }
+
 .post-preview-details a svg {
     margin: 5px;
-    width: 25px;
-    height: 25px;
+    width: 24px;
+    height: 24px;
+}
+
+.post-preview-details p em svg {
+    width: 20px;
+    height: 20px;
 }

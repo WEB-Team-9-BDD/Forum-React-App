@@ -1,9 +1,10 @@
 import PropTypes from 'prop-types';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useContext, useEffect, useState } from 'react';
 import { AppContext } from '../../context/AppContext';
 import { TbCategoryPlus } from "react-icons/tb";
 import { SlLike, SlDislike } from "react-icons/sl";
+import { CgProfile } from "react-icons/cg";
 
 import './PostPreview.css'
 import { dislikeCount, likeCount } from '../../services/post.service';
@@ -40,6 +41,7 @@ export default function PostPreview({ post }) {
         <p>{new Date(post.createdOn).toLocaleDateString('bg-BG')}</p>
         <p><SlLike />{likes}</p>
         <p><SlDislike />{dislikes}</p>
+        <p><em><CgProfile />{post.author[0].toUpperCase()+post.author.slice(1)}</em></p>
       </div>
     </div>
   )
