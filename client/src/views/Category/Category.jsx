@@ -1,10 +1,8 @@
 import { useEffect, useState } from "react";
 import { useParams } from 'react-router-dom';
 import { getPostsByCategory } from "../../services/post.service";
-import PostPreview from '../../components/PostPreview/PostPreview'
-
-
-
+import PostPreview from '../../components/PostPreview/PostPreview';
+import './Category.css';
 
 export default function PostsByCategory() {    
     const { category } = useParams();
@@ -14,7 +12,6 @@ export default function PostsByCategory() {
         const fetchPosts = async () => {
           try {
             const postsByCategory = await getPostsByCategory(category);
-            console.log(postsByCategory); // log the data
             setPosts(postsByCategory);
           } catch (error) {
             console.error(error); // log any errors
@@ -25,7 +22,8 @@ export default function PostsByCategory() {
       }, [category]);
   
     return (
-      <div>
+      <div className="category-container">
+        <h1>{category}</h1>
         {posts.map(post => (
           <PostPreview key={post.id} post={post} />
         ))}
