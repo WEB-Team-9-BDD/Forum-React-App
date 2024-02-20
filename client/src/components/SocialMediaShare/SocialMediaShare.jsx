@@ -24,7 +24,7 @@ export default function SocialMediaShare({ id }) {
                     <div className="share-options">
                         <div className='share-overlay' onClick={toggleShare}></div>
                         <div className="share-buttons">
-                        <p>Share:  </p>
+                        <p>Share</p>
                             <FacebookShareButton url={currentURL}>
                                 <FacebookIcon round onClick={toggleShare} />
                             </FacebookShareButton>
