@@ -123,7 +123,7 @@ export default function Post({ post }) {
       </div>
       {(userData.username === post.author && !userData.isBlocked) || userData.isAdmin ?
         (<>
-          {(!userData.isAdmin && userData.username === post.author && !userData.isBlocked) && <Button onClick={handleEdit}>Edit</Button>}
+          {(userData.username === post.author && !userData.isBlocked) && <Button onClick={handleEdit}>Edit</Button>}
           {(userData.isAdmin || userData.username === post.author && !userData.isBlocked)&& <Button onClick={deleteSinglePost}>Delete</Button>}
         </>) : null
       }      
