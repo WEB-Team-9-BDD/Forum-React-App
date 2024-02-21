@@ -40,7 +40,7 @@ export default function ForgotPassword() {
                         <input className="form-control" type="email" id="email" name="email"
                             value={email} onChange={(e) => setEmail(e.target.value)} />
 
-                        <button className="btn btn-primary mt-4 mb-2 w-100" onClick={handleSubmit} type="submit">Submit</button>
+                        <button className="login-button" onClick={handleSubmit} type="submit">Submit</button>
                     </div>
                 </form>
             </div>

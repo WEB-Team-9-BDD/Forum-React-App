@@ -72,7 +72,7 @@ export default function Login() {
                         </span>
                     </div>
                     <Link className='forgot-password' to='/forgot-password'>Forgot password?</Link>
-                    <button type="submit" onClick={login} className="btn btn-success mt-4 mb-2 w-100">Login</button>
+                    <button type="submit" onClick={login} className="login-button">Login</button>
                     <br />
                     <p className="mb-2">Don`t have an account ?<Link className="sign-up" to='/create-account'> Sign up</Link></p>
                 </form>

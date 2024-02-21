@@ -109,7 +109,7 @@ export default function UpdateAccount() {
                                     value={form.phoneNumber} onChange={updateForm('phoneNumber')} />
                             </div>
                         )}
-                        <hr />
+                        <hr className="hr-line"/>
                         <div className="form-group mb-2 ">
                             <label className="form-label" htmlFor="password">New password: </label>
                             <input autoComplete="off"
@@ -132,7 +132,7 @@ export default function UpdateAccount() {
                                 icon={showPassword.confirmPassword ? faEye : faEyeSlash} />
                             </span>
                         </div>
-                        <button type="submit" className="btn btn-success mt-4 mb-1 w-100"
+                        <button type="submit" className="login-button"
                             onClick={updateUserProfile}>Update account</button>
                     </form>
                 </div>
