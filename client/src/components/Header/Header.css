@@ -132,3 +132,16 @@ header svg {
 .logout svg {
     color: white;
 }
+
+.logo-container {
+    display: inline-block;
+    width: 350px; 
+    height: 100px; 
+  }
+
+
+  .logo {
+    max-width: 100%;
+    height: auto;
+  }
+  

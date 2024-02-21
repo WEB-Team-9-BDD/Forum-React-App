@@ -5,6 +5,7 @@ import Button from '../../components/Button/Button';
 import { postCategories } from '../../constants/postCategories';
 import './CreatePost.css'
 import ReactSelect from 'react-select';
+import toast from 'react-hot-toast';
 
 export default function CreatePost() {
   const { userData } = useContext(AppContext);
@@ -29,10 +30,10 @@ export default function CreatePost() {
   const createPost = async () => {
     event.preventDefault();
     if (post.title.length < 16 || post.title.length > 64) {
-      return alert('Title must be between 16 and 64 symbols.');
+      return toast.error('Title must be between 16 and 64 symbols.');
     }
     if (post.content.length < 32 || post.content.length > 8192) {
-      return alert('Content must be between 32 and 8192 symbols.');
+      return toast.error('Content must be between 32 and 8192 symbols.');
     }
   
     
@@ -55,7 +56,7 @@ export default function CreatePost() {
 
   useEffect(() => {
     if (isPostCreated) {
-      alert(`${post.title} created successfully`);
+      toast.success(`${post.title} created successfully`);
       setIsPostCreated(false);
     }
   }, [isPostCreated, post.title]);

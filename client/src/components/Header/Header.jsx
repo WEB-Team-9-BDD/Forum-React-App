@@ -8,6 +8,7 @@ import { CgProfile } from "react-icons/cg";
 import { MdOutlineSettings } from "react-icons/md";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { FaPowerOff } from "react-icons/fa";
+import logo from '../../assets/logo.png';
 
 
 export default function Header({ toggle }) {
@@ -36,8 +37,9 @@ export default function Header({ toggle }) {
 
     return (
         <>
-            <header>
+            <header>                
                 <RxHamburgerMenu className='sidebar-svg' onClick={toggle} />
+                <span className="logo-container"  ><img src={logo} alt="Logo" className="logo"/></span>
                 <NavLink className='header-link' to="/">Home</NavLink>
                 <NavLink className='header-link' to="/posts">Growth room</NavLink>
                 <NavLink className='header-link' to="/post-create">Create Post</NavLink>

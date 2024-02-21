@@ -6,6 +6,7 @@ import Button from '../../components/Button/Button';
 import { AppContext } from '../../context/AppContext';
 import ProfileCard from '../../components/ProfileCard/ProfileCard'
 import './SinglePost.css'
+import toast from 'react-hot-toast';
 
 export default function SinglePost() {
   const [post, setPost] = useState(null);
@@ -36,7 +37,7 @@ export default function SinglePost() {
     event.preventDefault();
 
     if (comment.length < 1 || comment.length > 500) {
-      return alert('Comment must be between 1 and 500 characters.');
+      return toast.error('Comment must be between 1 and 500 characters.');
     }
 
     await addCommentToPost(id, userData.username, comment);
@@ -58,7 +59,7 @@ export default function SinglePost() {
     event.preventDefault();
 
     if (editedComment.length < 1 || editedComment.length > 500) {
-      return alert('Comment must be between 1 and 500 characters.');
+      return toast.error('Comment must be between 1 and 500 characters.');
     }
 
     if (editingCommentId) {

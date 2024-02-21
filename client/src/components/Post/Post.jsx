@@ -53,11 +53,11 @@ export default function Post({ post }) {
     event.preventDefault();
 
     if (editContent.length < 32 || editContent.length > 8192) {
-      return alert('Post content must be between 1 and 500 characters.');
+      return toast.error('Post content must be between 1 and 500 characters.');
     }
 
     if (editedTitle.length < 16 || editedTitle.length > 64) {
-      return alert('Post title must be between 16 and 64 characters.');
+      return toast.error('Post title must be between 16 and 64 characters.');
     }
 
     try {
