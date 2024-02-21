@@ -52,12 +52,6 @@
     border-radius: 5px;
 }
 
-.form-label {
-    font-size: 1.2em;
-    font-weight: bold;
-    color: white;
-}
-
 .search-button {
     display: block;
     margin-left: auto;
