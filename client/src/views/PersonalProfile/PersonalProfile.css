@@ -85,4 +85,9 @@
     width: 150px;
     height: 150px;
     margin-bottom: 10px;
+    color: white;
+}
+
+.profile-no-posts div h5 {
+    color: white;
 }
