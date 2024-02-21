@@ -7,6 +7,7 @@ import { getUserDataByUsername } from '../../services/users.service';
 import PostPreview from '../PostPreview/PostPreview';
 import { getPostsByAuthor } from '../../services/post.service';
 import { CgProfile } from "react-icons/cg";
+import './UserPreview.css'
 
 
 export default function UserPreview() {
@@ -27,7 +28,7 @@ export default function UserPreview() {
         <>
             <div className='user-profile-container'>
                 {/* User info */}
-                <div className="user-info">
+                <div className="user-info-container">
                     {/* User avatar */}
                     <div >
                     {(!userData.photoURL) ?

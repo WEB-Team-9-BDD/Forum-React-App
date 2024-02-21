@@ -1,0 +1,9 @@
+.user-info-container{
+    margin: 20px;
+    background-color: rgba(0, 0, 0, 0.5);
+    text-align: center;
+    box-shadow: 1px 1px 10px 4px rgba(74, 72, 72, 0.447);
+    min-width: 18rem;
+    height:38rem;
+    border-radius: 15px;
+}
