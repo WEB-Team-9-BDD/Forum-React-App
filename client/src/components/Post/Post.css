@@ -109,8 +109,18 @@ button.delete-post-comment{
   cursor: pointer;
 }
 
-/* button-post-container{
+ .button-post-container{
+  background-color: rgba(69, 224, 172, 0.284);
+  display: inline-flex;
+  padding: 2px 15px;
   position: absolute;
-  right: 0;
-  top: 0;
-} */
+  right: 11rem;
+  top: 5.5rem;
+  border-radius: 15px;
+  align-items: center;
+}
+.button-post-container svg{
+  margin: 5px;
+  width: 35px;
+  height: 35px;
+}

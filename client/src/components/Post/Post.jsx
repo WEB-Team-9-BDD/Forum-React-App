@@ -4,14 +4,14 @@ import Button from '../Button/Button';
 import { useNavigate } from 'react-router-dom';
 import { useContext, useState, useEffect, useCallback } from 'react';
 import { AppContext } from '../../context/AppContext';
-import { deletePost, updatePost, editPostTitle, getPostById} from '../../services/post.service';
+import { deletePost, updatePost, editPostTitle, getPostById } from '../../services/post.service';
 import toast from "react-hot-toast";
 import { likePost, dislikePost, undislikePost, unlikePost } from '../../services/post.service';
 import { SlLike, SlDislike } from "react-icons/sl";
 import { CiEdit } from "react-icons/ci";
 import { RiDeleteBin6Line } from "react-icons/ri";
-
-
+import Modal from "../../components/Modal/Modal";
+import SocialMediaShare from "../../components/SocialMediaShare/SocialMediaShare";
 
 export default function Post({ post }) {
   const navigate = useNavigate();
@@ -24,20 +24,21 @@ export default function Post({ post }) {
   const [editedTitle, setEditedTitle] = useState(post.title);
   const [editingTitle, setEditingTitle] = useState(false);
   const [postState, setPost] = useState(post);
+  const [showModal, setShowModal] = useState(false);
 
-// Fetch post data when component mounts
-useEffect(() => {
-  const fetchPost = async () => {
-    const fetchedPost = await getPostById(post.id); // Use getPostById instead of getPost
-    setPost(fetchedPost);
+  // Fetch post data when component mounts
+  useEffect(() => {
+    const fetchPost = async () => {
+      const fetchedPost = await getPostById(post.id); // Use getPostById instead of getPost
+      setPost(fetchedPost);
+    };
+
+    fetchPost();
+  }, [post.id])
+
+  const updatePost = (updatedPost) => {
+    setPost(updatedPost);
   };
-
-  fetchPost();
-}, [post.id])
-   
-const updatePost = (updatedPost) => {
-  setPost(updatedPost);
-};
 
   const deleteSinglePost = async () => {
     try {
@@ -50,32 +51,36 @@ const updatePost = (updatedPost) => {
   }
   const handleEditSubmit = async (event) => {
     event.preventDefault();
-  
+
     if (editContent.length < 32 || editContent.length > 8192) {
       return alert('Post content must be between 1 and 500 characters.');
     }
-  
+
     if (editedTitle.length < 16 || editedTitle.length > 64) {
       return alert('Post title must be between 16 and 64 characters.');
     }
-  
+
     try {
       await updatePost(post.id, editContent);
       await editPostTitle(post.id, editedTitle);
       setPost({ ...postState, title: editedTitle, content: editContent });
       setEditing(false);
       setEditingTitle(false);
-      toast.success('Post successfully updated');      
+      toast.success('Post successfully updated');
     } catch (error) {
       toast.error(error.code);
-    }    
+    }
   };
-  
+
+  const toggleModal = () => {
+    setShowModal(!showModal);
+  };
+
   // Handler for changing edited post content
   const handleEditContentChange = (event) => {
     setEditContent(event.target.value);
   };
-  
+
   // Handler for changing edited post title
   const handleEditedTitleChange = (event) => {
     setEditedTitle(event.target.value);
@@ -83,7 +88,8 @@ const updatePost = (updatedPost) => {
 
   const handleEdit = () => {
     setEditing(true);
-    setEditingTitle(true);}; 
+    setEditingTitle(true);
+  };
 
   useEffect(() => {
     setLikeActive(post.likedBy.includes(userData.username));
@@ -106,7 +112,7 @@ const updatePost = (updatedPost) => {
     }
     setUpdating(false);
   }, [userData.username, post.id, likeActive, dislikeActive, updating]);
-  
+
   const handleDislike = useCallback(async () => {
     if (updating) return;
     setUpdating(true);
@@ -133,7 +139,7 @@ const updatePost = (updatedPost) => {
             <form onSubmit={handleEditSubmit}>
               <input type="text" value={editedTitle} onChange={handleEditedTitleChange} />
               <Button className='submit' type="submit">Save</Button>
-              <Button className='cancel'type="button" onClick={() => setEditingTitle(false)}>Cancel</Button>
+              <Button className='cancel' type="button" onClick={() => setEditingTitle(false)}>Cancel</Button>
             </form>
           ) : (
             <p>You are not the author of this post, so you cannot edit it.</p>
@@ -143,7 +149,7 @@ const updatePost = (updatedPost) => {
         )}
         <div className="post-actions">
           <Button className='like-button' disabled={updating} onClick={handleLike}><SlLike className={likeActive ? 'like-active' : ''} /></Button>
-          <Button className='dislike-button' disabled={updating} onClick={handleDislike}><SlDislike className={dislikeActive ? 'dislike-active' : ''}/></Button>
+          <Button className='dislike-button' disabled={updating} onClick={handleDislike}><SlDislike className={dislikeActive ? 'dislike-active' : ''} /></Button>
         </div>
         <p>{new Date(postState.createdOn).toLocaleDateString('bg-BG')}</p>
       </div>
@@ -153,7 +159,7 @@ const updatePost = (updatedPost) => {
             <form onSubmit={handleEditSubmit}>
               <textarea value={editContent} onChange={handleEditContentChange} />
               <Button className='submit' type="submit">Save</Button>
-              <Button className='cancel'type="button" onClick={() => setEditing(false)}>Cancel</Button>
+              <Button className='cancel' type="button" onClick={() => setEditing(false)}>Cancel</Button>
             </form>
           ) : (
             <p>You are not the author of this post, so you cannot edit it.</p>
@@ -165,9 +171,12 @@ const updatePost = (updatedPost) => {
       {(userData.username === postState.author && !userData.isBlocked) || userData.isAdmin ?
         (<div className="button-post-container">
           {(userData.username === post.author && !userData.isBlocked) && <Button className="edit-post-comment" onClick={handleEdit}><CiEdit /></Button>}
-          {(userData.isAdmin || userData.username === post.author && !userData.isBlocked)&& <Button className="delete-post-comment" onClick={deleteSinglePost}><RiDeleteBin6Line /></Button>}
+          {(userData.isAdmin || userData.username === post.author && !userData.isBlocked) && 
+          <RiDeleteBin6Line onClick={() => toggleModal(post.id)} className="delete-button" />}
+          <SocialMediaShare id={post.id} />
+          <Modal show={showModal} toggle={toggleModal} id={post.id} onDelete={deleteSinglePost} />
         </div>) : null
-      }      
+      }
     </div>
   )
 }
