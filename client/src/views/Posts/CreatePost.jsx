@@ -68,7 +68,7 @@ export default function CreatePost() {
     <label htmlFor="input-title-create"> Title:</label>
     <input className="input-title-create" value={post.title} onChange={e => updatePost(e.target.value, 'title')} type='text' name='input-title' id='input-title'/> <br/>
     <label htmlFor="input-content"></label><br/>
-    <textarea value={post.content} onChange={e => updatePost(e.target.value, 'content')} name='input-content' id='input-content' cols='30' rows="10" ></textarea><br/><br/>
+    <textarea className='crete-post-text' value={post.content} onChange={e => updatePost(e.target.value, 'content')} name='input-content' id='input-content' cols='30' rows="10" ></textarea><br/><br/>
     <label htmlFor="input-category"></label><br/>
     <div className="dropdown-container">
     <ReactSelect 
@@ -87,10 +87,22 @@ export default function CreatePost() {
       backgroundColor: 'rgba(0, 0, 0, 0.31)',
       maxHeight: '40px',
       color: 'white',
+
       }),
     option: (provided) => ({
       ...provided,
       backgroundColor: 'rgba(0, 0, 0, 0.31)',
+      color: 'white',
+      textOverflow: 'ellipsis',
+      whiteSpace: 'nowrap',
+      overflow: 'hidden'
+    }), 
+     singleValue: (provided) => ({
+      ...provided,
+      color: 'white',
+    }),
+     placeholder: (provided) => ({
+      ...provided,
       color: 'white',
     }),
   }}

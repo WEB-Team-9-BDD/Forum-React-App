@@ -79,26 +79,28 @@ export default function SinglePost() {
         </div>
       }      
       <br/>
+      <div className="comment-input-container">
       <form onSubmit={handleCommentSubmit}>
-        <input type="text" value={comment} onChange={handleCommentChange} placeholder="Add a comment" />
-        <button type="submit">Submit</button>
+        <textarea className='comment-box' type="text" value={comment} onChange={handleCommentChange} placeholder="Add a comment" />
+        <button className='new-comment-submit' type="submit">Submit</button>        
       </form>
+      </div>
       <br/>
       <div>
-  <h2>Comments</h2>
+      <br/>  
   {comments.map((comment) => (
   <div className="comment-container" key={comment.id}>
     <ProfileCard username={comment.author} />
     <div className="comment-content">
       <div className="comment-header">
-        {comment.author}
+       <br/><br/>
       </div>
       {editingCommentId === comment.id ? (
         userData.username === comment.author ? (
           <form onSubmit={handleCommentChangeSubmit}>
-            <input type="text" value={editedComment} onChange={handleEditedCommentChange} />
-            <button type="submit">Change</button>
-            <button type="button" onClick={() => setEditingCommentId(null)}>Cancel</button>
+            <textarea className='comment-change' type="text" value={editedComment} onChange={handleEditedCommentChange} />
+            <button className='submit' type="submit">Save</button>
+            <button className='cancel' type="button" onClick={() => setEditingCommentId(null)}>Cancel</button>
           </form>
         ) : null
       ) : (

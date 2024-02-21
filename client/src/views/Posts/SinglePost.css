@@ -20,6 +20,7 @@
   .comment-header {
     display: flex;
     border-radius: 10px;
+    margin-bottom: 1rem;
     width: 100%;
     justify-content: space-between;
     align-items: center;
@@ -27,7 +28,7 @@
   }
 
   .single-post-container {
-    display: flex;
+    display: flex;    
     align-items: center;
     justify-content: center;
     flex-direction: row;    
@@ -40,4 +41,47 @@
     justify-content: center;
     flex-direction: row;    
     gap: 0; 
+  }
+  
+
+  textarea.comment-box {
+    display: flex;
+    width: 50rem; 
+    height: 10rem;
+    margin-bottom: 0.5rem;    
+    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.5);
+    box-shadow: 0px 0px 8px #ddd;
+    border: none;
+  }
+
+  .comment-input-container{
+    background: transparent;
+    
+    align-items: flex-start;
+    margin-left: 4.5rem;
+  }
+
+  button.new-comment-submit{
+    color: rgb(221, 216, 216);
+    text-align: center;
+    padding: 8px 20px;
+    font-size: 18px;
+    letter-spacing: 1.2px;
+    cursor: pointer;
+    background-color: rgba(69, 224, 172, 0.284);
+    border-radius: 15px;
+    justify-content: center;
+    text-align: center;
+  }
+
+  textarea.comment-change{
+    display: flex;
+    width: 50rem; 
+    height: 10rem;
+    margin-bottom: 0.5rem;    
+    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.5);
+    box-shadow: 0px 0px 8px #ddd;
+    border: none;
   }
