@@ -3,10 +3,10 @@ header {
     display: flex;
     align-items: center;
     background-color: rgba(2, 1, 59, 0.39);
-    box-shadow: 0 1px 5px 1px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 1px 5px 1px rgba(0, 0, 0, 0.5);
     height: 6rem;
-    justify-content: space-between;
     margin-bottom: 0.5rem;
+    justify-content:space-around;
 }
 
 header a {
@@ -16,7 +16,7 @@ header a {
 }
 
 header .header-link:hover {
-    color: aquamarine;
+    color: rgba(0, 251, 167, 0.738);
     border-bottom: 7px solid aquamarine;
     padding: 27px;
 }
