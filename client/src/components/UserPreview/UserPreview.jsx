@@ -37,7 +37,7 @@ export default function UserPreview() {
                 }
                     </div>
                     {/* User name */}
-                    <h3>{userData.username}</h3>
+                    <h3 className='user-preview-username'>{userData.username}</h3>
                     {/* User full name */}
                     <p><strong> <em>{userData.firstName} {userData.lastName} </em></strong></p>
                     {/* Number of posts */}
