@@ -4,9 +4,10 @@
   background-color:  rgba(16, 66, 66, 0.419); 
   border: 1px ;
   border-radius: 10px;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   width: 80%; /* or any other value */
+  height: 20rem;
   max-width: 80%; /* or any other value */
   margin: 0 auto; /* center the container */
   color: white;
@@ -28,27 +29,27 @@
   gap: 10px;
 }
 
-button {
+button.like-button, button.dislike-button {
   border: none;
   color:rgb(164, 202, 202);
   background: none;
   cursor: pointer;
 }
 
-button:disabled {
+button.like-button:disabled, button.dislike-button:disabled {
   cursor: not-allowed;
 }
 
-button svg {  
+button.like-button svg, button.dislike-button svg {  
   width: 24px;
   height: 24px;
 }
 
-button .like-active {
+button.like-button .like-active {
   color: rgb(8, 231, 164);
 }
 
-button .dislike-active {
+button.dislike-button .dislike-active {
   color: rgb(230, 112, 112);
 }
 

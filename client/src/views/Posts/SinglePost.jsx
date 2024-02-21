@@ -70,40 +70,46 @@ export default function SinglePost() {
   }
 
   return (
-    <div>
+    <div className='single-post'>
       <h1>Single Post</h1>
       {post &&
         <div className='single-post-container'>
           <ProfileCard username={post.author}/>
           <Post post={post} />
         </div>
-      }
+      }      
+      <br/>
       <form onSubmit={handleCommentSubmit}>
         <input type="text" value={comment} onChange={handleCommentChange} placeholder="Add a comment" />
         <button type="submit">Submit</button>
       </form>
+      <br/>
       <div>
-        <h2>Comments</h2>
-        {comments.map((comment) => (
-          <div key={comment.id}>
-            {editingCommentId === comment.id ? (
-              userData.username === comment.author ? (
-                <form onSubmit={handleCommentChangeSubmit}>
-                  <input type="text" value={editedComment} onChange={handleEditedCommentChange} />
-                  <button type="submit">Change</button>
-                  <button type="button" onClick={() => setEditingCommentId(null)}>Cancel</button>
-                </form>
-              ) : (
-                <p>You are not the author of this comment, so you cannot edit it.</p>
-              )
-            ) : (
-              <p onDoubleClick={() => handleEditComment(comment.id, comment.comment)}>
-                {comment.author}: {comment.comment}
-              </p>
-            )}
-          </div>
-        ))}
+  <h2>Comments</h2>
+  {comments.map((comment) => (
+  <div className="comment-container" key={comment.id}>
+    <ProfileCard username={comment.author} />
+    <div className="comment-content">
+      <div className="comment-header">
+        {comment.author}
       </div>
+      {editingCommentId === comment.id ? (
+        userData.username === comment.author ? (
+          <form onSubmit={handleCommentChangeSubmit}>
+            <input type="text" value={editedComment} onChange={handleEditedCommentChange} />
+            <button type="submit">Change</button>
+            <button type="button" onClick={() => setEditingCommentId(null)}>Cancel</button>
+          </form>
+        ) : null
+      ) : (
+        <p onDoubleClick={() => handleEditComment(comment.id, comment.comment)}>
+          {comment.comment}
+        </p>
+      )}
+    </div>
+  </div>
+))}
+</div>
     </div>
   );
 }

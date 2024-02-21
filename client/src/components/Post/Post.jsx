@@ -140,8 +140,8 @@ const updatePost = (updatedPost) => {
           <h2 onDoubleClick={() => setEditingTitle(true)}>{postState.title}</h2>
         )}
         <div className="post-actions">
-          <Button disabled={updating} onClick={handleLike}><SlLike className={likeActive ? 'like-active' : ''} /></Button>
-          <Button disabled={updating} onClick={handleDislike}><SlDislike className={dislikeActive ? 'dislike-active' : ''}/></Button>
+          <Button className='like-button' disabled={updating} onClick={handleLike}><SlLike className={likeActive ? 'like-active' : ''} /></Button>
+          <Button className='dislike-button' disabled={updating} onClick={handleDislike}><SlDislike className={dislikeActive ? 'dislike-active' : ''}/></Button>
         </div>
         <p>{new Date(postState.createdOn).toLocaleDateString('bg-BG')}</p>
       </div>
