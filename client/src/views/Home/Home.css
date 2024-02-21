@@ -2,6 +2,7 @@
   padding: 20px;
   font-family: Arial, sans-serif;
   color: white;
+  overflow-x: hidden;
 }
 
 .home-posts {
@@ -28,7 +29,17 @@
   margin-bottom: 20px;
   color: aquamarine;
   font-size: 1.8em;
+  overflow: hidden;
+  animation: slide-in 2s ease-out;
+}
 
+@keyframes slide-in {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
 }
 
 
