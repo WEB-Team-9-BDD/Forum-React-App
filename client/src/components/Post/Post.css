@@ -112,7 +112,7 @@ button.delete-post-comment{
  .button-post-container{
   background-color: rgba(69, 224, 172, 0.284);
   display: inline-flex;
-  padding: 2px 15px;
+  padding: 1px 15px;
   position: absolute;
   right: 11rem;
   top: 5.5rem;
@@ -120,7 +120,7 @@ button.delete-post-comment{
   align-items: center;
 }
 .button-post-container svg{
-  margin: 5px;
+  margin: 0 15px;
   width: 35px;
   height: 35px;
 }
