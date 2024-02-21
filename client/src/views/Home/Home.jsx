@@ -35,22 +35,22 @@ export default function Home() {
     }, [user]);
 
     const mostCommentedPosts = [...posts].sort((a, b) => b.commentsCount - a.commentsCount).slice(0, 10);
-    
+
     const lastTenPosts = posts.slice(-10).reverse();
-    
+
     return (
         <div className="home-page">
             {user && userData && userData.isBlocked && (
                 <div className="blocked">
                     <h4>Your account has been blocked!</h4>
-                    <p>You will not be able to edit or create any posts or comments.</p>
+                    <p className="block-text">You will not be able to edit or create any posts or comments.</p>
                 </div>
             )}
-            <div className="title" aria-hidden="true">
-                <h1>Self Room</h1>
+            <div className="home-title">
+                <h1 className="home-page-title">Self Room</h1>
                 <p className="moto">Grow with us and help us growing</p>
             </div>
-            <div className="not-logged-int">
+            <div className="home-not-logged-in">
                 {!user && (
                     <div>
                         <p>Users: {countUsers}</p>
@@ -58,32 +58,28 @@ export default function Home() {
                     </div>
                 )}
             </div>
-            <div className="content d-flex justify-content-around w-100">
+            <div className="home-posts">
                 <div className="recent">
-                    <div>
-                        <h2>Recent Posts</h2>
-                        {lastTenPosts.map(post => (
-                            <HomePostPreview
-                                key={post.id}
-                                post={{
-                                    ...post
-                                }}
-                            />
-                        ))}
-                    </div>
+                    <h2 className='recent-heading'> Recent Posts</h2>
+                    {lastTenPosts.map(post => (
+                        <HomePostPreview
+                            key={post.id}
+                            post={{
+                                ...post
+                            }}
+                        />
+                    ))}
                 </div>
-                <div className="mostCommented">
-                    <div>
-                        <h2>Most Commented Posts</h2>
-                        {mostCommentedPosts.map(post => (
-                            <HomePostPreview
-                                key={post.id}
-                                post={{
-                                    ...post,
-                                }}
-                            />
-                        ))}
-                    </div>
+                <div className="most-commented">
+                    <h2 className="most-commented-heading">Most Commented Posts</h2>
+                    {mostCommentedPosts.map(post => (
+                        <HomePostPreview
+                            key={post.id}
+                            post={{
+                                ...post,
+                            }}
+                        />
+                    ))}
                 </div>
             </div>
         </div>
