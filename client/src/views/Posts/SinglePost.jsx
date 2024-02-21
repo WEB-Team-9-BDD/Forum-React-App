@@ -103,7 +103,7 @@ export default function SinglePost() {
             <button className='submit' type="submit">Save</button>
             <button className='cancel' type="button" onClick={() => setEditingCommentId(null)}>Cancel</button>
           </form>
-        ) : null
+        ) :(<p>You are not the author of this post, so you cannot edit it.</p>)
       ) : (
         <p onDoubleClick={() => handleEditComment(comment.id, comment.comment)}>
           {comment.comment}
