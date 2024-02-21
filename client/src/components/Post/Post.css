@@ -4,11 +4,12 @@
   background-color:  rgba(16, 66, 66, 0.419); 
   border: 1px ;
   border-radius: 10px;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   width: 80%; /* or any other value */
+  height: 20rem;
   max-width: 80%; /* or any other value */
-  margin: 0 auto; /* center the container */
+  margin: 0;
   color: white;
  
 }
@@ -19,7 +20,7 @@
   width: 100%;
   justify-content: space-between;
   align-items: center;  
-  background-color: rgba(5, 45, 78, 0.877);
+  background-color: rgba(0, 0, 0, 0.4);
   
 }
 
@@ -28,36 +29,36 @@
   gap: 10px;
 }
 
-button {
+button.like-button, button.dislike-button {
   border: none;
   color:rgb(164, 202, 202);
   background: none;
   cursor: pointer;
 }
 
-button:disabled {
+button.like-button:disabled, button.dislike-button:disabled {
   cursor: not-allowed;
 }
 
-button svg {  
+button.like-button svg, button.dislike-button svg {  
   width: 24px;
   height: 24px;
 }
 
-button .like-active {
+button.like-button .like-active {
   color: rgb(8, 231, 164);
 }
 
-button .dislike-active {
+button.dislike-button .dislike-active {
   color: rgb(230, 112, 112);
 }
 
 .post-container {
   background-color:  rgba(16, 66, 66, 0);
-  width: 100%; /* or any other value */
-  max-width: 100%; /* or any other value */
-  margin: 0 auto; /* center the container */
-  padding: 20px; /* add some space around the content */
+  width: 100%; 
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 20px;
 }
 
 textarea {
@@ -65,3 +66,51 @@ textarea {
   height: 200px; /* Set a fixed height */
   background-color: rgba(16, 66, 66, 0.419);
 }
+
+button.submit {
+  color: rgb(221, 216, 216);
+  text-align: center;  
+  padding: 5px 10px;
+  font-size: 14px;
+  letter-spacing: 1.2px;
+  cursor: pointer;
+  background-color: rgba(69, 224, 172, 0.284);
+  border-radius: 15px;
+  justify-content: center;
+  text-align: center;
+}
+
+button.cancel {
+  color: rgb(221, 216, 216);
+  text-align: center;  
+  padding: 5px 10px;
+  font-size: 14px;
+  letter-spacing: 1.2px;
+  cursor: pointer;
+  background-color: rgba(69, 224, 172, 0.284);
+  border-radius: 15px;
+  justify-content: center;
+  text-align: center;
+}
+
+button.edit-post-comment {
+  border: none;
+  font-size: 30px;
+  color:rgb(164, 202, 202);
+  background: none;
+  cursor: pointer;
+}
+
+button.delete-post-comment{
+  border: none;
+  font-size: 30px;
+  color:rgb(164, 202, 202);
+  background: none;
+  cursor: pointer;
+}
+
+/* button-post-container{
+  position: absolute;
+  right: 0;
+  top: 0;
+} */

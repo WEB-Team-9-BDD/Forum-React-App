@@ -13,10 +13,6 @@ export default function AdminPowers() {
         isAdmin: false
     });
 
-    const updateForm = prop => e => {
-        setForm({ ...form, [prop]: e.target.value })
-    }
-
     const makeAdmin = async (username = form.username) => {
         try {
             const user = await getUserByUsername(username);
@@ -130,16 +126,20 @@ export default function AdminPowers() {
 
     return (
         <form className="admin-powers-form" onSubmit={handleSubmit}>
-            <h1>Search user</h1>
-            <label className="form-label">Username: </label>
+            <h1 className="search-user">Search user</h1>
+            <h4 className="username">Username: </h4>
             <input autoComplete="off" className="form-control"
                 type="text" id="username"
                 value={searchInput.username} onChange={updateFormSearch('username')} />
             <button className="search-button" onClick={handleSubmit}>Search</button>
             <h2>Search Results</h2>
+            <div className="search-results">
                 {(!searchPerformed ? allUsers : searchResults).map((user, index) => (
-                    <li key={index}>
-                        {user.username}
+                    <div className="search-results-item" key={index}>
+                        <div className="user-info">
+                            {user.username}
+                        </div>
+                        <div className="use-actions">
                         {!user.isBlocked ? 
                             <button className="block" onClick={async () => {
                                 await blockUserHandler(user.username);
@@ -148,7 +148,7 @@ export default function AdminPowers() {
                                 setSearchResults(updatedUsers.filter(u => u.username.includes(searchInput.username)));
                             }}>Block User</button>
                             :
-                            <button className="Unblock" onClick={async () => {
+                            <button className="unblock" onClick={async () => {
                                 await unblockUserHandler(user.username);
                                 const updatedUsers = allUsers.map(u => u.username === user.username ? {...u, isBlocked: false} : u);
                                 setAllUsers(updatedUsers);
@@ -156,8 +156,10 @@ export default function AdminPowers() {
                             }}>Unblock User</button>
                         }
                         <button className="make-admin" onClick={() => makeAdmin(user.username)}>Make Admin</button>
-                    </li>
+                        </div>
+                </div>
                 ))}
+            </div>
         </form>
     );
 }

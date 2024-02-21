@@ -1,0 +1,32 @@
+.home-post {
+    border-radius: 5px;
+    padding: 20px;
+    margin-bottom: 20px;
+    background-color: rgba(2, 1, 59, 0.39);
+    background: transparent;
+    box-shadow: 2px 5px 13px 2px white;
+  }
+  
+  .home-post:hover {
+    background-color: rgba(2, 1, 59, 0.7);
+  }
+  
+  .home-post-title {
+    color: white;
+    text-decoration: none;
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  .home-post-date {
+    color: white;
+    font-size: 14px;
+    margin-top: 10px;
+  }
+  
+  .home-post-comments, .home-post-likes {
+    color: white;
+    font-size: 16px;
+    margin-top: 10px;
+    
+  }
