@@ -36,22 +36,24 @@ input[type="file"] {
 }
 
 .photo-upload-label:hover {
-    background-color:rgba(69, 224, 172, 0.284);
+    background-color: rgba(69, 224, 172, 0.504);
     box-shadow: 1px 1px 13px 1px white;
 }
 
 .photo-upload-button {
     color: white;
     text-align: center;
-    padding: 18px 22px;
+    padding: 5px 10px;
     font-size: 18px;
     letter-spacing: 1.2px;
     cursor: pointer;
-    background-color: rgba(69, 224, 172, 0.284);
+    background-color: rgba(69, 224, 172, 0.504);
     border-radius: 15px;
     justify-content: center;
     text-align: center;
+    border:none;
 }
+
 .photo-upload-button:hover{
     box-shadow: 1px 1px 13px 1px white;
 }

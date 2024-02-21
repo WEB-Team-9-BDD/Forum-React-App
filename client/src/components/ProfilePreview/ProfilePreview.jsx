@@ -41,7 +41,7 @@ export default function ProfilePreview({ photoURL, setProfilePhoto, uploadPhoto,
                     <p>Member since: <strong>{new Date(userData.createdOn).toLocaleDateString('bg-BG')}</strong></p>
                     <button className="photo-upload-button"
                         disabled={(!photo)}
-                        onClick={uploadPhoto}><MdFileUpload />Upload AVATAR</button>
+                        onClick={uploadPhoto}><MdFileUpload />Upload</button>
                 </div>
             </div>
         </div>
