@@ -47,7 +47,7 @@ export default function Home() {
                 </div>
             )}
             <div className="home-title">
-                <h1 className="home-page-title">Self Room</h1>
+                <h1 className="home-page-title">Self FoRoom</h1>
                 <p className="moto">Grow with us and help us growing</p>
             </div>
             <div className="home-not-logged-in">
