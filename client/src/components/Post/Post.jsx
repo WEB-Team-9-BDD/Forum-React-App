@@ -8,6 +8,8 @@ import { deletePost, updatePost, editPostTitle, getPostById} from '../../service
 import toast from "react-hot-toast";
 import { likePost, dislikePost, undislikePost, unlikePost } from '../../services/post.service';
 import { SlLike, SlDislike } from "react-icons/sl";
+import { CiEdit } from "react-icons/ci";
+import { RiDeleteBin6Line } from "react-icons/ri";
 
 
 
@@ -49,12 +51,12 @@ const updatePost = (updatedPost) => {
   const handleEditSubmit = async (event) => {
     event.preventDefault();
   
-    if (editContent.length < 1 || editContent.length > 500) {
+    if (editContent.length < 32 || editContent.length > 8192) {
       return alert('Post content must be between 1 and 500 characters.');
     }
   
-    if (editedTitle.length < 1 || editedTitle.length > 100) {
-      return alert('Post title must be between 1 and 100 characters.');
+    if (editedTitle.length < 16 || editedTitle.length > 64) {
+      return alert('Post title must be between 16 and 64 characters.');
     }
   
     try {
@@ -130,8 +132,8 @@ const updatePost = (updatedPost) => {
           userData.username === postState.author ? (
             <form onSubmit={handleEditSubmit}>
               <input type="text" value={editedTitle} onChange={handleEditedTitleChange} />
-              <Button type="submit">Save</Button>
-              <Button type="button" onClick={() => setEditingTitle(false)}>Cancel</Button>
+              <Button className='submit' type="submit">Save</Button>
+              <Button className='cancel'type="button" onClick={() => setEditingTitle(false)}>Cancel</Button>
             </form>
           ) : (
             <p>You are not the author of this post, so you cannot edit it.</p>
@@ -150,8 +152,8 @@ const updatePost = (updatedPost) => {
           userData.username === postState.author ? (
             <form onSubmit={handleEditSubmit}>
               <textarea value={editContent} onChange={handleEditContentChange} />
-              <button type="submit">Save</button>
-              <button type="button" onClick={() => setEditing(false)}>Cancel</button>
+              <Button className='submit' type="submit">Save</Button>
+              <Button className='cancel'type="button" onClick={() => setEditing(false)}>Cancel</Button>
             </form>
           ) : (
             <p>You are not the author of this post, so you cannot edit it.</p>
@@ -161,10 +163,10 @@ const updatePost = (updatedPost) => {
         )}
       </div>
       {(userData.username === postState.author && !userData.isBlocked) || userData.isAdmin ?
-        (<>
-          {(userData.username === post.author && !userData.isBlocked) && <Button onClick={handleEdit}>Edit</Button>}
-          {(userData.isAdmin || userData.username === post.author && !userData.isBlocked)&& <Button onClick={deleteSinglePost}>Delete</Button>}
-        </>) : null
+        (<div className="button-post-container">
+          {(userData.username === post.author && !userData.isBlocked) && <Button className="edit-post-comment" onClick={handleEdit}><CiEdit /></Button>}
+          {(userData.isAdmin || userData.username === post.author && !userData.isBlocked)&& <Button className="delete-post-comment" onClick={deleteSinglePost}><RiDeleteBin6Line /></Button>}
+        </div>) : null
       }      
     </div>
   )

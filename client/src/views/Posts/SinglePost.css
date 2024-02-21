@@ -6,7 +6,7 @@
     display: flex;
     flex-direction: column;
     background-color: rgba(16, 66, 66, 0.419);
-    border: 1px solid white;
+    
     border-radius: 10px;
     justify-content: flex-start; /* align items to the top */
     align-items: center;
@@ -23,7 +23,7 @@
     width: 100%;
     justify-content: space-between;
     align-items: center;
-    background-color: rgba(5, 45, 78, 0.877);
+    background-color: rgba(0, 0, 0, 0.4);
   }
 
   .single-post-container {
