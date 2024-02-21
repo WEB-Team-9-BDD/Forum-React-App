@@ -30,12 +30,13 @@
     text-align: center;
     border-radius: 10px;
     padding: 15px;
-    box-shadow: 1px 1px 13px 1px white;
     margin: 1rem;
+    box-shadow: 1px 1px 15px 1px white;
+    text-shadow: none;
 }
 
 .forgot-password {
-    margin-left: 235px;
+    margin-left: 220px;
     text-decoration: underline;
 }
 
@@ -43,11 +44,11 @@
     font-weight: bold;
     padding: 2px;
     color: white;
-    
+
 }
 
 .sign-up:hover {
-    color:white;
+    color: white;
     text-shadow: 1px 1px 5px white;
 }
 
@@ -57,4 +58,24 @@ label {
 
 p {
     color: white;
+}
+
+.login-button {
+    color: white;
+    text-align: center;
+    margin: 15px 0;
+    padding: 10px;
+    font-size: 18px;
+    letter-spacing: 1.2px;
+    cursor: pointer;
+    background-color: rgba(69, 224, 172, 0.504);
+    border-radius: 10px;
+    justify-content: center;
+    text-align: center;
+    border: none;
+    width: 100%;
+}
+
+.login-button:hover{
+    box-shadow: 1px 1px 13px 1px white;
 }

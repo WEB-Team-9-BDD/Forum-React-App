@@ -76,7 +76,7 @@ export default function CreateAccount() {
     return (
         <div className="create-background-wrapper">
             <div className="create-account">
-                <h1 className="create-account-header">Create Account</h1>
+                <h1 className="login-header">Create Account</h1>
                 <form onSubmit={e => e.preventDefault()} >
                     <div className="form-group mb-2 ">
                         <label className="form-label" htmlFor="username">Username: </label>
@@ -117,7 +117,7 @@ export default function CreateAccount() {
 
                         />
                     </div>
-                    <button type="submit" className="btn btn-success mt-4 mb-3 w-100"
+                    <button type="submit" className="login-button"
                         onClick={createUserProfile}>Create account</button>
                 </form>
             </div>
