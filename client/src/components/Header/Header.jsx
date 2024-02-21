@@ -41,7 +41,7 @@ export default function Header({ toggle }) {
                 <NavLink className='header-link' to="/">Home</NavLink>
                 <NavLink className='header-link' to="/posts">Growth room</NavLink>
                 <NavLink className='header-link' to="/post-create">Create Post</NavLink>
-                {userData && userData.isAdmin ? <NavLink className='header-link' to="/admin-powers">Admin</NavLink> : undefined}
+                {userData && userData.isAdmin ? <NavLink className='header-link' to="/admin-powers">Admin Powers</NavLink> : undefined}
                 {!user ?
                     (<>
                         <NavLink className='header-link' to="/login">Login</NavLink>
