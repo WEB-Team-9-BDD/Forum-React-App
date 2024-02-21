@@ -1,13 +1,18 @@
 .category-container{
     background-color:rgba(0, 0, 0, 0.5);
     box-shadow: 1px 1px 3px 2px rgba(86, 76, 76, 0.319);
-    height: 38rem;
+    height: 55rem;
     margin: 20px;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
     border-radius: 15px;
 }
+
+.category-container div {
+    margin: 10px
+}
+
 
 div h1 {
     color: white;
