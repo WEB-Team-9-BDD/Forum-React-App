@@ -113,7 +113,7 @@ button.delete-post-comment{
   background-color: rgba(69, 224, 172, 0.284);
   display: inline-flex;
   padding: 1px 15px;
-  position: absolute;
+  position: fixed;
   right: 11rem;
   top: 5.5rem;
   border-radius: 15px;
