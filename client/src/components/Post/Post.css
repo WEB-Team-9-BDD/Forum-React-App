@@ -124,3 +124,19 @@ button.delete-post-comment{
   width: 35px;
   height: 35px;
 }
+
+textarea.title-chage-inpost{
+  background-color: rgba(0, 0, 0, 0.31);
+  width: 20rem;
+  height: 2.3rem;
+  border-radius: 10px;
+  align-items: center;
+  justify-content: ;
+}
+
+form.chage-post-title{
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+}
+

@@ -136,8 +136,8 @@ export default function Post({ post }) {
       <div className="post-header">
         {editingTitle ? (
           userData.username === postState.author ? (
-            <form onSubmit={handleEditSubmit}>
-              <input type="text" value={editedTitle} onChange={handleEditedTitleChange} />
+            <form className='chage-post-title' onSubmit={handleEditSubmit}>
+              <textarea className='title-chage-inpost' type="text" value={editedTitle} onChange={handleEditedTitleChange} />
               <Button className='submit' type="submit">Save</Button>
               <Button className='cancel' type="button" onClick={() => setEditingTitle(false)}>Cancel</Button>
             </form>
@@ -156,8 +156,8 @@ export default function Post({ post }) {
       <div className="post-container">
         {editing ? (
           userData.username === postState.author ? (
-            <form onSubmit={handleEditSubmit}>
-              <textarea value={editContent} onChange={handleEditContentChange} />
+            <form  onSubmit={handleEditSubmit}>
+              <textarea className='chage-post-content'value={editContent} onChange={handleEditContentChange} />
               <Button className='submit' type="submit">Save</Button>
               <Button className='cancel' type="button" onClick={() => setEditing(false)}>Cancel</Button>
             </form>
