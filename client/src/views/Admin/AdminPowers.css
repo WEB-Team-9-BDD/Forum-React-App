@@ -1,127 +1,123 @@
 .admin-powers-form {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    flex-direction: column;
-    border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  margin: 20px;
 }
 
-
-.admin-powers-form .form-control {
-    background-color: transparent;
-    width: 500px;
-    height: 40px;
-    padding: 5px;
-    border-radius: 5px;
-    margin-bottom: 20px;
+.admin-wrapper {
+  background-color: rgba(0, 0, 0, 0.31);
+  width: 50%;
+  border-radius: 10px;
+  height: 3rem;
+  box-shadow: 0px 0px 5px #ddd;
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
 }
 
-.search-user {
-    text-align: center;
-    font-family: cursive;
-    gap: 10px;
-    font-size: 3em;
-    margin-top: 20px;
-    margin-bottom: 5px;
+.admin-wrapper input {
+  background-color: transparent;
+  border: none;
+  height: 80%;
+  font-size: 1.25rem;
+  width: 100%;
+  color: white;
 }
 
-
-.admin-powers-form {
-    color: white;
-    text-align: center;
-    font-family: cursive;
-    font-size: 2em;
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-
-.admin-powers-form h4 {
-    color: white;
-    text-align: center;
-    font-size: 1.5em;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    color: aquamarine;
-}
-
-.search-result-item {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+.admin-wrapper input:focus {
+  outline: none;
+  box-shadow: none;
+  background-color: transparent;
+  color: white;
 }
 
 .search-button {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 200px;
-    height: 50px;
-    background-color: white;
-    color: aquamarine;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 30px;
-    margin-bottom: 20px;
+  color: rgb(221, 216, 216);
+  text-align: center;
+  padding: 10px 20px;
+  font-size: 18px;
+  letter-spacing: 1.2px;
+  cursor: pointer;
+  background-color: rgba(69, 224, 172, 0.284);
+  border-radius: 15px;
+  justify-content: center;
+  text-align: center;
 }
 
 .search-button:hover {
-    background-color: aquamarine;
-    color: white;
-    font-size: 30px;
+  box-shadow: 1px 1px 13px 1px white;
+}
+
+.search-results {
+    padding: 20px;
+    margin: 20px;
+}
+
+.search-results-item {
+    display: flex; 
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    border: 1px solid aquamarine;
+    border-radius: 5px;
+    margin: 10px;
+
 }
 
 .user-info {
-    font-size: 20px;
-    color: white;
+  font-size: 20px;
+  color: white;
 }
 
 .block {
-    background-color: white;
-    color: red;
-    width: 100px;
-    height: 40px;
-    cursor: pointer;
-    font-size: 15px;
-    border: none;
-    border-radius: 5px;
+  background-color: white;
+  color: red;
+  width: 100px;
+  height: 40px;
+  cursor: pointer;
+  font-size: 15px;
+  border: none;
+  border-radius: 5px;
+  margin-right: 10px;
 }
 
 .block:hover {
-    background-color: red;
-    color: white;
+  background-color: red;
+  color: white;
 }
 
 .unblock {
-    background-color: white;
-    color: green;
-    width: 100px;
-    height: 40px;
-    cursor: pointer;
-    font-size: 15px;
-    border: none;
-    border-radius: 5px;
+  background-color: white;
+  color: green;
+  width: 100px;
+  height: 40px;
+  cursor: pointer;
+  font-size: 15px;
+  border: none;
+  border-radius: 5px;
+  margin-right: 10px;
+
 }
 
 .unblock:hover {
-    background-color: green;
-    color: white;
+  background-color: green;
+  color: white;
 }
 
 .make-admin {
-    background-color: white;
-    color: blue;
-    width: 100px;
-    height: 40px;
-    cursor: pointer;
-    font-size: 15px;
-    border: none;
-    border-radius: 5px;
+  background-color: white;
+  color: blue;
+  width: 100px;
+  height: 40px;
+  cursor: pointer;
+  font-size: 15px;
+  border: none;
+  border-radius: 5px;
 }
 
 .make-admin:hover {
-    background-color: blue;
-    color: white;
+  background-color: blue;
+  color: white;
 }
