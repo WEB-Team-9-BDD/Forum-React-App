@@ -1,216 +1,221 @@
 .table {
-    padding: 20px;
-    width: 100%;
-    background-color: none;
+  padding: 10px;
+  width: 100%;
+  background-color: none;
 }
 
 div.p-column-header-content {
-    background: transparent;
-    background-color: rgba(0, 0, 0, 0.91);
-    height: 4.5rem;
-    font-size: large;
-    justify-content: center;
+  background: transparent;
+  background-color: rgba(74, 99, 120, 0.812);
+  border-left:2px solid rgba(255, 255, 255, 0.472);
+  height: 4.5rem;
+  font-size: large;
+  justify-content: center;
 }
 
 div.p-column-header-content:hover {
-    border-bottom: 7px solid aquamarine;
+  background-color: rgba(0, 27, 53);
+  border-bottom: 5px solid aquamarine;
 }
-
 
 .column {
-    max-height: 1.5rem;
-    padding: 20px;
-    justify-content: center;
-    text-align: center;
-    font-size: 1.2rem;
-    box-shadow: 1px 1px 30px rgba(156, 182, 202, 0.536);
+  max-height: 1.5rem;
+  padding: 20px;
+  justify-content: center;
+  text-align: center;
+  font-size: 1.2rem;
+  box-shadow: 1px 1px 10px rgba(156, 182, 202, 0.536);
 }
 
-tbody>tr:hover {
-    background-color: rgba(30, 53, 80, 0.691);
+tbody > tr:hover {
+  background-color: rgba(0, 27, 53);
+}
+
+tbody>tr {
+  background-color: rgba(0, 27, 53);
+
 }
 
 .title-column {
-    text-align: left;
-    width: 35rem;
-    margin: 0 auto;
+  text-align: left;
+  width: 35rem;
+  margin: 0 auto;
 }
 
 .table-post-title {
-    color: rgb(221, 216, 216);
-    overflow: hidden;
-    text-overflow: ellipsis;
+  color: rgb(221, 216, 216);
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .table-post-title:hover {
-    color: white;
+  color: white;
 }
 
 .date-column {
-    width: 8rem;
+  width: 8rem;
 }
 
 .category-column {
-    width: 10rem;
+  width: 10rem;
 }
 
 .comments-column,
 .likes-column {
-    width: 6rem;
+  width: 6rem;
 }
 
 .search-wrapper {
-    background-color: rgba(0, 0, 0, 0.31);
-    width: 50%;
-    border-radius: 10px;
-    height: 3rem;
-    padding: 0 15px;
-    box-shadow: 0px 0px 8px #ddd;
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
+  background-color: rgba(0, 0, 0, 0.31);
+  width: 50%;
+  border-radius: 10px;
+  height: 3rem;
+  padding: 0 15px;
+  box-shadow: 0px 0px 5px #ddd;
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
 }
 
 .search-wrapper svg {
-    width: 32px;
-    height: 32px;
+  width: 32px;
+  height: 32px;
 }
-.search-icon-all circle, 
-.search-icon-all line{
-       color:white;
+.search-icon-all circle,
+.search-icon-all line {
+  color: white;
 }
 
 .search-wrapper input {
-    background-color: transparent;
-    border: none;
-    height: 80%;
-    font-size: 1.25rem;
-    width: 100%;
-    margin-left: 5px;
-    color: white;
+  background-color: transparent;
+  border: none;
+  height: 80%;
+  font-size: 1.25rem;
+  width: 100%;
+  margin-left: 5px;
+  color: white;
 }
 
-input[type="search"]::-webkit-search-cancel-button {
-    -webkit-appearance: none;
-    height: 1.2em;
-    width: 1.2em;
-    border-radius: 50em;
-    background: url(https://pro.fontawesome.com/releases/v5.10.0/svgs/solid/times-circle.svg) no-repeat 50% 50%;
-    background-size: contain;
-    pointer-events: none;
+input[type='search']::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  height: 1.2em;
+  width: 1.2em;
+  border-radius: 50em;
+  background: url(https://pro.fontawesome.com/releases/v5.10.0/svgs/solid/times-circle.svg)
+    no-repeat 50% 50%;
+  background-size: contain;
+  pointer-events: none;
 }
 
-input[type="search"]:focus::-webkit-search-cancel-button {
-    pointer-events: all;
+input[type='search']:focus::-webkit-search-cancel-button {
+  pointer-events: all;
 }
-
 
 .search-wrapper input:focus {
-    outline: none;
-    box-shadow: none;
+  outline: none;
+  box-shadow: none;
 }
 
 .action-column {
-    width: 7rem;
-    padding: 3px;
-    margin: 3px;
-    justify-content: center;
-    text-align: center;
+  width: 7rem;
+  padding: 3px;
+  margin: 3px;
+  justify-content: center;
+  text-align: center;
 }
 
 .table-action-buttons {
-    justify-content: center;
-    text-align: center;
-    display: inline-flex;
-    padding: 5px;
-    margin: 5px;
+  justify-content: center;
+  text-align: center;
+  display: inline-flex;
+  padding: 5px;
+  margin: 5px;
 }
 
 .edit-button {
-    color: rgba(127, 255, 212, 0.704);
-    font-size: 38px;
-    padding: 3px;
-    margin: 0 3px;
+  color: rgba(127, 255, 212, 0.704);
+  font-size: 38px;
+  padding: 3px;
+  margin: 0 3px;
 }
 
 .delete-button {
-    color: rgb(200, 95, 95);
-    font-size: 34px;
-    padding: 3px;
-    margin: 0 3px;
+  color: rgb(200, 95, 95);
+  font-size: 34px;
+  padding: 3px;
+  margin: 0 3px;
 }
 
 .share-button {
-    font-size: 34px;
-    padding: 3px;
-    margin: 0 3px;
+  font-size: 34px;
+  padding: 3px;
+  margin: 0 3px;
 }
 
 .delete-button:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .edit-button:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .share-button:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
-
 .edit-post-title {
-    justify-content: center;
-    display: inline-flex;
+  justify-content: center;
+  display: inline-flex;
 }
 
 .edit-title-input {
-    background-color: transparent;
-    border-radius: 10px;
-    border: 1px solid rgba(128, 128, 128, 0.451);
-    min-width: 30rem;
-    margin-right: 5px;
-    padding: 5px;
-    border: 1px solid white;
+  background-color: transparent;
+  border-radius: 10px;
+  border: 1px solid rgba(128, 128, 128, 0.451);
+  min-width: 30rem;
+  margin-right: 5px;
+  padding: 5px;
+  border: 1px solid white;
 }
 
 .edit-title-buttons {
-    font-size: 25px;
-    margin: 3px;
+  font-size: 25px;
+  margin: 3px;
 }
 
 .edit-submit {
-    color: rgba(64, 223, 77, 0.986);
-    margin: 3px;
+  color: rgba(64, 223, 77, 0.986);
+  margin: 3px;
 }
 
 .edit-cancel {
-    color: rgb(235, 79, 79);
-    margin: 3px;
+  color: rgb(235, 79, 79);
+  margin: 3px;
 }
 
- .p-paginator-bottom .p-paginator-pages {
-    background: transparent;
-    background-color: rgba(8, 8, 8, 0.996);
-    border-radius: 20%;
+.p-paginator-bottom .p-paginator-pages {
+  background: transparent;
+  background-color: rgba(8, 8, 8, 0.996);
+  border-radius: 20%;
 }
 
 .p-paginator-page {
-    background: transparent;
-    background-color: rgba(49, 49, 49, 0.55);
-    border-radius: 30px;
-    color: white;
+  background: transparent;
+  background-color: rgba(49, 49, 49, 0.55);
+  border-radius: 30px;
+  color: white;
 }
 
-.p-dropdown-label{
-background-color:rgba(49, 49, 49, 0.55);
+.p-dropdown-label {
+  background-color: rgba(49, 49, 49, 0.55);
 }
 
-.p-dropdown-trigger svg{
-color: white;
+.p-dropdown-trigger svg {
+  color: white;
 }
 
-div .p-dropdown{
-background-color: rgb(0, 0, 0);
-border-radius: 15%;
+div .p-dropdown {
+  background-color: rgb(0, 0, 0);
+  border-radius: 15%;
 }
