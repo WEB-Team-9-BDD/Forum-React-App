@@ -1,6 +1,5 @@
 .home-page {
   padding: 20px;
-  font-family: Arial, sans-serif;
   color: white;
   overflow-x: hidden;
 }
@@ -13,24 +12,26 @@
   width: 100%;
 }
 
+.home-title {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  margin-bottom: 15px;
+}
+
 .home-page-title {
   text-align: center;
-  margin-bottom: 20px;
   color: white;
-  font-size: 5em;
+  font-size: 4em;
 }
-
 
 .moto {
-  white-space: nowrap;
-  overflow: hidden;
-  position: relative;
-  text-align: center;
-  margin-bottom: 20px;
+  position: absolute;
+  font-weight: bold;
+  top: 83px;
+  right: 550px;
   color: aquamarine;
-  font-size: 1.8em;
 }
-
 
 .blocked {
   background-color: #f8d7da;
@@ -46,9 +47,18 @@
 }
 
 .home-not-logged-in {
-  text-align: center;
-  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 15px;
+  font-size: 25px;
   color: white;
+}
+
+.home-not-logged-in div {
+  display: flex;
+  gap: 20px;
+  text-align: center;
 }
 
 .recent,
@@ -58,7 +68,7 @@
   background-color: rgba(2, 1, 59, 0.39);
   text-align: center;
   color: white;
-  padding: 20px;
-  font-size: 24px;
-
+  padding: 15px;
+  font-size: 20px;
+  border-radius: 20px;
 }

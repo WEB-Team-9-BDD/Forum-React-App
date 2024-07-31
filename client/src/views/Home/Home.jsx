@@ -60,7 +60,7 @@ export default function Home() {
             </div>
             <div className="home-posts">
                 <div className="recent">
-                    <h2 className='recent-heading'> Recent Posts</h2>
+                    <h2 className='recent-heading'>Most Recent Posts</h2>
                     {lastTenPosts.map(post => (
                         <HomePostPreview
                             key={post.id}
