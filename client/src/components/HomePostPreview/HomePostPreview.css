@@ -4,7 +4,7 @@
     margin-bottom: 20px;
     background-color: rgba(2, 1, 59, 0.39);
     background: transparent;
-    box-shadow: 2px 5px 13px 2px white;
+    box-shadow: 1px 1px 5px 1px white;
   }
   
   .home-post:hover {
@@ -14,13 +14,13 @@
   .home-post-title {
     color: white;
     text-decoration: none;
-    font-size: 24px;
+    font-size: 22px;
     font-weight: bold;
   }
   
   .home-post-date {
     color: white;
-    font-size: 14px;
+    font-size: 16px;
     margin-top: 10px;
   }
   
