@@ -1,20 +1,12 @@
 body{
   height: 100%;
-  background-image: url(https://img.freepik.com/free-photo/vintage-grunge-blue-concrete-texture-studio-wall-background-with-vignette_1258-28513.jpg?w=996&t=st=1708515043~exp=1708515643~hmac=3b21b113c7145e08f00c5b9919c9cef99a118d81e5de520fac93c85f2388f676);
+  background-image: url('/background.jpg');
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: fixed;
   font-family: 'Poppins', sans-serif;
   font-size: 16px;
 }
-
-/* #root {
-  height: 100%;
-  background-image: url('https://img.freepik.com/free-photo/abstract-luxury-gradient-blue-background-smooth-dark-blue-with-black-vignette-studio-banner_1258-72791.jpg?w=1380&t=st=1708379041~exp=1708379641~hmac=084ea31324577b9145c0de472bf811959e639e28c4fd041d880c59f08c83f27e');
-  background-repeat: no-repeat;
-  background-size:  cover;
-  background-attachment: fixed;
- } */
 
 a {
   font-weight: 500;
