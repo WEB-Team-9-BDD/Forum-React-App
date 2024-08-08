@@ -1,6 +1,6 @@
 # Self FoRoom Documentation
 
-Welcome to the SelfFoRoom, a platform dedicated to personal growth and self-improvement. Our motto is: **Grow with us and help us growing**.
+Welcome to the Self FoRoom, a platform dedicated to personal growth and self-improvement. Our motto is: **Grow with us and help us growing**.
 
 ## 1. Overview
 
